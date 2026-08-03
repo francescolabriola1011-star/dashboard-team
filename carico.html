@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Carico Delivery — Clienti10X</title></head><body>
+<style>
+:root { --bg:#f5f6f8; --panel:#fff; --ink:#1a2230; --muted:#6b7688; --line:#e4e7ec;
+  --accent:#2f6f8f; --ok:#2e9e6b; --warn:#d99a1c; --crit:#cf4b3c; --muted2:#8a94a3;
+  --shadow:0 1px 3px rgba(20,30,50,.06),0 4px 16px rgba(20,30,50,.05); }
+@media (prefers-color-scheme: dark) { :root { --bg:#11151c; --panel:#1a2029; --ink:#e9edf3; --muted:#9aa6b6;
+  --line:#2a323d; --accent:#5fb3d4; --ok:#46c088; --warn:#e6b342; --crit:#e9695a; --muted2:#6b7688;
+  --shadow:0 1px 3px rgba(0,0,0,.3); } }
+:root[data-theme="dark"] { --bg:#11151c; --panel:#1a2029; --ink:#e9edf3; --muted:#9aa6b6; --line:#2a323d;
+  --accent:#5fb3d4; --ok:#46c088; --warn:#e6b342; --crit:#e9695a; --muted2:#6b7688; --shadow:0 1px 3px rgba(0,0,0,.3); }
+:root[data-theme="light"] { --bg:#f5f6f8; --panel:#fff; --ink:#1a2230; --muted:#6b7688; --line:#e4e7ec;
+  --accent:#2f6f8f; --ok:#2e9e6b; --warn:#d99a1c; --crit:#cf4b3c; --muted2:#8a94a3;
+  --shadow:0 1px 3px rgba(20,30,50,.06),0 4px 16px rgba(20,30,50,.05); }
+* { box-sizing:border-box; }
+.wrap { font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink);
+  background:var(--bg); max-width:920px; margin:0 auto; padding:32px 20px 56px;
+  font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased; }
+.top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:22px; }
+.h1 { font-size:26px; font-weight:700; letter-spacing:-.02em; }
+.sub { color:var(--muted); font-size:13px; }
+.toggle { display:inline-flex; background:color-mix(in srgb,var(--muted) 14%,transparent); border-radius:10px; padding:3px; }
+.toggle button { font:inherit; font-size:13px; font-weight:600; border:0; background:transparent; color:var(--muted);
+  padding:6px 16px; border-radius:8px; cursor:pointer; }
+.toggle button.on { background:var(--panel); color:var(--ink); box-shadow:var(--shadow); }
+.tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:0 0 28px; }
+.tile { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:6px; }
+.tile-k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+.tile-v { font-size:30px; font-weight:700; letter-spacing:-.02em; }
+.tile-v small { font-size:15px; font-weight:600; color:var(--muted); margin-left:2px; }
+.tile-v.free { color:var(--ok); }
+.tile-sub { font-size:12px; color:var(--muted); }
+.sec { font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin:6px 0 12px; font-weight:600; }
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:8px 18px; margin-bottom:28px; }
+.prow { display:grid; grid-template-columns:120px 1fr auto auto; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+.prow:last-child { border-bottom:0; }
+.pname { font-weight:600; font-size:15px; }
+.pbarwrap { height:9px; background:color-mix(in srgb,var(--muted) 18%,transparent); border-radius:6px; overflow:hidden; }
+.pbar { height:100%; border-radius:6px; transition:width .25s ease; }
+.pmeta { display:flex; flex-direction:column; align-items:flex-end; min-width:120px; }
+.pcap { font-size:12px; color:var(--muted); }
+.ppct { font-size:15px; font-weight:700; }
+.pstato { font-size:12px; font-weight:600; min-width:92px; text-align:right; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+.ccard { background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  padding:16px 16px 14px; display:flex; flex-direction:column; gap:10px; }
+.chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.cname { font-weight:600; font-size:15px; }
+.cav { font-size:11px; font-weight:700; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent);
+  padding:2px 8px; border-radius:20px; white-space:nowrap; }
+.cav.onb { color:var(--warn); background:color-mix(in srgb,var(--warn) 16%,transparent); }
+.avbar { height:6px; background:color-mix(in srgb,var(--muted) 16%,transparent); border-radius:4px; overflow:hidden; }
+.avfill { height:100%; background:var(--accent); border-radius:4px; }
+.avfill.rinnovo { background:var(--warn); }
+.cav.rinnovo { color:var(--warn); background:color-mix(in srgb,var(--warn) 16%,transparent); }
+.cav.nuovo { color:var(--muted2); background:color-mix(in srgb,var(--muted) 14%,transparent); }
+.cstats { font-size:14px; }
+.chours { font-weight:600; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chip { font-size:12px; color:var(--muted); background:color-mix(in srgb,var(--muted) 12%,transparent); padding:3px 9px; border-radius:20px; }
+.chip b { color:var(--ink); font-weight:700; }
+.foot { color:var(--muted); font-size:12px; margin-top:20px; line-height:1.5; }
+.srow { display:grid; grid-template-columns:1fr auto auto auto; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line); }
+.srow:last-child { border-bottom:0; }
+.sname { font-weight:600; font-size:15px; }
+.sdots { display:inline-flex; gap:6px; }
+.sdot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+.schip { font-size:12px; font-weight:600; }
+.spill { font-size:12px; font-weight:700; padding:2px 10px; border-radius:20px; letter-spacing:.03em; }
+.banner { background:color-mix(in srgb,var(--warn) 12%,transparent); border:1px solid color-mix(in srgb,var(--warn) 30%,transparent); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--ink); margin-bottom:22px; line-height:1.45; }
+.banner b { font-weight:700; }
+.gtiles { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 22px; }
+.grow { display:grid; grid-template-columns:1fr auto 96px; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid var(--line); }
+.grow:last-child { border-bottom:0; }
+.grow .gbar { grid-column:1 / -1; }
+.gplan { font-size:12px; color:var(--muted); }
+.gval { font-size:14px; font-weight:700; text-align:right; }
+.gbar { height:6px; background:color-mix(in srgb,var(--muted) 16%,transparent); border-radius:4px; overflow:hidden; }
+.gfill { height:100%; background:var(--warn); border-radius:4px; }
+.gsem { font-size:10px; font-weight:700; padding:1px 7px; border-radius:20px; margin-left:6px; letter-spacing:.02em; vertical-align:middle; }
+.gpm { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
+.gpm-i { font-size:13px; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:6px 13px; }
+.gpm-i b { color:var(--ink); font-weight:700; }
+@media (max-width:560px) { .tiles{grid-template-columns:1fr} .gtiles{grid-template-columns:1fr 1fr} .prow{grid-template-columns:88px 1fr auto} .pstato{display:none} }
+</style>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="h1">Carico Delivery</div>
+      <div class="sub">Aggiornato 01/08/2026 16:31 · fonte ClickUp</div>
+    </div>
+    <div class="toggle">
+      <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
+      <button id="bm" onclick="setMode('m')">Mese</button>
+    </div>
+  </div>
+  <div class="tiles">
+    <div class="tile"><span class="tile-k">Ore da svolgere</span>
+      <span class="tile-v"><span id="tot" data-w="7.4" data-m="18.7"></span><small id="totu">/sett.</small></span></div>
+    <div class="tile"><span class="tile-k">Clienti seguiti</span><span class="tile-v">4</span></div>
+    <div class="tile"><span class="tile-k">Posti liberi onboarding</span>
+      <span class="tile-v free">6<small>/sett.</small></span>
+      <span class="tile-sub">42.6h libere sul team · collo: Alessandro</span></div>
+  </div>
+  <div class="sec">Salute cliente · semaforo (lead · lavora lead · apt)</div>
+  <div class="panel">
+        <div class="srow">
+          <span class="sname">Flavio Bosia</span>
+          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
+          <span></span>
+          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        </div>
+        <div class="srow">
+          <span class="sname">Marco la Corte</span>
+          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
+          <span></span>
+          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        </div>
+        <div class="srow">
+          <span class="sname">Stefano Moratti</span>
+          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
+          <span></span>
+          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        </div>
+        <div class="srow">
+          <span class="sname">Raffaele De Leonardis</span>
+          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
+          <span></span>
+          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        </div>
+  </div>
+  <div class="sec">Garanzia +100k · salute delivery</div>
+  <div class="banner"><b>Appuntamenti investitori +100k</b> — la garanzia: 2/mese, 6 sul trimestre. Numeri veri dal KPI Tracker (si aggiornano quando MB/CSM compilano le tab cliente).</div>
+  <div class="gtiles">
+    <div class="tile"><span class="tile-k">Clienti in delivery</span><span class="tile-v">4</span><span class="tile-sub">portafoglio team (De Lio/Serpilli esclusi)</span></div>
+    <div class="tile"><span class="tile-k">A rischio churn</span><span class="tile-v">0</span><span class="tile-sub">tutti semaforo VERDE</span></div>
+    <div class="tile"><span class="tile-k">Garanzia +100k</span><span class="tile-v">0<small>/8</small></span><span class="tile-sub">apt investitori presentati</span></div>
+    <div class="tile"><span class="tile-k">Recensioni · referral</span><span class="tile-v">0 · 0</span><span class="tile-sub">raccolti sui verdi</span></div>
+  </div>
+  <div class="sec">Garanzia +100k per cliente</div>
+  <div class="panel">
+        <div class="grow">
+          <span class="sname">Marco La Corte <span class="gsem" style="background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)">VERDE</span></span>
+          <span class="gplan">Trimestrale · obj 2/mese · non partita</span>
+          <span class="gval">0 / 2</span>
+          <div class="gbar"><div class="gfill" style="width:0%;background:var(--ok)"></div></div>
+        </div>
+        <div class="grow">
+          <span class="sname">Flavio Bosia <span class="gsem" style="background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)">VERDE</span></span>
+          <span class="gplan">Trimestrale · obj 2/mese</span>
+          <span class="gval">0 / 2</span>
+          <div class="gbar"><div class="gfill" style="width:0%;background:var(--ok)"></div></div>
+        </div>
+        <div class="grow">
+          <span class="sname">Stefano Moratti <span class="gsem" style="background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)">VERDE</span></span>
+          <span class="gplan">Trimestrale · obj 2/mese</span>
+          <span class="gval">0 / 2</span>
+          <div class="gbar"><div class="gfill" style="width:0%;background:var(--ok)"></div></div>
+        </div>
+        <div class="grow">
+          <span class="sname">Raffaele De Leonardis <span class="gsem" style="background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)">VERDE</span></span>
+          <span class="gplan">Semestrale · obj 2/mese · non partita</span>
+          <span class="gval">0 / 2</span>
+          <div class="gbar"><div class="gfill" style="width:0%;background:var(--ok)"></div></div>
+        </div>
+  </div>
+  <div class="sec">Salute portafoglio · da PM Scorecard</div>
+  <div class="gpm"><span class="gpm-i"><b>14</b> Apt consegnati</span><span class="gpm-i"><b>3,5</b> Media apt/cliente</span><span class="gpm-i"><b>0</b> Garanzie a rischio</span><span class="gpm-i"><b>0,00%</b> Churn</span><span class="gpm-i"><b>100,00%</b> Renewal</span></div>
+  <div class="sec">Carico per persona</div>
+  <div class="panel">
+        <div class="prow">
+          <div class="pname">Carlo</div>
+          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="13" data-mpct="10"
+               data-wcol="var(--ok)" data-mcol="var(--ok)"></div></div>
+          <div class="pmeta">
+            <span class="pcap" data-w="3.2h / 25h sett." data-m="10.5h / 108h mese"></span>
+            <span class="ppct" data-w="13%" data-m="10%"
+                  data-wcol="var(--ok)" data-mcol="var(--ok)"></span>
+          </div>
+          <div class="pstato" data-w="OK" data-m="OK"
+               data-wcol="var(--ok)" data-mcol="var(--ok)"></div>
+        </div>
+        <div class="prow">
+          <div class="pname">Alessandro</div>
+          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="17" data-mpct="8"
+               data-wcol="var(--ok)" data-mcol="var(--ok)"></div></div>
+          <div class="pmeta">
+            <span class="pcap" data-w="4.2h / 25h sett." data-m="8.2h / 108h mese"></span>
+            <span class="ppct" data-w="17%" data-m="8%"
+                  data-wcol="var(--ok)" data-mcol="var(--ok)"></span>
+          </div>
+          <div class="pstato" data-w="OK" data-m="OK"
+               data-wcol="var(--ok)" data-mcol="var(--ok)"></div>
+        </div>
+  </div>
+  <div class="sec">Clienti · fase, avanzamento e ore</div>
+  <div class="grid">
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Raffaele De Leonardis</span>
+            <span class="cav onb">Onboarding · 2/6</span>
+          </div>
+          <div class="avbar"><div class="avfill " style="width:33%"></div></div>
+          <div class="cstats"><span class="chours" data-w="5.1h / sett." data-m="8.9h / mese"></span></div>
+          <div class="chips" data-w='<span class="chip">Alessandro <b>3.4h</b></span><span class="chip">Carlo <b>1.7h</b></span>' data-m='<span class="chip">Alessandro <b>4.7h</b></span><span class="chip">Carlo <b>4.2h</b></span>'></div>
+        </div>
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Flavio Bosia</span>
+            <span class="cav ">Regime · 2/3</span>
+          </div>
+          <div class="avbar"><div class="avfill " style="width:67%"></div></div>
+          <div class="cstats"><span class="chours" data-w="1.1h / sett." data-m="4.9h / mese"></span></div>
+          <div class="chips" data-w='<span class="chip">Carlo <b>0.7h</b></span><span class="chip">Alessandro <b>0.4h</b></span>' data-m='<span class="chip">Carlo <b>3.2h</b></span><span class="chip">Alessandro <b>1.7h</b></span>'></div>
+        </div>
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Stefano Moratti</span>
+            <span class="cav ">Regime · 2/3</span>
+          </div>
+          <div class="avbar"><div class="avfill " style="width:67%"></div></div>
+          <div class="cstats"><span class="chours" data-w="1.1h / sett." data-m="4.9h / mese"></span></div>
+          <div class="chips" data-w='<span class="chip">Carlo <b>0.7h</b></span><span class="chip">Alessandro <b>0.4h</b></span>' data-m='<span class="chip">Carlo <b>3.2h</b></span><span class="chip">Alessandro <b>1.7h</b></span>'></div>
+        </div>
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Marco la Corte</span>
+            <span class="cav nuovo">Non iniziato · 0/3</span>
+          </div>
+          <div class="avbar"><div class="avfill " style="width:0%"></div></div>
+          <div class="cstats"><span class="chours" data-w="0.0h / sett." data-m="0.0h / mese"></span></div>
+          <div class="chips" data-w='' data-m=''></div>
+        </div>
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Luigi Micheloni</span>
+            <span class="cav nuovo">Firmato · non attivo</span>
+          </div>
+          <div class="avbar"><div class="avfill " style="width:0%"></div></div>
+          <div class="cstats"><span class="chours" data-w="0.0h / sett." data-m="0.0h / mese"></span></div>
+          <div class="chips" data-w='' data-m=''></div>
+        </div>
+  </div>
+  <div class="foot">Ore dalla ricetta per cliente (scheda "Ricetta", basata sul foglio "Capacità Team a Pieno Regime"). Vista <b>Mese</b> = minuti × volte/mese; vista <b>Settimana</b> = media a settimana (mese ÷ 4,33). <b>Onboarding</b> = ricorrente a regime + extra una tantum di setup. Tara minuti e volte/mese nella scheda Ricetta. De Lio e Serpilli esclusi (gestiti a parte).</div>
+</div>
+<script>
+function setMode(m){
+  document.getElementById('bw').classList.toggle('on', m==='w');
+  document.getElementById('bm').classList.toggle('on', m==='m');
+  document.getElementById('totu').textContent = m==='w' ? '/sett.' : '/mese';
+  document.querySelectorAll('[data-w][data-m]').forEach(function(el){
+    var v = el.getAttribute('data-'+m);
+    if(el.classList.contains('chips')){ el.innerHTML = v; return; }
+    if(el.classList.contains('pbar')){
+      el.style.width = el.getAttribute('data-'+m+'pct')+'%';
+      el.style.background = el.getAttribute('data-'+m+'col'); return;
+    }
+    el.textContent = v;
+    var col = el.getAttribute('data-'+m+'col');
+    if(col) el.style.color = col;
+  });
+}
+setMode('w');
+// auto-refresh: ricarica il file ogni 10 min così dopo il run giornaliero vedi sempre fresco
+setTimeout(function(){ location.reload(); }, 600000);
+</script>
+</body></html>
