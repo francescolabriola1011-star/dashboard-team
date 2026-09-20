@@ -1,0 +1,351 @@
+<title>Cockpit Finanziario &#8212; Clienti10X</title>
+<style>
+  :root{
+    --bg:#F5F7F5; --panel:#FFFFFF; --panel-2:#FBFCFB;
+    --ink:#0E1512; --muted:#5A6560; --faint:#8A938E;
+    --line:#E4E9E5; --line-2:#EDF1ED;
+    --green:#1F7A54; --green-soft:#E4F1EA; --green-ink:#155C3F;
+    --red:#C0392B; --red-soft:#FBE7E4;
+    --gold:#9C7A34; --gold-soft:#F5EEDD; --gold-line:#E7D9B4;
+    --accent:var(--green);
+    --shadow:0 1px 2px rgba(14,21,18,.04), 0 8px 24px rgba(14,21,18,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0C110F; --panel:#141B18; --panel-2:#111714;
+      --ink:#E9EEEB; --muted:#9AA6A0; --faint:#6E7A74;
+      --line:#243029; --line-2:#1C2621;
+      --green:#3DBB82; --green-soft:#16281F; --green-ink:#7FD9AE;
+      --red:#E27A6E; --red-soft:#2A1A17;
+      --gold:#C9A25E; --gold-soft:#241E12; --gold-line:#3A3016;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F5F7F5; --panel:#FFFFFF; --panel-2:#FBFCFB;
+    --ink:#0E1512; --muted:#5A6560; --faint:#8A938E;
+    --line:#E4E9E5; --line-2:#EDF1ED;
+    --green:#1F7A54; --green-soft:#E4F1EA; --green-ink:#155C3F;
+    --red:#C0392B; --red-soft:#FBE7E4;
+    --gold:#9C7A34; --gold-soft:#F5EEDD; --gold-line:#E7D9B4;
+    --shadow:0 1px 2px rgba(14,21,18,.04), 0 8px 24px rgba(14,21,18,.05);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0C110F; --panel:#141B18; --panel-2:#111714;
+    --ink:#E9EEEB; --muted:#9AA6A0; --faint:#6E7A74;
+    --line:#243029; --line-2:#1C2621;
+    --green:#3DBB82; --green-soft:#16281F; --green-ink:#7FD9AE;
+    --red:#E27A6E; --red-soft:#2A1A17;
+    --gold:#C9A25E; --gold-soft:#241E12; --gold-line:#3A3016;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:40px 24px 72px}
+  .num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
+  .serif{font-family:Georgia,"Times New Roman",serif}
+
+  /* header */
+  .top{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:28px}
+  .eyebrow{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); font-weight:700; margin:0 0 8px}
+  h1{font-size:30px; line-height:1.1; margin:0; font-weight:750; letter-spacing:-.01em}
+  .sub{color:var(--muted); font-size:14px; margin:8px 0 0; max-width:60ch}
+  .asof{text-align:right; font-size:12.5px; color:var(--muted)}
+  .asof b{color:var(--ink); font-weight:650}
+  .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); margin-right:6px; vertical-align:middle}
+
+  /* KPI grid */
+  .kpis{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:32px}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 15px; box-shadow:var(--shadow)}
+  .kpi .lab{font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint); font-weight:600; margin-bottom:8px}
+  .kpi .val{font-size:22px; font-weight:730; letter-spacing:-.02em; line-height:1}
+  .kpi .foot{font-size:11.5px; color:var(--muted); margin-top:6px}
+  .kpi.gold{background:var(--gold-soft); border-color:var(--gold-line)}
+  .kpi.gold .val{color:var(--gold)} .kpi.gold .lab{color:var(--gold)}
+
+  /* section card */
+  section{background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:24px 24px 26px; margin-bottom:22px; box-shadow:var(--shadow)}
+  .shead{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:4px}
+  .shead h2{font-size:17px; font-weight:720; margin:0; letter-spacing:-.01em}
+  .shead .meta{font-size:12px; color:var(--faint)}
+  .lead{color:var(--muted); font-size:13px; margin:6px 0 20px; max-width:72ch}
+
+  /* table */
+  .tscroll{overflow-x:auto; margin:0 -6px}
+  table{width:100%; border-collapse:collapse; min-width:560px}
+  th,td{text-align:right; padding:9px 10px; font-size:13.5px; white-space:nowrap}
+  th{font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint); font-weight:600; border-bottom:1px solid var(--line)}
+  td{border-bottom:1px solid var(--line-2)}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:hover{background:var(--panel-2)}
+  .mese{font-weight:600; color:var(--ink)}
+  .barcell{width:120px}
+  .bar{height:7px; border-radius:4px; background:var(--green); min-width:2px}
+  .bartrack{background:var(--line-2); border-radius:4px; height:7px; width:100%}
+  .chip{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:650}
+  .chip.pos{background:var(--green-soft); color:var(--green-ink)}
+  .chip.neg{background:var(--red-soft); color:var(--red)}
+  .neg-n{color:var(--red)}
+  tr.total td{border-top:2px solid var(--line); border-bottom:none; font-weight:730; padding-top:12px}
+  tr.total td:first-child{color:var(--faint); text-transform:uppercase; font-size:11px; letter-spacing:.06em; font-weight:600}
+
+  /* account tiles */
+  .accts{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+  @media(max-width:640px){.accts{grid-template-columns:repeat(2,1fr)}}
+  .acct{border:1px solid var(--line); border-radius:13px; padding:14px; background:var(--panel-2)}
+  .acct .nm{font-size:12px; color:var(--muted); font-weight:600}
+  .acct .bank{font-size:10.5px; color:var(--faint); text-transform:uppercase; letter-spacing:.04em}
+  .acct .amt{font-size:20px; font-weight:720; margin-top:8px; letter-spacing:-.01em}
+  .acct.pila{border-color:var(--green); background:var(--green-soft)}
+  .acct.pila .amt{color:var(--green-ink)}
+
+  /* mini trend */
+  .trend{display:flex; align-items:flex-end; gap:8px; height:96px; margin-top:18px; padding-top:6px}
+  .tcol{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; justify-content:flex-end; height:100%}
+  .tcol .tb{width:70%; max-width:34px; background:var(--green); border-radius:5px 5px 2px 2px; min-height:4px}
+  .tcol .tv{font-size:11px; color:var(--muted); font-weight:600}
+  .tcol .tm{font-size:10.5px; color:var(--faint); text-transform:uppercase; letter-spacing:.03em}
+
+  /* rendita */
+  .goldwrap{border-color:var(--gold-line)}
+  .goldwrap .shead h2{color:var(--gold)}
+  .freedom{display:flex; flex-wrap:wrap; align-items:center; gap:20px; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:14px; padding:20px 22px; margin-bottom:22px}
+  .freedom .big{font-size:44px; font-weight:400; letter-spacing:-.01em; color:var(--gold); line-height:1}
+  .freedom .txt{font-size:13.5px; color:var(--muted); max-width:44ch}
+  .freedom .txt b{color:var(--ink)}
+
+  .growth{margin-top:4px}
+  .grow-row{display:grid; grid-template-columns:64px 1fr 132px; align-items:center; gap:14px; padding:7px 0}
+  @media(max-width:560px){.grow-row{grid-template-columns:48px 1fr 96px; gap:9px}}
+  .grow-row .yr{font-weight:680; font-size:14px}
+  .grow-track{position:relative; height:22px; background:var(--line-2); border-radius:6px; overflow:hidden}
+  .grow-fill{height:100%; background:linear-gradient(90deg,var(--green),var(--green)); border-radius:6px}
+  .grow-fill.exit{background:linear-gradient(90deg,var(--gold),var(--gold))}
+  .grow-cap{text-align:right; font-weight:650; font-size:13.5px}
+  .grow-row.hit .yr{color:var(--gold)}
+  .grow-row.hit .grow-cap{color:var(--gold)}
+  .grow-bridge{display:grid; grid-template-columns:64px 1fr 132px; gap:14px; padding:1px 0 5px}
+  @media(max-width:560px){.grow-bridge{grid-template-columns:48px 1fr 96px; gap:9px}}
+  .grow-bridge .bx{grid-column:2; grid-row:1; font-size:11px; color:var(--gold); font-weight:650; line-height:1.35}
+  .grow-bridge .bx b{font-weight:750}
+  .targetline{position:relative; height:0; margin:2px 0}
+  .tlabel{font-size:11px; color:var(--gold); font-weight:650}
+
+  /* pila reale vs obiettivo anno */
+  .pilanow{background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:14px; padding:18px 22px; margin-bottom:22px}
+  .pilanow .ptop{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:6px 18px; margin-bottom:12px}
+  .pilanow .pnow{font-size:14px; color:var(--muted)}
+  .pilanow .pnow b{font-size:28px; font-weight:680; color:var(--gold); letter-spacing:-.01em}
+  .pilanow .pgoal{font-size:13px; color:var(--muted)}
+  .pilanow .pgoal b{color:var(--ink); font-weight:680}
+  .pilanow .ptrack{position:relative; height:26px; background:var(--line-2); border-radius:8px; overflow:hidden}
+  .pilanow .pfill{position:absolute; inset:0 auto 0 0; background:linear-gradient(90deg,var(--gold),var(--gold)); border-radius:8px}
+  .pilanow .ppct{position:absolute; inset:0; display:flex; align-items:center; justify-content:flex-end; padding:0 12px; font-size:12.5px; font-weight:700; color:var(--gold)}
+  .pilanow .pmiss{margin-top:13px; font-size:14px; color:var(--ink); font-weight:600}
+  .pilanow .pmiss b{color:var(--gold); font-weight:700}
+
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:24px}
+  @media(max-width:720px){.split{grid-template-columns:1fr}}
+  .minih{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint); font-weight:600; margin:0 0 12px}
+  .vers-row{display:flex; justify-content:space-between; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--line-2); font-size:14px}
+  .vers-row .y{color:var(--muted); font-weight:600}
+  .vers-row .a{font-weight:680}
+  .vers-row.exit .a{color:var(--gold)}
+
+  .note{font-size:12.5px; color:var(--muted); background:var(--panel-2); border:1px solid var(--line); border-left:3px solid var(--green); border-radius:0 10px 10px 0; padding:12px 15px; margin-top:18px}
+  .note b{color:var(--ink)}
+
+  /* CFO alert + raccomandazioni */
+  .cfoalert{border-color:var(--red)}
+  .cfoalert .shead h2{color:var(--red)}
+  .alertlist{display:flex; flex-direction:column; gap:10px; margin-bottom:20px}
+  .alertitem{display:flex; gap:12px; align-items:flex-start; background:var(--red-soft); border:1px solid var(--red); border-radius:10px; padding:11px 14px}
+  .alertitem .aico{color:var(--red); font-weight:800; font-size:13px; line-height:1.5}
+  .alertitem .atxt{font-size:13px; color:var(--ink); line-height:1.5}
+  .alertitem .atxt b{color:var(--red)}
+  .reclist{counter-reset:rec; display:flex; flex-direction:column; gap:10px}
+  .recitem{position:relative; padding:10px 14px 10px 40px; background:var(--panel-2); border:1px solid var(--line); border-radius:10px; font-size:13px; color:var(--ink); line-height:1.5}
+  .recitem::before{counter-increment:rec; content:counter(rec); position:absolute; left:12px; top:10px; width:20px; height:20px; border-radius:50%; background:var(--green); color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center}
+  .recitem b{color:var(--green-ink)}
+
+  footer{margin-top:34px; padding-top:20px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); line-height:1.7}
+  footer b{color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11.5px; background:var(--panel-2); border:1px solid var(--line); border-radius:5px; padding:1px 6px; color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <p class="eyebrow">Clienti10X &#183; Francesco Labriola</p>
+      <h1>Cockpit Finanziario</h1>
+      <p class="sub">Controllo CFO, incassi, rendiconto e piano rendita. Numeri letti dalle fonti canoniche.</p>
+    </div>
+    <div class="asof"><span class="dot"></span><b>Aggiornato il 20/09/2026 09:52</b><br>Dati aziendali fino a settembre.<br>La Pila &#232; esclusa dalla cassa spendibile.</div>
+  </div>
+
+
+
+  <!-- CFO INTEGRATO START -->
+  <style id="cfo-v2-style">
+    .cfo-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+    @media(max-width:850px){.cfo-kpis{grid-template-columns:repeat(2,1fr)}}
+    .period-nav{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
+    .period-nav button{border:1px solid var(--line);background:var(--panel-2);color:var(--muted);border-radius:9px;padding:8px 13px;font-weight:650;cursor:pointer}
+    .period-nav button.active{background:var(--green);border-color:var(--green);color:#fff}
+    .chart-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;margin-top:24px}
+    @media(max-width:780px){.chart-grid{grid-template-columns:1fr}}
+    .chartbox{min-width:0} .chartbox h3{font-size:13px;margin:0 0 12px}
+    .monthly-chart{height:240px;display:flex;align-items:stretch;gap:10px;border-bottom:1px solid var(--line);padding:18px 6px 0}
+    .mgroup{flex:1;min-width:54px;display:grid;grid-template-rows:24px 1fr 24px;text-align:center}
+    .mvals{font-size:9px;color:var(--faint);display:flex;justify-content:space-around;gap:2px}
+    .mbars{display:flex;align-items:flex-end;justify-content:center;gap:5px;min-height:160px}
+    .mbars i{width:28%;min-width:9px;border-radius:5px 5px 0 0;display:block}
+    .mbars .income{background:var(--green)} .mbars .cost{background:var(--gold)}
+    .mgroup b{font-size:11px;color:var(--muted);padding-top:5px}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
+    .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+    .donut-wrap{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:18px}
+    .donut{width:146px;height:146px;border-radius:50%;position:relative}
+    .donut:after{content:"";position:absolute;inset:33px;border-radius:50%;background:var(--panel)}
+    .mixrow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line-2);font-size:12px}
+    .risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    @media(max-width:700px){.risk-grid{grid-template-columns:1fr}}
+    .risk{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px}
+    .risk b{display:block;font-size:19px;margin-top:5px} .risk span{font-size:11px;color:var(--muted)}
+    .cash-svg{width:100%;height:auto;display:block} .cash-svg text{fill:var(--faint);font-size:10px}
+    .cash-svg .gridline{stroke:var(--line-2);stroke-width:1} .cash-svg .zeroline{stroke:var(--red);stroke-width:1}
+    .cash-svg polyline{fill:none;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .cash-base{stroke:var(--muted)} .cash-scenario{stroke:var(--green)}
+    .cfo-read{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    @media(max-width:680px){.cfo-read{grid-template-columns:1fr}}
+    .cfo-read div{background:var(--panel-2);border-left:3px solid var(--green);padding:11px 13px;font-size:12.5px}
+  </style>
+  <section>
+    <div class="shead"><h2>Controllo CFO integrato</h2><span class="meta">Bilancio Buyer, Rendiconto e Cashflow 13 settimane</span></div>
+    <p class="lead">Entrate, costi fissi e variabili, punto di pareggio, margini e cassa. Le viste di dettaglio restano nelle tab CFO Analisi e CFO Dashboard della Direzione Finanziaria.</p>
+    <div class="cfo-kpis">
+      <div class="kpi"><div class="lab">Incassi YTD</div><div class="val num">&#8364;28.990</div><div class="foot">aprile a settembre</div></div>
+      <div class="kpi"><div class="lab">Netto YTD</div><div class="val num">&#8364;12.750</div><div class="foot">margine 44,0%</div></div>
+      <div class="kpi"><div class="lab">Costi fissi YTD</div><div class="val num">&#8364;2.522</div><div class="foot">15,5% dei costi</div></div>
+      <div class="kpi"><div class="lab">Costi variabili YTD</div><div class="val num">&#8364;13.718</div><div class="foot">marketing e collaboratori</div></div>
+      <div class="kpi"><div class="lab">Break even Settembre</div><div class="val num">&#8364;944</div><div class="foot">scostamento &#8364;6.506</div></div>
+      <div class="kpi"><div class="lab">Cassa spendibile</div><div class="val num">&#8364;5.828,06</div><div class="foot">Pila esclusa</div></div>
+      <div class="kpi"><div class="lab">Crediti aperti</div><div class="val num">&#8364;11.850</div><div class="foot">da Scadenzario</div></div>
+      <div class="kpi"><div class="lab">Copertura delivery</div><div class="val num">50,4%</div><div class="foot">gap &#8364;5.737</div></div>
+    </div>
+    <div class="period-nav" role="tablist" aria-label="Periodo di analisi">
+      <button type="button" class="active" data-period="mese">Mese per mese</button>
+      <button type="button" data-period="trimestre">Trimestrale</button>
+      <button type="button" data-period="anno">Annuale</button>
+    </div>
+    <div class="period-panel" data-panel="mese"><div class="tscroll"><table><thead><tr><th>Mese</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="Aprile" data-entrate="800.00" data-costi="1200.00" data-netto="-400.00"><td class="mese">Aprile</td>
+          <td class="num">&#8364;800</td><td class="num">&#8364;250</td>
+          <td class="num">&#8364;950</td><td class="num">&#8364;1.200</td>
+          <td class="num">n.d.</td><td class="num neg-n">&#8364;-400</td>
+          <td><span class="chip neg">-50,0%</span></td></tr><tr data-cfo-period="Maggio" data-entrate="1700.00" data-costi="1246.00" data-netto="454.00"><td class="mese">Maggio</td>
+          <td class="num">&#8364;1.700</td><td class="num">&#8364;326</td>
+          <td class="num">&#8364;920</td><td class="num">&#8364;1.246</td>
+          <td class="num">&#8364;711</td><td class="num ">&#8364;454</td>
+          <td><span class="chip pos">26,7%</span></td></tr><tr data-cfo-period="Giugno" data-entrate="2800.00" data-costi="1572.00" data-netto="1228.00"><td class="mese">Giugno</td>
+          <td class="num">&#8364;2.800</td><td class="num">&#8364;317</td>
+          <td class="num">&#8364;1.255</td><td class="num">&#8364;1.572</td>
+          <td class="num">&#8364;574</td><td class="num ">&#8364;1.228</td>
+          <td><span class="chip pos">43,9%</span></td></tr><tr data-cfo-period="Luglio" data-entrate="14100.00" data-costi="5152.00" data-netto="8948.00"><td class="mese">Luglio</td>
+          <td class="num">&#8364;14.100</td><td class="num">&#8364;372</td>
+          <td class="num">&#8364;4.780</td><td class="num">&#8364;5.152</td>
+          <td class="num">&#8364;563</td><td class="num ">&#8364;8.948</td>
+          <td><span class="chip pos">63,5%</span></td></tr><tr data-cfo-period="Agosto" data-entrate="2140.00" data-costi="3092.68" data-netto="-952.68"><td class="mese">Agosto</td>
+          <td class="num">&#8364;2.140</td><td class="num">&#8364;753</td>
+          <td class="num">&#8364;2.340</td><td class="num">&#8364;3.093</td>
+          <td class="num">n.d.</td><td class="num neg-n">&#8364;-953</td>
+          <td><span class="chip neg">-44,5%</span></td></tr><tr data-cfo-period="Settembre" data-entrate="7450.00" data-costi="3977.74" data-netto="3472.26"><td class="mese">Settembre</td>
+          <td class="num">&#8364;7.450</td><td class="num">&#8364;504</td>
+          <td class="num">&#8364;3.474</td><td class="num">&#8364;3.978</td>
+          <td class="num">&#8364;944</td><td class="num ">&#8364;3.472</td>
+          <td><span class="chip pos">46,6%</span></td></tr></tbody></table></div></div>
+    <div class="period-panel" data-panel="trimestre" hidden><div class="tscroll"><table><thead><tr><th>Periodo</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="Q2 2026" data-entrate="5300.00" data-costi="4018.00" data-netto="1282.00"><td class="mese">Q2 2026</td>
+          <td class="num">&#8364;5.300</td><td class="num">&#8364;893</td>
+          <td class="num">&#8364;3.125</td><td class="num">&#8364;4.018</td>
+          <td class="num">&#8364;2.176</td><td class="num ">&#8364;1.282</td>
+          <td><span class="chip pos">24,2%</span></td></tr><tr data-cfo-period="Q3 2026" data-entrate="23690.00" data-costi="12222.42" data-netto="11467.58"><td class="mese">Q3 2026</td>
+          <td class="num">&#8364;23.690</td><td class="num">&#8364;1.629</td>
+          <td class="num">&#8364;10.593</td><td class="num">&#8364;12.222</td>
+          <td class="num">&#8364;2.947</td><td class="num ">&#8364;11.468</td>
+          <td><span class="chip pos">48,4%</span></td></tr></tbody></table></div></div>
+    <div class="period-panel" data-panel="anno" hidden><div class="tscroll"><table><thead><tr><th>Periodo</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="2026 YTD" data-entrate="28990.00" data-costi="16240.42" data-netto="12749.58"><td class="mese">2026 YTD</td>
+          <td class="num">&#8364;28.990</td><td class="num">&#8364;2.522</td>
+          <td class="num">&#8364;13.718</td><td class="num">&#8364;16.240</td>
+          <td class="num">&#8364;4.788</td><td class="num ">&#8364;12.750</td>
+          <td><span class="chip pos">44,0%</span></td></tr></tbody></table></div></div>
+    <div class="chart-grid">
+      <div class="chartbox"><h3>Entrate e costi mensili</h3><div class="monthly-chart"><div class="mgroup"><div class="mvals"><span>&#8364;800</span><span>&#8364;1.200</span></div>
+          <div class="mbars"><i class="income" style="height:5.7%"></i><i class="cost" style="height:8.5%"></i></div><b>Apr</b></div><div class="mgroup"><div class="mvals"><span>&#8364;1.700</span><span>&#8364;1.246</span></div>
+          <div class="mbars"><i class="income" style="height:12.1%"></i><i class="cost" style="height:8.8%"></i></div><b>Mag</b></div><div class="mgroup"><div class="mvals"><span>&#8364;2.800</span><span>&#8364;1.572</span></div>
+          <div class="mbars"><i class="income" style="height:19.9%"></i><i class="cost" style="height:11.1%"></i></div><b>Giu</b></div><div class="mgroup"><div class="mvals"><span>&#8364;14.100</span><span>&#8364;5.152</span></div>
+          <div class="mbars"><i class="income" style="height:100.0%"></i><i class="cost" style="height:36.5%"></i></div><b>Lug</b></div><div class="mgroup"><div class="mvals"><span>&#8364;2.140</span><span>&#8364;3.093</span></div>
+          <div class="mbars"><i class="income" style="height:15.2%"></i><i class="cost" style="height:21.9%"></i></div><b>Ago</b></div><div class="mgroup"><div class="mvals"><span>&#8364;7.450</span><span>&#8364;3.978</span></div>
+          <div class="mbars"><i class="income" style="height:52.8%"></i><i class="cost" style="height:28.2%"></i></div><b>Set</b></div></div><div class="legend"><span><i style="background:var(--green)"></i>Entrate</span><span><i style="background:var(--gold)"></i>Costi</span></div></div>
+      <div class="chartbox"><h3>Composizione costi YTD</h3><div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--green) 0 15.53%, var(--gold) 15.53% 52.18%, var(--red) 52.18% 100%)"></div><div>
+        <div class="mixrow"><span>Struttura</span><b>&#8364;2.522 &#183; 15,5%</b></div>
+        <div class="mixrow"><span>Marketing</span><b>&#8364;5.952 &#183; 36,6%</b></div>
+        <div class="mixrow"><span>Collaboratori</span><b>&#8364;7.767 &#183; 47,8%</b></div>
+      </div></div></div>
+    </div>
+  </section>
+  <section>
+    <div class="shead"><h2>Cassa e rischio operativo</h2><span class="meta">forecast aggiornato dalle routine cockpit</span></div>
+    <div class="risk-grid">
+      <div class="risk"><span>Prima settimana sotto zero, scenario base</span><b>8 nov-14 nov</b></div>
+      <div class="risk"><span>Delivery ancora da erogare</span><b>&#8364;11.565</b></div>
+      <div class="risk"><span>Cassa finale scenario operativo</span><b>&#8364;16.929</b></div>
+    </div>
+    <div class="chartbox" style="margin-top:22px"><h3>Cassa finale nelle prossime 13 settimane</h3><svg class="cash-svg" viewBox="0 0 820 260" role="img" aria-label="Cassa finale a tredici settimane, scenario base e operativo">
+      <line x1="48" y1="24.0" x2="772" y2="24.0" class="gridline"/><text x="41" y="28.0" text-anchor="end">&#8364;16.929</text><line x1="48" y1="77.0" x2="772" y2="77.0" class="gridline"/><text x="41" y="81.0" text-anchor="end">&#8364;11.424</text><line x1="48" y1="130.0" x2="772" y2="130.0" class="gridline"/><text x="41" y="134.0" text-anchor="end">&#8364;5.919</text><line x1="48" y1="183.0" x2="772" y2="183.0" class="gridline"/><text x="41" y="187.0" text-anchor="end">&#8364;413</text><line x1="48" y1="236.0" x2="772" y2="236.0" class="gridline"/><text x="41" y="240.0" text-anchor="end">&#8364;-5.092</text><line x1="48" y1="187.0" x2="772" y2="187.0" class="zeroline"/>
+      <polyline points="48.0,130.9 108.3,140.9 168.7,146.8 229.0,153.7 289.3,155.5 349.7,165.6 410.0,175.6 470.3,185.7 530.7,195.8 591.0,205.8 651.3,215.9 711.7,225.9 772.0,236.0" class="cash-base"/><polyline points="48.0,77.9 108.3,76.6 168.7,64.8 229.0,55.9 289.3,33.9 349.7,32.7 410.0,31.4 470.3,30.2 530.7,29.0 591.0,27.7 651.3,26.5 711.7,25.2 772.0,24.0" class="cash-scenario"/>
+      <text x="48.0" y="256" text-anchor="middle">12-19 set</text><text x="410.0" y="256" text-anchor="middle">25 ott-31 ott</text><text x="772.0" y="256" text-anchor="middle">6 dic-12 dic</text></svg><div class="legend"><span><i style="background:var(--muted)"></i>Base</span><span><i style="background:var(--green)"></i>Scenario operativo</span></div></div>
+    <div class="cfo-read">
+      <div><b>Settembre</b>: netto &#8364;3.472, margine 46,6%, break even &#8364;944.</div>
+      <div><b>Crediti aperti</b>: &#8364;11.850. Cassa spendibile &#8364;5.828,06.</div>
+      <div><b>Copertura delivery</b>: 50,4%. Gap &#8364;5.737.</div>
+      <div><b>Costi fissi</b>: 15,5% dei costi YTD. Il resto e' marketing e collaboratori.</div>
+    </div>
+  </section>
+  <script>(function(){var b=document.querySelectorAll('[data-period]'),p=document.querySelectorAll('[data-panel]');b.forEach(function(x){x.addEventListener('click',function(){b.forEach(function(y){y.classList.remove('active')});p.forEach(function(y){y.hidden=y.dataset.panel!==x.dataset.period});x.classList.add('active')})})})();</script>
+  <!-- CFO INTEGRATO END -->
+  <!-- INCASSI DEL MESE -->
+  <section><div class="shead"><h2>Incassi del mese &#183; settembre</h2><span class="meta">fonte: Lista Clienti AME &#183; Scadenzario+Cashflow</span></div>
+    <p class="lead">Mese contabile con regola del 5. Gli importi vengono dalla data di incasso reale e dalle rate ancora aperte nel periodo.</p>
+    <div class="accts" style="grid-template-columns:repeat(3,1fr)">
+      <div class="acct"><div class="nm">Atteso questo mese</div><div class="amt num">&#8364;8.550</div><div class="nm" style="opacity:.65;font-size:11px">settembre 2026</div></div>
+      <div class="acct pila"><div class="nm">Gi&#224; incassato</div><div class="amt num">&#8364;7.450</div><div class="nm" style="opacity:.65;font-size:11px">settembre 2026</div></div>
+      <div class="acct"><div class="nm">Ancora da incassare</div><div class="amt num">&#8364;1.100</div><div class="nm" style="opacity:.65;font-size:11px">settembre 2026</div></div>
+    </div></section>
+  <!-- RENDICONTO -->
+  <section><div class="shead"><h2>Rendiconto Finanziario</h2><span class="meta">fonte: Finanze Personali 2026 &#183; mensile</span></div>
+    <p class="lead">Dove sono i soldi. Saldi reali dei quattro conti a fine agosto, ultimo mese chiuso nel Rendiconto.</p>
+    <div class="accts"><div class="acct pila"><div class="bank">ProCredit (Georgia)</div><div class="nm">Pila (20% incassi)</div><div class="amt num">&#8364;5.274</div></div><div class="acct"><div class="bank">Relay</div><div class="nm">Invest. biz</div><div class="amt num">&#8364;840</div></div><div class="acct"><div class="bank">Wise</div><div class="nm">Invest. staff</div><div class="amt num">&#8364;974</div></div><div class="acct"><div class="bank">Bunq</div><div class="nm">STDV / residuo</div><div class="amt num">&#8364;600</div></div></div>
+    <p class="minih" style="margin-top:26px">Patrimonio netto conti &#183; per mese</p><div class="trend"><div class="tcol"><div class="tv num">&#8364;5.924</div><div class="tb" style="height:64.1%"></div><div class="tm">Gen</div></div><div class="tcol"><div class="tv num">&#8364;4.184</div><div class="tb" style="height:45.3%"></div><div class="tm">Feb</div></div><div class="tcol"><div class="tv num">&#8364;3.044</div><div class="tb" style="height:32.9%"></div><div class="tm">Mar</div></div><div class="tcol"><div class="tv num">&#8364;1.355</div><div class="tb" style="height:14.7%"></div><div class="tm">Apr</div></div><div class="tcol"><div class="tv num">&#8364;1.850</div><div class="tb" style="height:20.0%"></div><div class="tm">Mag</div></div><div class="tcol"><div class="tv num">&#8364;2.720</div><div class="tb" style="height:29.4%"></div><div class="tm">Giu</div></div><div class="tcol"><div class="tv num">&#8364;9.244</div><div class="tb" style="height:100.0%"></div><div class="tm">Lug</div></div><div class="tcol"><div class="tv num">&#8364;7.688</div><div class="tb" style="height:83.2%"></div><div class="tm">Ago</div></div></div>
+    <div class="note">Il patrimonio dei conti misura i saldi reali. La Pila resta separata dalla cassa aziendale spendibile.</div>
+  </section>
+  <!-- PIANO RENDITA -->
+  <section class="goldwrap"><div class="shead"><h2>Piano Rendita &#8594; &#8364;250k/anno</h2><span class="meta">fonte: Piano Rendita Scenari</span></div>
+    <p class="lead">La Pila &#232; il motore lento; l'exit &#232; l'acceleratore. Il target &#232; &#8364;3.571.429 di capitale.</p>
+    <div class="freedom"><div class="big serif num">2031</div><div class="txt">Primo anno con capitale <b>&#8364;3.680.313</b> e rendita annua <b>&#8364;257.622</b>.</div></div>
+    <div class="pilanow"><div class="ptop"><div class="pnow">Versato in Pila luglio a dicembre: <b>&#8364;4.738</b></div><div class="pgoal">Obiettivo 2026: <b>&#8364;20.198</b></div></div>
+      <div class="ptrack"><div class="pfill" style="width:23.5%"></div><div class="ppct">23.5% del piano</div></div><div class="pmiss">Per centrare il piano 2026 mancano <b>&#8364;15.460</b>.</div></div>
+    <div class="split"><div><p class="minih">Versamenti Pila ed exit</p><div class="vers-row"><span class="y">2026</span><span class="a num">&#8364;20.198</span></div><div class="vers-row"><span class="y">2027</span><span class="a num">&#8364;112.377</span></div><div class="vers-row"><span class="y">2028</span><span class="a num">&#8364;233.470</span></div><div class="vers-row exit"><span class="y">2029 + exit</span><span class="a num">&#8364;2.810.000</span></div></div><div><p class="minih">Capitale a fine anno</p><div class="growth"><div class="grow-row"><span class="yr num">2026</span><div class="grow-track"><div class="grow-fill" style="width:0.2%"></div></div><span class="grow-cap num">&#8364;21.268</span></div><div class="grow-row"><span class="yr num">2027</span><div class="grow-track"><div class="grow-fill" style="width:1.0%"></div></div><span class="grow-cap num">&#8364;135.134</span></div><div class="grow-row"><span class="yr num">2028</span><div class="grow-track"><div class="grow-fill" style="width:2.8%"></div></div><span class="grow-cap num">&#8364;378.063</span></div><div class="grow-row"><span class="yr num">2029</span><div class="grow-track"><div class="grow-fill exit" style="width:24.2%"></div></div><span class="grow-cap num">&#8364;3.214.528</span></div><div class="grow-row"><span class="yr num">2030</span><div class="grow-track"><div class="grow-fill" style="width:25.8%"></div></div><span class="grow-cap num">&#8364;3.439.544</span></div><div class="grow-row hit"><span class="yr num">2031</span><div class="grow-track"><div class="grow-fill" style="width:27.7%"></div></div><span class="grow-cap num">&#8364;3.680.313</span></div><div class="grow-row"><span class="yr num">2032</span><div class="grow-track"><div class="grow-fill" style="width:29.6%"></div></div><span class="grow-cap num">&#8364;3.937.934</span></div><div class="grow-row"><span class="yr num">2033</span><div class="grow-track"><div class="grow-fill" style="width:31.7%"></div></div><span class="grow-cap num">&#8364;4.213.590</span></div></div></div></div>
+    <div class="note" style="border-left-color:var(--gold)">La Pila non &#232; cassa aziendale. Il capitale del piano deriva solo dai versamenti registrati, dall'exit e dal rendimento indicato nel foglio fonte.</div>
+  </section>
+  <footer><b>Fonti:</b> Bilancio Buyer AME, Finanze Personali 2026, Lista Clienti AME, Piano Rendita Scenari e Cashflow 13 settimane.<br><br><b>Aggiornato il 20/09/2026 09:52.</b> Le routine finanziarie rigenerano questo stesso artifact. I numeri si correggono nei fogli fonte, non nella pagina.</footer>
+
+</div>
