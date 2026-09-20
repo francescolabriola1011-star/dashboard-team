@@ -28,6 +28,12 @@
   .toggle button.on{background:var(--accent);color:#fff}
   .pnote{color:var(--muted);font-size:12.5px;margin:8px 2px 16px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:13px}
+  .million-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px}
+  .million-card{background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:15px;padding:15px 16px}
+  .million-card .mlabel{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .million-card .mvalue{font-size:24px;font-weight:800;margin:5px 0 2px;letter-spacing:-.4px}
+  .million-card .mmeta{font-size:11.5px;color:var(--faint)}
+  .million-note{color:var(--muted);font-size:12px;margin:9px 2px 0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px}
   .k-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
   .k-name{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
@@ -88,6 +94,10 @@
     <div class="goalchip" id="goalchip">Verso <b>€18k MRR</b> entro dicembre</div>
   </header>
 
+  <h2 class="sec">Verso il milione · avanzamento complessivo</h2>
+  <div class="million-grid" id="million"></div>
+  <div class="million-note" id="millionnote"></div>
+
   <div class="toggle" id="toggle">
     <button data-p="giorno">Giorno</button>
     <button data-p="settimana">Settimana</button>
@@ -118,23 +128,44 @@
 /*DATA-START*/
 const STAMP = "19/09/2026";
 const MESE_TITOLO = "Settembre 2026";
-const MRR_ATTIVO = 5301;
+const MRR_ATTIVO = 6101;
 const MRR_OBJ = 8050;
-const OBJ = {"impression": 226500, "reach": 54200, "lead": 106, "apt2": 19, "apt3": 13, "chiusure": 3, "fatturato": 14100, "spesa": 1900};
-const OBJ_NOTE = {"chiusure": "target 3/mese", "spesa": "Lead Gen budget mese", "lead": "funnel → 18k MRR", "fatturato": "3 clienti × €4.700", "impression": "stima: budget €1900 ÷ CPM €8.39", "reach": "stima: impression × copertura/impression attuale"};
-const DATA = {"giorno": {"label": "Oggi · 19/09/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 808, "reach": 720, "lead": 0, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 0}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 38546, "reach": 26757, "lead": 31, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 399}}, "mese": {"label": "Settembre 2026 · giorno 19", "elapsed": 0.6333333333333333, "ndAppt": false, "v": {"impression": 91793, "reach": 21959, "lead": 63, "apt2": 14, "apt3": 11, "chiusure": 2, "fatturato": 7450, "spesa": 759}}};
+const OBJ = {"impression": 221700, "reach": 52000, "lead": 106, "apt2": 19, "apt3": 13, "chiusure": 3, "fatturato": 14100, "spesa": 1900};
+const OBJ_NOTE = {"chiusure": "target 3/mese", "spesa": "Lead Gen budget mese", "lead": "funnel → 18k MRR", "fatturato": "3 clienti × €4.700", "impression": "stima: budget €1900 ÷ CPM €8.57", "reach": "stima: impression × copertura/impression attuale"};
+const DATA = {"giorno": {"label": "Oggi · 19/09/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 4576, "reach": 3356, "lead": 0, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 0}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 42325, "reach": 29393, "lead": 31, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 399}}, "mese": {"label": "Settembre 2026 · giorno 19", "elapsed": 0.6333333333333333, "ndAppt": false, "v": {"impression": 95572, "reach": 22421, "lead": 63, "apt2": 14, "apt3": 11, "chiusure": 2, "fatturato": 7450, "spesa": 759}}};
 const METRICS = [{k:"impression",name:"Impression",fmt:"int"},{k:"reach",name:"Copertura",fmt:"int"},{k:"lead",name:"Lead",fmt:"int",extra:"CPL €12"},{k:"apt2",name:"Appuntamenti 2°",fmt:"int",sub:"Discovery"},{k:"apt3",name:"Appuntamenti 3°",fmt:"int",sub:"Demo"},{k:"chiusure",name:"Chiusure",fmt:"int"},{k:"fatturato",name:"Fatturato incassato",fmt:"eur"},{k:"spesa",name:"Spesa ads",fmt:"eur"}];
-const FUNNEL = {"steps": [{"n": "Lead", "v": 60, "o": 106, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 14, "o": 19, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 11, "o": 13, "col": "#c77dff"}, {"n": "Chiusure", "v": 2, "o": 3, "col": "var(--green)"}], "conv": [{"lbl": "CR lead→2°", "val": "28,7%", "s": "g"}, {"lbl": "show→demo", "val": "78,4%", "s": "g"}, {"lbl": "close demo", "val": "22,5%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "28,7%", "t": "18,0%", "s": "g"}, {"l": "CR 2→3apt", "v": "69,0%", "t": "61,0%", "s": "g"}, {"l": "CR lead→chiuso", "v": "4,5%", "t": "4,0%", "s": "g"}, {"l": "Show disc (2apt)", "v": "65,9%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "78,4%", "t": "70,0%", "s": "g"}, {"l": "Close disc", "v": "15,5%", "t": "25,0%", "s": "r"}, {"l": "Close demo", "v": "22,5%", "t": "30,0%", "s": "r"}]};
+const FUNNEL = {"steps": [{"n": "Lead", "v": 63, "o": 106, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 14, "o": 19, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 11, "o": 13, "col": "#c77dff"}, {"n": "Chiusure", "v": 2, "o": 3, "col": "var(--green)"}], "conv": [{"lbl": "CR lead→2°", "val": "29,8%", "s": "g"}, {"lbl": "show→demo", "val": "78,4%", "s": "g"}, {"lbl": "close demo", "val": "22,5%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "29,8%", "t": "18,0%", "s": "g"}, {"l": "CR 2→3apt", "v": "65,6%", "t": "61,0%", "s": "g"}, {"l": "CR lead→chiuso", "v": "4,4%", "t": "4,0%", "s": "g"}, {"l": "Show disc (2apt)", "v": "69,3%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "78,4%", "t": "70,0%", "s": "g"}, {"l": "Close disc", "v": "14,8%", "t": "25,0%", "s": "r"}, {"l": "Close demo", "v": "22,5%", "t": "30,0%", "s": "r"}]};
 const MONTHS = ["Apr", "Mag", "Giu", "Lug", "Ago", "Set"];
 const SERIES = {"lead": {"title": "Lead / mese", "unit": "", "data": [55, 43, 65, 42, 72, 63], "col": "var(--accent)"}, "spesa": {"title": "Spesa ads €", "unit": "€", "data": [870, 939, 1010, 1296, 1059, 759], "col": "var(--amber)"}, "cpl": {"title": "CPL €", "unit": "€", "data": [16.11, 22.36, 16.18, 30.86, 14.71, 12.04], "col": "var(--red)", "soglia": 22}, "incassato": {"title": "Incassato €", "unit": "€", "data": [800, 1700, 2800, 14100, 2140, 7450], "col": "var(--green)"}};
+const MILESTONE = {"lead": 340, "demo": 42, "vendite": 13, "fatturato": 40840, "spesa": 5933.11, "target": {"lead": 5809, "demo": 697, "vendite": 209, "fatturato": 999856, "spesa": 100000}, "prudente": {"lead": 7000, "demo": 773}};
 const PREV = [{"m": "Ott 26", "inc": 17604, "cl": 12}, {"m": "Nov 26", "inc": 22862, "cl": 15}, {"m": "Dic 26", "inc": 24677, "cl": 18}, {"m": "Gen 27", "inc": 30294, "cl": 22}];
-const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 91793, copertura 21959, click 1522 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €5.301 · 7 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead settembre = 63</b> dal Lead Gen (riepilogo mese). Spesa €758, obiettivo €1900."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}];
+const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 95572, copertura 22421, click 1584 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €6.101 · 8 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead settembre = 63</b> dal Lead Gen (riepilogo mese). Spesa €759, obiettivo €1900."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}];
 /*DATA-END*/
 
 /* ---------- render ---------- */
 function fmt(v,t){ if(v==null) return null; return t==="eur"? "€"+Math.round(v).toLocaleString("it-IT") : Math.round(v).toLocaleString("it-IT"); }
 function col(r){ return r>=1?"var(--green)":r>=0.5?"var(--amber)":"var(--red)"; }
 function semColor(s){ return s==="g"?"var(--green)":s==="a"?"var(--amber)":"var(--red)"; }
+
+function renderMillion(){
+  const specs=[
+    {k:"lead",n:"Lead",fmt:"int"},
+    {k:"demo",n:"Demo fatte",fmt:"int"},
+    {k:"vendite",n:"Vendite",fmt:"int"},
+    {k:"fatturato",n:"Fatturato su contratto",fmt:"eur"},
+    {k:"spesa",n:"Spesa ads",fmt:"eur"}
+  ];
+  const el=document.getElementById("million"); el.innerHTML="";
+  specs.forEach(s=>{
+    const v=MILESTONE[s.k], o=MILESTONE.target[s.k], r=o?v/o:0;
+    const c=document.createElement("div"); c.className="million-card";
+    c.innerHTML=`<div class="mlabel">${s.n}</div><div class="mvalue">${fmt(v,s.fmt)} <span style="font-size:13px;color:var(--faint)">/ ${fmt(o,s.fmt)}</span></div>
+      <div class="mmeta">${(r*100).toLocaleString("it-IT",{maximumFractionDigits:1})}% completato</div>
+      <div class="bar"><i style="width:${Math.min(100,Math.max(2,r*100))}%;background:${col(r)}"></i></div>`;
+    el.appendChild(c);
+  });
+  document.getElementById("millionnote").textContent = "Scenario matematico: 5.809 lead, 697 demo, 209 vendite. Piano prudenziale: 7.000 lead e 773 demo. Budget ads di piano: €100.000.";
+}
 
 function renderKPI(p){
   const d=DATA[p];
@@ -227,5 +258,5 @@ document.getElementById("toggle").addEventListener("click",e=>{
   document.querySelectorAll("#toggle button").forEach(x=>x.classList.remove("on"));
   b.classList.add("on"); renderKPI(b.dataset.p);
 });
-renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
+renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
 </script>
