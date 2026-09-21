@@ -190,8 +190,14 @@
       <h1>Cockpit Finanziario</h1>
       <p class="sub">Controllo CFO, incassi, rendiconto e piano rendita. Numeri letti dalle fonti canoniche.</p>
     </div>
-    <div class="asof"><span class="dot"></span><b>Aggiornato il 20/09/2026 09:52</b><br>Dati aziendali fino a settembre.<br>La Pila &#232; esclusa dalla cassa spendibile.</div>
+    <div class="asof"><span class="dot"></span><b>Aggiornato il 21/09/2026 06:58</b><br>Dati aziendali fino a settembre.<br>La Pila &#232; esclusa dalla cassa spendibile.</div>
   </div>
+
+
+
+
+
+
 
 
 
@@ -202,6 +208,8 @@
     .period-nav{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
     .period-nav button{border:1px solid var(--line);background:var(--panel-2);color:var(--muted);border-radius:9px;padding:8px 13px;font-weight:650;cursor:pointer}
     .period-nav button.active{background:var(--green);border-color:var(--green);color:#fff}
+    .donut-sel{margin:0 0 12px;border:1px solid var(--line);background:var(--panel-2);color:var(--muted);border-radius:8px;padding:6px 10px;font:inherit;font-weight:650;max-width:100%}
+    .donut-nota{margin:12px 0 0;color:var(--muted);font-size:12px}
     .chart-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;margin-top:24px}
     @media(max-width:780px){.chart-grid{grid-template-columns:1fr}}
     .chartbox{min-width:0} .chartbox h3{font-size:13px;margin:0 0 12px}
@@ -226,6 +234,15 @@
     .cash-svg .gridline{stroke:var(--line-2);stroke-width:1} .cash-svg .zeroline{stroke:var(--red);stroke-width:1}
     .cash-svg polyline{fill:none;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
     .cash-base{stroke:var(--muted)} .cash-scenario{stroke:var(--green)}
+    .cash-svg .cash-neg{fill:var(--red);opacity:.08}
+    .cash-svg .cash-mark{stroke:var(--red);stroke-width:1;stroke-dasharray:4 4}
+    .cash-svg .cash-dot-neg{fill:var(--red)}
+    .cash-svg .cash-warn{fill:var(--red);font-size:11px;font-weight:700}
+    .cash-svg .cash-base-dot{fill:var(--muted)} .cash-svg .cash-scenario-dot{fill:var(--green)}
+    .cash-svg .cash-base-lab{fill:var(--muted);font-size:11px;font-weight:700}
+    .cash-svg .cash-scenario-lab{fill:var(--green);font-size:11px;font-weight:700}
+    .cash-spiega{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+    .cash-spiega b{color:var(--text)}
     .cfo-read{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
     @media(max-width:680px){.cfo-read{grid-template-columns:1fr}}
     .cfo-read div{background:var(--panel-2);border-left:3px solid var(--green);padding:11px 13px;font-size:12.5px}
@@ -235,10 +252,10 @@
     <p class="lead">Entrate, costi fissi e variabili, punto di pareggio, margini e cassa. Le viste di dettaglio restano nelle tab CFO Analisi e CFO Dashboard della Direzione Finanziaria.</p>
     <div class="cfo-kpis">
       <div class="kpi"><div class="lab">Incassi YTD</div><div class="val num">&#8364;28.990</div><div class="foot">aprile a settembre</div></div>
-      <div class="kpi"><div class="lab">Netto YTD</div><div class="val num">&#8364;12.750</div><div class="foot">margine 44,0%</div></div>
-      <div class="kpi"><div class="lab">Costi fissi YTD</div><div class="val num">&#8364;2.522</div><div class="foot">15,5% dei costi</div></div>
-      <div class="kpi"><div class="lab">Costi variabili YTD</div><div class="val num">&#8364;13.718</div><div class="foot">marketing e collaboratori</div></div>
-      <div class="kpi"><div class="lab">Break even Settembre</div><div class="val num">&#8364;944</div><div class="foot">scostamento &#8364;6.506</div></div>
+      <div class="kpi"><div class="lab">Netto YTD</div><div class="val num">&#8364;12.604</div><div class="foot">margine 43,5%</div></div>
+      <div class="kpi"><div class="lab">Costi fissi YTD</div><div class="val num">&#8364;2.542</div><div class="foot">15,5% dei costi</div></div>
+      <div class="kpi"><div class="lab">Costi variabili YTD</div><div class="val num">&#8364;13.844</div><div class="foot">marketing e collaboratori</div></div>
+      <div class="kpi"><div class="lab">Break even Settembre</div><div class="val num">&#8364;1.014</div><div class="foot">scostamento &#8364;6.436</div></div>
       <div class="kpi"><div class="lab">Cassa spendibile</div><div class="val num">&#8364;5.828,06</div><div class="foot">Pila esclusa</div></div>
       <div class="kpi"><div class="lab">Crediti aperti</div><div class="val num">&#8364;11.850</div><div class="foot">da Scadenzario</div></div>
       <div class="kpi"><div class="lab">Copertura delivery</div><div class="val num">50,4%</div><div class="foot">gap &#8364;5.737</div></div>
@@ -268,38 +285,41 @@
           <td class="num">&#8364;2.140</td><td class="num">&#8364;753</td>
           <td class="num">&#8364;2.340</td><td class="num">&#8364;3.093</td>
           <td class="num">n.d.</td><td class="num neg-n">&#8364;-953</td>
-          <td><span class="chip neg">-44,5%</span></td></tr><tr data-cfo-period="Settembre" data-entrate="7450.00" data-costi="3977.74" data-netto="3472.26"><td class="mese">Settembre</td>
-          <td class="num">&#8364;7.450</td><td class="num">&#8364;504</td>
-          <td class="num">&#8364;3.474</td><td class="num">&#8364;3.978</td>
-          <td class="num">&#8364;944</td><td class="num ">&#8364;3.472</td>
-          <td><span class="chip pos">46,6%</span></td></tr></tbody></table></div></div>
+          <td><span class="chip neg">-44,5%</span></td></tr><tr data-cfo-period="Settembre" data-entrate="7450.00" data-costi="4123.58" data-netto="3326.42"><td class="mese">Settembre</td>
+          <td class="num">&#8364;7.450</td><td class="num">&#8364;524</td>
+          <td class="num">&#8364;3.600</td><td class="num">&#8364;4.124</td>
+          <td class="num">&#8364;1.014</td><td class="num ">&#8364;3.326</td>
+          <td><span class="chip pos">44,6%</span></td></tr></tbody></table></div></div>
     <div class="period-panel" data-panel="trimestre" hidden><div class="tscroll"><table><thead><tr><th>Periodo</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="Q2 2026" data-entrate="5300.00" data-costi="4018.00" data-netto="1282.00"><td class="mese">Q2 2026</td>
           <td class="num">&#8364;5.300</td><td class="num">&#8364;893</td>
           <td class="num">&#8364;3.125</td><td class="num">&#8364;4.018</td>
           <td class="num">&#8364;2.176</td><td class="num ">&#8364;1.282</td>
-          <td><span class="chip pos">24,2%</span></td></tr><tr data-cfo-period="Q3 2026" data-entrate="23690.00" data-costi="12222.42" data-netto="11467.58"><td class="mese">Q3 2026</td>
-          <td class="num">&#8364;23.690</td><td class="num">&#8364;1.629</td>
-          <td class="num">&#8364;10.593</td><td class="num">&#8364;12.222</td>
-          <td class="num">&#8364;2.947</td><td class="num ">&#8364;11.468</td>
-          <td><span class="chip pos">48,4%</span></td></tr></tbody></table></div></div>
-    <div class="period-panel" data-panel="anno" hidden><div class="tscroll"><table><thead><tr><th>Periodo</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="2026 YTD" data-entrate="28990.00" data-costi="16240.42" data-netto="12749.58"><td class="mese">2026 YTD</td>
-          <td class="num">&#8364;28.990</td><td class="num">&#8364;2.522</td>
-          <td class="num">&#8364;13.718</td><td class="num">&#8364;16.240</td>
-          <td class="num">&#8364;4.788</td><td class="num ">&#8364;12.750</td>
-          <td><span class="chip pos">44,0%</span></td></tr></tbody></table></div></div>
+          <td><span class="chip pos">24,2%</span></td></tr><tr data-cfo-period="Q3 2026" data-entrate="23690.00" data-costi="12368.26" data-netto="11321.74"><td class="mese">Q3 2026</td>
+          <td class="num">&#8364;23.690</td><td class="num">&#8364;1.649</td>
+          <td class="num">&#8364;10.719</td><td class="num">&#8364;12.368</td>
+          <td class="num">&#8364;3.012</td><td class="num ">&#8364;11.322</td>
+          <td><span class="chip pos">47,8%</span></td></tr></tbody></table></div></div>
+    <div class="period-panel" data-panel="anno" hidden><div class="tscroll"><table><thead><tr><th>Periodo</th><th>Entrate</th><th>Fissi</th><th>Variabili</th><th>Costi totali</th><th>Break even</th><th>Netto</th><th>Margine</th></tr></thead><tbody><tr data-cfo-period="2026 YTD" data-entrate="28990.00" data-costi="16386.26" data-netto="12603.74"><td class="mese">2026 YTD</td>
+          <td class="num">&#8364;28.990</td><td class="num">&#8364;2.542</td>
+          <td class="num">&#8364;13.844</td><td class="num">&#8364;16.386</td>
+          <td class="num">&#8364;4.866</td><td class="num ">&#8364;12.604</td>
+          <td><span class="chip pos">43,5%</span></td></tr></tbody></table></div></div>
     <div class="chart-grid">
       <div class="chartbox"><h3>Entrate e costi mensili</h3><div class="monthly-chart"><div class="mgroup"><div class="mvals"><span>&#8364;800</span><span>&#8364;1.200</span></div>
           <div class="mbars"><i class="income" style="height:5.7%"></i><i class="cost" style="height:8.5%"></i></div><b>Apr</b></div><div class="mgroup"><div class="mvals"><span>&#8364;1.700</span><span>&#8364;1.246</span></div>
           <div class="mbars"><i class="income" style="height:12.1%"></i><i class="cost" style="height:8.8%"></i></div><b>Mag</b></div><div class="mgroup"><div class="mvals"><span>&#8364;2.800</span><span>&#8364;1.572</span></div>
           <div class="mbars"><i class="income" style="height:19.9%"></i><i class="cost" style="height:11.1%"></i></div><b>Giu</b></div><div class="mgroup"><div class="mvals"><span>&#8364;14.100</span><span>&#8364;5.152</span></div>
           <div class="mbars"><i class="income" style="height:100.0%"></i><i class="cost" style="height:36.5%"></i></div><b>Lug</b></div><div class="mgroup"><div class="mvals"><span>&#8364;2.140</span><span>&#8364;3.093</span></div>
-          <div class="mbars"><i class="income" style="height:15.2%"></i><i class="cost" style="height:21.9%"></i></div><b>Ago</b></div><div class="mgroup"><div class="mvals"><span>&#8364;7.450</span><span>&#8364;3.978</span></div>
-          <div class="mbars"><i class="income" style="height:52.8%"></i><i class="cost" style="height:28.2%"></i></div><b>Set</b></div></div><div class="legend"><span><i style="background:var(--green)"></i>Entrate</span><span><i style="background:var(--gold)"></i>Costi</span></div></div>
-      <div class="chartbox"><h3>Composizione costi YTD</h3><div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--green) 0 15.53%, var(--gold) 15.53% 52.18%, var(--red) 52.18% 100%)"></div><div>
-        <div class="mixrow"><span>Struttura</span><b>&#8364;2.522 &#183; 15,5%</b></div>
-        <div class="mixrow"><span>Marketing</span><b>&#8364;5.952 &#183; 36,6%</b></div>
-        <div class="mixrow"><span>Collaboratori</span><b>&#8364;7.767 &#183; 47,8%</b></div>
-      </div></div></div>
+          <div class="mbars"><i class="income" style="height:15.2%"></i><i class="cost" style="height:21.9%"></i></div><b>Ago</b></div><div class="mgroup"><div class="mvals"><span>&#8364;7.450</span><span>&#8364;4.124</span></div>
+          <div class="mbars"><i class="income" style="height:52.8%"></i><i class="cost" style="height:29.2%"></i></div><b>Set</b></div></div><div class="legend"><span><i style="background:var(--green)"></i>Entrate</span><span><i style="background:var(--gold)"></i>Costi</span></div></div>
+      <div class="chartbox"><h3>Composizione costi <span id="cfo-donut-titolo">2026 YTD</span></h3>
+        <select id="cfo-donut-sel" class="donut-sel" aria-label="Periodo della composizione costi"></select>
+        <div class="donut-wrap"><div class="donut" id="cfo-donut" style="background:conic-gradient(var(--green) 0 15.51%, var(--gold) 15.51% 52.60%, var(--red) 52.60% 100%)"></div><div id="cfo-donut-righe">
+        <div class="mixrow"><span>Struttura</span><b>&#8364;2.542 &#183; 15,5%</b></div>
+        <div class="mixrow"><span>Marketing</span><b>&#8364;6.078 &#183; 37,1%</b></div>
+        <div class="mixrow"><span>Collaboratori</span><b>&#8364;7.767 &#183; 47,4%</b></div>
+      </div></div>
+        <p class="donut-nota" id="cfo-donut-tot">Totale costi &#8364;16.386</p></div>
     </div>
   </section>
   <section>
@@ -309,18 +329,94 @@
       <div class="risk"><span>Delivery ancora da erogare</span><b>&#8364;11.565</b></div>
       <div class="risk"><span>Cassa finale scenario operativo</span><b>&#8364;16.929</b></div>
     </div>
-    <div class="chartbox" style="margin-top:22px"><h3>Cassa finale nelle prossime 13 settimane</h3><svg class="cash-svg" viewBox="0 0 820 260" role="img" aria-label="Cassa finale a tredici settimane, scenario base e operativo">
-      <line x1="48" y1="24.0" x2="772" y2="24.0" class="gridline"/><text x="41" y="28.0" text-anchor="end">&#8364;16.929</text><line x1="48" y1="77.0" x2="772" y2="77.0" class="gridline"/><text x="41" y="81.0" text-anchor="end">&#8364;11.424</text><line x1="48" y1="130.0" x2="772" y2="130.0" class="gridline"/><text x="41" y="134.0" text-anchor="end">&#8364;5.919</text><line x1="48" y1="183.0" x2="772" y2="183.0" class="gridline"/><text x="41" y="187.0" text-anchor="end">&#8364;413</text><line x1="48" y1="236.0" x2="772" y2="236.0" class="gridline"/><text x="41" y="240.0" text-anchor="end">&#8364;-5.092</text><line x1="48" y1="187.0" x2="772" y2="187.0" class="zeroline"/>
-      <polyline points="48.0,130.9 108.3,140.9 168.7,146.8 229.0,153.7 289.3,155.5 349.7,165.6 410.0,175.6 470.3,185.7 530.7,195.8 591.0,205.8 651.3,215.9 711.7,225.9 772.0,236.0" class="cash-base"/><polyline points="48.0,77.9 108.3,76.6 168.7,64.8 229.0,55.9 289.3,33.9 349.7,32.7 410.0,31.4 470.3,30.2 530.7,29.0 591.0,27.7 651.3,26.5 711.7,25.2 772.0,24.0" class="cash-scenario"/>
-      <text x="48.0" y="256" text-anchor="middle">12-19 set</text><text x="410.0" y="256" text-anchor="middle">25 ott-31 ott</text><text x="772.0" y="256" text-anchor="middle">6 dic-12 dic</text></svg><div class="legend"><span><i style="background:var(--muted)"></i>Base</span><span><i style="background:var(--green)"></i>Scenario operativo</span></div></div>
+    <div class="chartbox" style="margin-top:22px"><h3>Cassa finale nelle prossime 13 settimane</h3><svg class="cash-svg" viewBox="0 0 820 300" role="img" aria-label="Cassa finale a tredici settimane: linea base senza nuove vendite e scenario operativo con tre chiusure al mese">
+      <rect x="62" y="192.8" width="618" height="61.2" class="cash-neg"/><line x1="62" y1="26.0" x2="680" y2="26.0" class="gridline"/><text x="54" y="30.0" text-anchor="end">&#8364;18.691</text><line x1="62" y1="83.0" x2="680" y2="83.0" class="gridline"/><text x="54" y="87.0" text-anchor="end">&#8364;12.305</text><line x1="62" y1="140.0" x2="680" y2="140.0" class="gridline"/><text x="54" y="144.0" text-anchor="end">&#8364;5.919</text><line x1="62" y1="197.0" x2="680" y2="197.0" class="gridline"/><text x="54" y="201.0" text-anchor="end">-&#8364;467</text><line x1="62" y1="254.0" x2="680" y2="254.0" class="gridline"/><text x="54" y="258.0" text-anchor="end">-&#8364;6.854</text>
+      <line x1="62" y1="192.8" x2="680" y2="192.8" class="zeroline"/>
+      <text x="54" y="196.8" text-anchor="end" class="cash-warn">zero</text>
+      <line x1="474.0" y1="26" x2="474.0" y2="254" class="cash-mark"/><circle cx="474.0" cy="201.0" r="5" class="cash-dot-neg"/><text x="474.0" y="18" text-anchor="middle" class="cash-warn">qui la cassa finisce &#183; 8 nov-14 nov</text>
+      <polyline points="62.0,140.8 113.5,150.1 165.0,155.5 216.5,162.0 268.0,163.7 319.5,173.0 371.0,182.3 422.5,191.6 474.0,201.0 525.5,210.3 577.0,219.6 628.5,228.9 680.0,238.3" class="cash-base"/><polyline points="62.0,91.7 113.5,90.5 165.0,79.5 216.5,71.3 268.0,50.9 319.5,49.8 371.0,48.6 422.5,47.5 474.0,46.3 525.5,45.2 577.0,44.0 628.5,42.9 680.0,41.7" class="cash-scenario"/>
+      <circle cx="680.0" cy="238.3" r="4" class="cash-base-dot"/><text x="690.0" y="234.3" class="cash-base-lab">Base</text><text x="690.0" y="248.3" class="cash-base-lab">-&#8364;5.092</text><circle cx="680.0" cy="41.7" r="4" class="cash-scenario-dot"/><text x="690.0" y="37.7" class="cash-scenario-lab">Operativo</text><text x="690.0" y="51.7" class="cash-scenario-lab">&#8364;16.929</text>
+      <text x="62.0" y="272" text-anchor="middle">12-19 set</text><text x="216.5" y="272" text-anchor="middle">3-10 ott</text><text x="371.0" y="272" text-anchor="middle">25 ott-31 ott</text><text x="525.5" y="272" text-anchor="middle">15 nov-21 nov</text><text x="680.0" y="272" text-anchor="middle">6 dic-12 dic</text></svg><div class="legend"><span><i style="background:var(--muted)"></i>Base</span><span><i style="background:var(--green)"></i>Scenario operativo</span></div><p class="cash-spiega"><b>Base</b>: cosa succede se da oggi non entra nessuna vendita nuova. Ci sono dentro solo gli incassi gia' certi e le uscite fisse, quindi la linea scende e dice in quale settimana i soldi finiscono.<br><b>Scenario operativo</b>: la stessa cosa con tre chiusure al mese, cioe' il ritmo previsto. Le entrate sono gia' al netto del 20% che va in Pila, perche' la Pila non e' cassa spendibile.<br>La distanza fra le due linee e' quanto pesa vendere: non e' una previsione ottimista contro una pessimista, e' il conto con le vendite e il conto senza.</p></div>
     <div class="cfo-read">
-      <div><b>Settembre</b>: netto &#8364;3.472, margine 46,6%, break even &#8364;944.</div>
+      <div><b>Settembre</b>: netto &#8364;3.326, margine 44,6%, break even &#8364;1.014.</div>
       <div><b>Crediti aperti</b>: &#8364;11.850. Cassa spendibile &#8364;5.828,06.</div>
       <div><b>Copertura delivery</b>: 50,4%. Gap &#8364;5.737.</div>
       <div><b>Costi fissi</b>: 15,5% dei costi YTD. Il resto e' marketing e collaboratori.</div>
     </div>
   </section>
-  <script>(function(){var b=document.querySelectorAll('[data-period]'),p=document.querySelectorAll('[data-panel]');b.forEach(function(x){x.addEventListener('click',function(){b.forEach(function(y){y.classList.remove('active')});p.forEach(function(y){y.hidden=y.dataset.panel!==x.dataset.period});x.classList.add('active')})})})();</script>
+  <script id="cfo-donut-dati" type="application/json">{"mese": [{"k": "Aprile", "v": {"Struttura": 250.0, "Marketing": 900.0, "Collaboratori": 50.0}}, {"k": "Maggio", "v": {"Struttura": 326.0, "Marketing": 715.0, "Collaboratori": 205.0}}, {"k": "Giugno", "v": {"Struttura": 317.0, "Marketing": 1010.0, "Collaboratori": 245.0}}, {"k": "Luglio", "v": {"Struttura": 372.0, "Marketing": 1260.0, "Collaboratori": 3520.0}}, {"k": "Agosto", "v": {"Struttura": 753.0, "Marketing": 1248.01, "Collaboratori": 1091.67}}, {"k": "Settembre", "v": {"Struttura": 524.0, "Marketing": 944.58, "Collaboratori": 2655.0}}], "trimestre": [{"k": "Q2 2026", "v": {"Struttura": 893.0, "Marketing": 2625.0, "Collaboratori": 500.0}}, {"k": "Q3 2026", "v": {"Struttura": 1649.0, "Marketing": 3452.59, "Collaboratori": 7266.67}}], "anno": [{"k": "2026 YTD", "v": {"Struttura": 2542.0, "Marketing": 6077.59, "Collaboratori": 7766.67}}]}</script>
+  <script>(function(){
+    var b=document.querySelectorAll('[data-period]'),p=document.querySelectorAll('[data-panel]');
+    var dati={};
+    try{dati=JSON.parse(document.getElementById('cfo-donut-dati').textContent)||{};}catch(e){}
+    var sel=document.getElementById('cfo-donut-sel'),torta=document.getElementById('cfo-donut'),
+        righe=document.getElementById('cfo-donut-righe'),titolo=document.getElementById('cfo-donut-titolo'),
+        tot=document.getElementById('cfo-donut-tot');
+    var colori={Struttura:'var(--green)',Marketing:'var(--gold)',Collaboratori:'var(--red)'};
+    function euro(n){
+      // separatore delle migliaia scritto a mano, senza espressioni regolari:
+      // il generatore inserisce questo blocco con re.sub e una barra rovesciata
+      // dentro il testo verrebbe interpretata come sequenza di escape
+      var seg=Math.abs(n).toFixed(2).split('.'),i=seg[0],mig='';
+      while(i.length>3){mig='.'+i.slice(-3)+mig;i=i.slice(0,-3);}
+      return (n<0?'-':'')+String.fromCharCode(8364)+' '+i+mig+','+seg[1];
+    }
+    function perc(q){
+      return q.toFixed(1).replace('.',',')+'%';
+    }
+    function disegna(voce){
+      if(!voce||!torta){return;}
+      var v=voce.v,somma=(v.Struttura||0)+(v.Marketing||0)+(v.Collaboratori||0);
+      if(titolo){titolo.textContent=voce.k;}
+      if(!somma){
+        // nessun costo registrato: si dice, non si disegna una torta finta
+        torta.style.background='var(--panel-2)';
+        if(righe){righe.innerHTML='<div class="mixrow"><span>Nessun costo registrato</span><b>n.d.</b></div>';}
+        if(tot){tot.textContent='Totale costi n.d.';}
+        return;
+      }
+      var acc=0,fette=[],html='';
+      ['Struttura','Marketing','Collaboratori'].forEach(function(k){
+        var q=(v[k]||0)/somma*100;
+        fette.push(colori[k]+' '+acc.toFixed(2)+'% '+(acc+q).toFixed(2)+'%');
+        acc+=q;
+        html+='<div class="mixrow"><span>'+k+'</span><b>'+euro(v[k]||0)+' '+String.fromCharCode(183)+' '+perc(q)+'</b></div>';
+      });
+      torta.style.background='conic-gradient('+fette.join(', ')+')';
+      if(righe){righe.innerHTML=html;}
+      if(tot){tot.textContent='Totale costi '+euro(somma);}
+    }
+    function popola(periodo){
+      var voci=dati[periodo]||[];
+      if(!sel){return;}
+      if(!voci.length){sel.hidden=true;return;}
+      sel.hidden=false;
+      sel.innerHTML='';
+      voci.forEach(function(voce,i){
+        var o=document.createElement('option');o.value=String(i);o.textContent=voce.k;sel.appendChild(o);
+      });
+      // sul mese si apre l'ultimo, che e' quello che interessa guardare
+      sel.value=String(voci.length-1);
+      disegna(voci[voci.length-1]);
+    }
+    if(sel){
+      sel.addEventListener('change',function(){
+        var voci=dati[sel.dataset.periodo||'anno']||[];
+        disegna(voci[parseInt(sel.value,10)]);
+      });
+    }
+    b.forEach(function(x){x.addEventListener('click',function(){
+      b.forEach(function(y){y.classList.remove('active')});
+      p.forEach(function(y){y.hidden=y.dataset.panel!==x.dataset.period});
+      x.classList.add('active');
+      if(sel){sel.dataset.periodo=x.dataset.period;}
+      popola(x.dataset.period);
+    })});
+    var attivo=document.querySelector('[data-period].active');
+    var iniziale=attivo?attivo.dataset.period:'mese';
+    if(sel){sel.dataset.periodo=iniziale;}
+    popola(iniziale);
+  })();</script>
   <!-- CFO INTEGRATO END -->
   <!-- INCASSI DEL MESE -->
   <section><div class="shead"><h2>Incassi del mese &#183; settembre</h2><span class="meta">fonte: Lista Clienti AME &#183; Scadenzario+Cashflow</span></div>
@@ -346,6 +442,6 @@
     <div class="split"><div><p class="minih">Versamenti Pila ed exit</p><div class="vers-row"><span class="y">2026</span><span class="a num">&#8364;20.198</span></div><div class="vers-row"><span class="y">2027</span><span class="a num">&#8364;112.377</span></div><div class="vers-row"><span class="y">2028</span><span class="a num">&#8364;233.470</span></div><div class="vers-row exit"><span class="y">2029 + exit</span><span class="a num">&#8364;2.810.000</span></div></div><div><p class="minih">Capitale a fine anno</p><div class="growth"><div class="grow-row"><span class="yr num">2026</span><div class="grow-track"><div class="grow-fill" style="width:0.2%"></div></div><span class="grow-cap num">&#8364;21.268</span></div><div class="grow-row"><span class="yr num">2027</span><div class="grow-track"><div class="grow-fill" style="width:1.0%"></div></div><span class="grow-cap num">&#8364;135.134</span></div><div class="grow-row"><span class="yr num">2028</span><div class="grow-track"><div class="grow-fill" style="width:2.8%"></div></div><span class="grow-cap num">&#8364;378.063</span></div><div class="grow-row"><span class="yr num">2029</span><div class="grow-track"><div class="grow-fill exit" style="width:24.2%"></div></div><span class="grow-cap num">&#8364;3.214.528</span></div><div class="grow-row"><span class="yr num">2030</span><div class="grow-track"><div class="grow-fill" style="width:25.8%"></div></div><span class="grow-cap num">&#8364;3.439.544</span></div><div class="grow-row hit"><span class="yr num">2031</span><div class="grow-track"><div class="grow-fill" style="width:27.7%"></div></div><span class="grow-cap num">&#8364;3.680.313</span></div><div class="grow-row"><span class="yr num">2032</span><div class="grow-track"><div class="grow-fill" style="width:29.6%"></div></div><span class="grow-cap num">&#8364;3.937.934</span></div><div class="grow-row"><span class="yr num">2033</span><div class="grow-track"><div class="grow-fill" style="width:31.7%"></div></div><span class="grow-cap num">&#8364;4.213.590</span></div></div></div></div>
     <div class="note" style="border-left-color:var(--gold)">La Pila non &#232; cassa aziendale. Il capitale del piano deriva solo dai versamenti registrati, dall'exit e dal rendimento indicato nel foglio fonte.</div>
   </section>
-  <footer><b>Fonti:</b> Bilancio Buyer AME, Finanze Personali 2026, Lista Clienti AME, Piano Rendita Scenari e Cashflow 13 settimane.<br><br><b>Aggiornato il 20/09/2026 09:52.</b> Le routine finanziarie rigenerano questo stesso artifact. I numeri si correggono nei fogli fonte, non nella pagina.</footer>
+  <footer><b>Fonti:</b> Bilancio Buyer AME, Finanze Personali 2026, Lista Clienti AME, Piano Rendita Scenari e Cashflow 13 settimane.<br><br><b>Aggiornato il 21/09/2026 06:58.</b> Le routine finanziarie rigenerano questo stesso artifact. I numeri si correggono nei fogli fonte, non nella pagina.</footer>
 
 </div>
