@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dettaglio Attività — Carico Delivery</title></head><body>
+<style>
+:root { --bg:#f5f6f8; --panel:#fff; --ink:#1a2230; --muted:#6b7688; --line:#e4e7ec;
+  --accent:#2f6f8f; --warn:#d99a1c; --shadow:0 1px 3px rgba(20,30,50,.06),0 4px 16px rgba(20,30,50,.05); }
+@media (prefers-color-scheme: dark) { :root { --bg:#11151c; --panel:#1a2029; --ink:#e9edf3; --muted:#9aa6b6;
+  --line:#2a323d; --accent:#5fb3d4; --warn:#e6b342; --shadow:0 1px 3px rgba(0,0,0,.3); } }
+:root[data-theme="dark"] { --bg:#11151c; --panel:#1a2029; --ink:#e9edf3; --muted:#9aa6b6; --line:#2a323d;
+  --accent:#5fb3d4; --warn:#e6b342; --shadow:0 1px 3px rgba(0,0,0,.3); }
+:root[data-theme="light"] { --bg:#f5f6f8; --panel:#fff; --ink:#1a2230; --muted:#6b7688; --line:#e4e7ec;
+  --accent:#2f6f8f; --warn:#d99a1c; --shadow:0 1px 3px rgba(20,30,50,.06),0 4px 16px rgba(20,30,50,.05); }
+* { box-sizing:border-box; }
+.wrap { font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink);
+  background:var(--bg); max-width:920px; margin:0 auto; padding:32px 20px 56px;
+  font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased; }
+.top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:22px; }
+.h1 { font-size:26px; font-weight:700; letter-spacing:-.02em; }
+.sub { color:var(--muted); font-size:13px; }
+.back { font-size:13px; color:var(--accent); text-decoration:none; font-weight:600; }
+.toggle { display:inline-flex; background:color-mix(in srgb,var(--muted) 14%,transparent); border-radius:10px; padding:3px; }
+.toggle button { font:inherit; font-size:13px; font-weight:600; border:0; background:transparent; color:var(--muted);
+  padding:6px 16px; border-radius:8px; cursor:pointer; }
+.toggle button.on { background:var(--panel); color:var(--ink); box-shadow:var(--shadow); }
+.tiles { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:0 0 28px; }
+.tile { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:6px; }
+.tile-k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+.tile-v { font-size:30px; font-weight:700; letter-spacing:-.02em; }
+.tile-v small { font-size:15px; font-weight:600; color:var(--muted); margin-left:4px; }
+.pblock { background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); margin-bottom:20px; overflow:hidden; }
+.phead { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--accent) 6%,transparent); }
+.pnm { font-weight:700; font-size:16px; }
+.ptot { font-size:14px; font-weight:700; color:var(--accent); }
+.alist { padding:4px 18px 8px; }
+.arow { display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px 14px; padding:11px 0; border-bottom:1px solid var(--line); }
+.arow:last-child { border-bottom:0; }
+.avoce { font-weight:600; font-size:14px; }
+.acli { grid-column:1; font-size:12px; color:var(--muted); }
+.amin { grid-column:2; grid-row:1 / span 2; align-self:center; font-size:16px; font-weight:700; white-space:nowrap; }
+.tag { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 12%,transparent); padding:1px 7px; border-radius:20px; margin-left:4px; }
+.tag.onb { color:var(--warn); background:color-mix(in srgb,var(--warn) 16%,transparent); }
+.foot { color:var(--muted); font-size:12px; margin-top:20px; line-height:1.5; }
+@media (max-width:560px) { .tiles{grid-template-columns:1fr} }
+</style>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="h1">Dettaglio Attività</div>
+      <div class="sub">Aggiornato 23/09/2026 09:00 · fonte ClickUp</div>
+      <a class="back" href="carico-dashboard.html">← Torna al carico team</a>
+    </div>
+    <div class="toggle">
+      <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
+      <button id="bm" onclick="setMode('m')">Mese</button>
+    </div>
+  </div>
+  <div class="tiles">
+    <div class="tile"><span class="tile-k">Minuti totali team</span>
+      <span class="tile-v"><span data-w="455" data-m="1945"></span><small id="tu">min/sett.</small></span></div>
+    <div class="tile"><span class="tile-k">Ore totali team</span>
+      <span class="tile-v"><span data-w="7.6" data-m="32.4"></span><small>h</small></span></div>
+  </div>
+  
+      <div class="pblock">
+        <div class="phead">
+          <div class="pnm">Carlo</div>
+          <div class="ptot" data-w="238 min · 4.0h" data-m="1030 min · 17.2h"></div>
+        </div>
+        <div class="alist">
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Flavio Bosia <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Luigi Micheloni <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Marco la Corte <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Raffaele De Leonardis <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Gestione chat (30&#x27; a settimana)</div>
+            <div class="acli">Stefano Moratti <span class="tag ">regime</span></div>
+            <div class="amin" data-w="28 min" data-m="120 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Onboarding: launch call + feedback di avvio</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">primo mese</span></div>
+            <div class="amin" data-w="14 min" data-m="60 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Onboarding: launch call + feedback di avvio</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">primo mese</span></div>
+            <div class="amin" data-w="14 min" data-m="60 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Flavio Bosia <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Luigi Micheloni <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Marco la Corte <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Raffaele De Leonardis <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ascolto call</div>
+            <div class="acli">Stefano Moratti <span class="tag ">regime</span></div>
+            <div class="amin" data-w="2 min" data-m="10 min"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pblock">
+        <div class="phead">
+          <div class="pnm">Alessandro</div>
+          <div class="ptot" data-w="217 min · 3.6h" data-m="915 min · 15.2h"></div>
+        </div>
+        <div class="alist">
+          <div class="arow">
+            <div class="avoce">Setup: automazioni, moduli, avvio campagne</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">primo mese</span></div>
+            <div class="amin" data-w="21 min" data-m="90 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setup: automazioni, moduli, avvio campagne</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">primo mese</span></div>
+            <div class="amin" data-w="21 min" data-m="90 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Flavio Bosia <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Luigi Micheloni <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Marco la Corte <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Raffaele De Leonardis <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Ottimizzazione CPL e task (settimanale)</div>
+            <div class="acli">Stefano Moratti <span class="tag ">regime</span></div>
+            <div class="amin" data-w="15 min" data-m="65 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Alessandro Zaghini <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Flavio Bosia <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Flavio Bosia <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Luigi Micheloni <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Luigi Micheloni <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Marcello Del Gaudio <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Marco la Corte <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Marco la Corte <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Raffaele De Leonardis <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Raffaele De Leonardis <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Setting GHL + nuovo modulo</div>
+            <div class="acli">Stefano Moratti <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+          <div class="arow">
+            <div class="avoce">Nuove creative</div>
+            <div class="acli">Stefano Moratti <span class="tag ">regime</span></div>
+            <div class="amin" data-w="5 min" data-m="20 min"></div>
+          </div>
+        </div>
+      </div>
+  <div class="foot">Ogni riga è una voce della "Ricetta" per il cliente. Vista <b>Mese</b> = minuti × volte/mese; vista <b>Settimana</b> = ricorrente diluito (mese ÷ 4,33), mentre il <b>setup onboarding</b> conta pieno nella settimana (lavoro in corso ORA). Clienti "Non iniziato" non hanno attività. De Lio e Serpilli esclusi.</div>
+</div>
+<script>
+function setMode(m){
+  document.getElementById('bw').classList.toggle('on', m==='w');
+  document.getElementById('bm').classList.toggle('on', m==='m');
+  document.getElementById('tu').textContent = m==='w' ? 'min/sett.' : 'min/mese';
+  document.querySelectorAll('[data-w][data-m]').forEach(function(el){
+    el.textContent = el.getAttribute('data-'+m);
+  });
+}
+setMode('w');
+setTimeout(function(){ location.reload(); }, 600000);
+</script>
+</body></html>
