@@ -101,12 +101,15 @@
   <div class="toggle" id="toggle">
     <button data-p="giorno">Giorno</button>
     <button data-p="settimana">Settimana</button>
-    <button data-p="mese" class="on">Mese</button>
+    <button data-p="precedente" id="btnprec">Mese precedente</button>
+    <button data-p="mese" class="on" id="btnmese">Mese</button>
   </div>
   <div class="pnote" id="pnote"></div>
   <div class="grid" id="grid"></div>
 
-  <h2 class="sec">Funnel del mese · consuntivo vs obiettivo</h2>
+  <h2 class="sec" id="funneltitlecur">Funnel del mese in corso · obiettivo</h2>
+  <div class="funnel" id="funnelcur"></div>
+  <h2 class="sec" id="funneltitle">Funnel del mese precedente · consuntivo vs obiettivo</h2>
   <div class="funnel" id="funnel"></div>
   <div class="pnote" id="semlegend"></div>
 
@@ -130,16 +133,17 @@ const STAMP = "01/10/2026";
 const MESE_TITOLO = "Ottobre 2026";
 const MRR_ATTIVO = 6601;
 const MRR_OBJ = 8050;
-const OBJ = {"impression": 147800, "reach": 122300, "lead": 106, "apt2": 19, "apt3": 13, "chiusure": 3, "fatturato": 14100, "spesa": 1900};
-const OBJ_NOTE = {"chiusure": "target 3/mese", "spesa": "Lead Gen budget mese", "lead": "funnel → 18k MRR", "fatturato": "3 clienti × €4.700", "impression": "stima: budget €1900 ÷ CPM €12.86", "reach": "stima: impression × copertura/impression attuale"};
-const DATA = {"giorno": {"label": "Oggi · 01/10/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 2346, "reach": 1941, "lead": 2, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 17}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 0.14285714285714285, "ndAppt": true, "v": {"impression": 2346, "reach": 1941, "lead": 2, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 17}}, "mese": {"label": "Settembre 2026 · in chiusura (chiude il 5) · ads ottobre giorno 1", "elapsed": 1.0, "ndAppt": false, "v": {"impression": 2346, "reach": 1941, "lead": 2, "apt2": 39, "apt3": 23, "chiusure": 4, "fatturato": 22160, "spesa": 17}}};
+const OBJ = {"impression": 148200, "reach": 120300, "lead": 106, "apt2": 19, "apt3": 13, "chiusure": 3, "fatturato": 14100, "spesa": 1900};
+const OBJ_NOTE = {"chiusure": "target 3/mese", "spesa": "Lead Gen budget mese", "lead": "funnel → 18k MRR", "fatturato": "3 clienti × €4.700", "impression": "stima: budget €1900 ÷ CPM €12.82", "reach": "stima: impression × copertura/impression attuale"};
+const DATA = {"giorno": {"label": "Oggi · 01/10/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 2478, "reach": 2012, "lead": 2, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 17}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 0.14285714285714285, "ndAppt": true, "v": {"impression": 2478, "reach": 2012, "lead": 2, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 17}}, "precedente": {"label": "Settembre 2026 · in chiusura: le vendite fino al 5 ottobre vanno qui", "elapsed": 1.0, "ndAppt": false, "noMeta": true, "titolo": "Settembre", "v": {"impression": null, "reach": null, "lead": 107, "apt2": 39, "apt3": 23, "chiusure": 4, "fatturato": 22160, "spesa": 1787}}, "mese": {"label": "Ottobre 2026 · giorno 1 · chiusure e incassato si riempiono dal 6, fino al 5 vanno in settembre", "elapsed": 0.03333333333333333, "ndAppt": false, "titolo": "Ottobre", "obj": {"impression": 148200, "reach": 120300, "lead": 106, "apt2": 34, "apt3": 19, "chiusure": 5, "fatturato": 14100, "spesa": 1900}, "objNote": {"apt2": "benchmark del mese", "apt3": "benchmark del mese", "chiusure": "benchmark del mese"}, "v": {"impression": 2478, "reach": 2012, "lead": 2, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 17}}};
 const METRICS = [{k:"impression",name:"Impression",fmt:"int"},{k:"reach",name:"Copertura",fmt:"int"},{k:"lead",name:"Lead",fmt:"int",extra:"CPL €8"},{k:"apt2",name:"Appuntamenti 2°",fmt:"int",sub:"Discovery"},{k:"apt3",name:"Appuntamenti 3°",fmt:"int",sub:"Demo"},{k:"chiusure",name:"Chiusure",fmt:"int"},{k:"fatturato",name:"Fatturato incassato",fmt:"eur"},{k:"spesa",name:"Spesa ads",fmt:"eur"}];
-const FUNNEL = {"steps": [{"n": "Lead", "v": 107, "o": 106, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 39, "o": 19, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 23, "o": 13, "col": "#c77dff"}, {"n": "Chiusure", "v": 4, "o": 3, "col": "var(--green)"}], "conv": [{"lbl": "CR lead→2°", "val": "33,3%", "s": "g"}, {"lbl": "show→demo", "val": "73,2%", "s": "g"}, {"lbl": "close demo", "val": "21,2%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "33,3%", "t": "18,0%", "s": "g"}, {"l": "CR 2→3apt", "v": "62,7%", "t": "61,0%", "s": "g"}, {"l": "CR lead→chiuso", "v": "4,4%", "t": "4,0%", "s": "g"}, {"l": "Show disc (2apt)", "v": "65,9%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "73,2%", "t": "70,0%", "s": "g"}, {"l": "Close disc", "v": "13,3%", "t": "25,0%", "s": "r"}, {"l": "Close demo", "v": "21,2%", "t": "30,0%", "s": "r"}]};
+const FUNNEL = {"titolo": "Settembre 2026 · in chiusura fino al 5", "steps": [{"n": "Lead", "v": 107, "o": 106, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 39, "o": 19, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 23, "o": 13, "col": "#c77dff"}, {"n": "Chiusure", "v": 4, "o": 3, "col": "var(--green)"}], "conv": [{"lbl": "CR lead→2°", "val": "33,3%", "s": "g"}, {"lbl": "show→demo", "val": "73,2%", "s": "g"}, {"lbl": "close demo", "val": "21,2%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "33,3%", "t": "18,0%", "s": "g"}, {"l": "CR 2→3apt", "v": "62,7%", "t": "61,0%", "s": "g"}, {"l": "CR lead→chiuso", "v": "4,4%", "t": "4,0%", "s": "g"}, {"l": "Show disc (2apt)", "v": "65,9%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "73,2%", "t": "70,0%", "s": "g"}, {"l": "Close disc", "v": "13,3%", "t": "25,0%", "s": "r"}, {"l": "Close demo", "v": "21,2%", "t": "30,0%", "s": "r"}]};
+const FUNNEL_CUR = {"titolo": "Ottobre 2026", "steps": [{"n": "Lead", "v": 2, "o": 106, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": null, "o": 34, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": null, "o": 19, "col": "#c77dff"}, {"n": "Chiusure", "v": null, "o": 5, "col": "var(--green)"}]};
 const MONTHS = ["Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott"];
 const SERIES = {"lead": {"title": "Lead / mese", "unit": "", "data": [55, 43, 65, 42, 72, 107, 0], "col": "var(--accent)"}, "spesa": {"title": "Spesa ads €", "unit": "€", "data": [870, 939, 1010, 1296, 1059, 1787, 0], "col": "var(--amber)"}, "cpl": {"title": "CPL €", "unit": "€", "data": [16.11, 22.36, 16.18, 30.86, 14.71, 17.02, 0], "col": "var(--red)", "soglia": 22}, "incassato": {"title": "Incassato €", "unit": "€", "data": [800, 1700, 2800, 14100, 2140, 22160, 0], "col": "var(--green)"}};
 const MILESTONE = {"lead": 384, "demo": 68, "vendite": 15, "fatturato": 51750, "spesa": 6961.09, "target": {"lead": 5809, "demo": 697, "vendite": 209, "fatturato": 999856, "spesa": 100000}, "prudente": {"lead": 7000, "demo": 773}};
 const PREV = [{"m": "Ott 26", "inc": 11430, "cl": 12}, {"m": "Nov 26", "inc": 15240, "cl": 15}, {"m": "Dic 26", "inc": 15240, "cl": 18}, {"m": "Gen 27", "inc": 19050, "cl": 22}];
-const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 2346, copertura 1941, click 54 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €6.601 · 9 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead ottobre = 2</b> dal Lead Gen (riepilogo mese). Spesa €16, obiettivo €1900."}, {"s": "ok", "t": "<b>Siamo ancora in settembre (regola del 5, chiude il giorno 5)</b>: funnel, chiusure, incassato e obiettivi sono di settembre. Le card ADS restano sul mese solare ottobre perche' le campagne girano dall'1 al 30."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}];
+const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 2478, copertura 2012, click 58 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €6.601 · 9 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead ottobre = 2</b> dal Lead Gen (riepilogo mese). Spesa €16, obiettivo €1900."}, {"s": "ok", "t": "<b>Settembre resta aperto fino al 5 (regola del 5)</b>: le vendite e gli incassi di questi giorni entrano nel bottone Settembre. Nel bottone Ottobre chiusure e incassato restano vuoti fino al 6; ads, lead e appuntamenti sono gia' del mese solare."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}];
 /*DATA-END*/
 
 /* ---------- render ---------- */
@@ -172,10 +176,14 @@ function renderKPI(p){
   document.getElementById("pnote").innerHTML = d.label + " · le barre confrontano con l'obiettivo del <b>mese</b>; il trattino “atteso” è il ritmo previsto a oggi ("+Math.round(d.elapsed*100)+"% del periodo).";
   const g=document.getElementById("grid"); g.innerHTML="";
   METRICS.forEach(m=>{
-    const val=d.v[m.k], obj=OBJ[m.k];
+    const val=d.v[m.k], obj=(d.obj||OBJ)[m.k], note=(d.objNote&&d.objNote[m.k])||OBJ_NOTE[m.k];
     const card=document.createElement("div"); card.className="card";
     let h=`<div class="k-top"><span class="k-name">${m.name}${m.sub?` · ${m.sub}`:""}</span>`;
     const isAppt=(m.k==="apt2"||m.k==="apt3"||m.k==="chiusure");
+    if((m.k==="impression" || m.k==="reach") && val==null && d.noMeta){
+      h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">fonte: Meta API</div><div class="flag">Solo per il mese in corso.</div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
     if((m.k==="impression" || m.k==="reach") && val==null){
       h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">fonte: Meta API</div><div class="flag">⚑ Token Meta da impostare una volta (system user): poi si popola da sé.</div>`;
       card.innerHTML=h; g.appendChild(card); return;
@@ -184,33 +192,41 @@ function renderKPI(p){
       h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">obiettivo mese: ${obj}</div><div class="flag">⚑ Storico giorno/settimana su GHL live (i fogli tengono solo il mese).</div>`;
       card.innerHTML=h; g.appendChild(card); return;
     }
+    if(val==null){
+      h+=`</div><div class="k-val nd">&nbsp;<small> / ${fmt(obj,m.fmt)}</small></div><div class="k-obj">obiettivo mese${note?" · "+note:""}</div><div class="bar"><span class="pace" style="left:${Math.min(100,d.elapsed*100)}%"></span></div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
     const r=obj?val/obj:0, pct=obj?Math.round(r*100):0;
     h+=obj?`<span class="k-pct" style="color:${col(r)}">${pct}%</span>`:"";
     h+=`</div><div class="k-val">${fmt(val,m.fmt)??"0"}<small> / ${fmt(obj,m.fmt)}</small></div>`;
-    h+=`<div class="k-obj">obiettivo mese${OBJ_NOTE[m.k]?" · "+OBJ_NOTE[m.k]:""}${m.extra?" · "+m.extra:""}</div>`;
+    h+=`<div class="k-obj">obiettivo mese${note?" · "+note:""}${m.extra?" · "+m.extra:""}</div>`;
     h+=`<div class="bar"><i style="width:${Math.min(100,Math.max(2,r*100))}%;background:${col(r)}"></i><span class="pace" style="left:${Math.min(100,d.elapsed*100)}%"></span></div>`;
     card.innerHTML=h; g.appendChild(card);
   });
 }
 
-function renderFunnel(){
-  const el=document.getElementById("funnel"); el.innerHTML="";
-  const maxO=Math.max(...FUNNEL.steps.map(s=>s.o));
-  FUNNEL.steps.forEach((s,i)=>{
+function renderFunnel(){ drawFunnel("funnel",FUNNEL,true); if(typeof FUNNEL_CUR!=="undefined") drawFunnel("funnelcur",FUNNEL_CUR,false);
+  if(FUNNEL.titolo) document.getElementById("funneltitle").textContent="Funnel "+FUNNEL.titolo+" · consuntivo vs obiettivo";
+  if(typeof FUNNEL_CUR!=="undefined"&&FUNNEL_CUR.titolo) document.getElementById("funneltitlecur").textContent="Funnel "+FUNNEL_CUR.titolo+" · in corso vs benchmark";
+  document.getElementById("semlegend").innerHTML = "Semafori (media tutte le settimane, fonte Scorecard): " +
+    FUNNEL.sem.map(x=>`<span class="sem" style="background:${semColor(x.s)}"></span>${x.l} ${x.v} <span style="color:var(--faint)">(soglia ${x.t})</span>`).join(" &nbsp;·&nbsp; ");
+}
+function drawFunnel(id,F,conv){
+  const el=document.getElementById(id); el.innerHTML="";
+  const maxO=Math.max(...F.steps.map(s=>s.o));
+  F.steps.forEach((s,i)=>{
     const step=document.createElement("div"); step.className="fstep";
-    const r=s.o?s.v/s.o:0;
-    step.innerHTML=`<div class="fn">${s.n}</div><div class="fv">${s.v}<span style="font-size:13px;color:var(--faint)"> / ${s.o}</span></div>
-      <div class="fo">${Math.round(r*100)}% dell'obiettivo</div>
+    const r=(s.o&&s.v!=null)?s.v/s.o:0;
+    step.innerHTML=`<div class="fn">${s.n}</div><div class="fv">${s.v==null?"&nbsp;":s.v}<span style="font-size:13px;color:var(--faint)"> / ${s.o}</span></div>
+      <div class="fo">${s.v==null?"vuoto":Math.round(r*100)+"% dell'obiettivo"}</div>
       <div class="fbar"><i style="width:${Math.min(100,Math.max(3,(s.o/maxO)*100))}%;background:${s.col};opacity:${.35+r*.65}"></i></div>`;
     el.appendChild(step);
-    if(i<FUNNEL.conv.length){
+    if(conv&&F.conv&&i<F.conv.length){
       const c=document.createElement("div"); c.className="fconv";
-      c.innerHTML=`<span class="sem" style="background:${semColor(FUNNEL.conv[i].s)}"></span>${FUNNEL.conv[i].lbl}<b>${FUNNEL.conv[i].val}</b>`;
+      c.innerHTML=`<span class="sem" style="background:${semColor(F.conv[i].s)}"></span>${F.conv[i].lbl}<b>${F.conv[i].val}</b>`;
       el.appendChild(c);
     }
   });
-  document.getElementById("semlegend").innerHTML = "Semafori (media tutte le settimane, fonte Scorecard): " +
-    FUNNEL.sem.map(x=>`<span class="sem" style="background:${semColor(x.s)}"></span>${x.l} ${x.v} <span style="color:var(--faint)">(soglia ${x.t})</span>`).join(" &nbsp;·&nbsp; ");
 }
 
 function renderCharts(){
@@ -258,5 +274,7 @@ document.getElementById("toggle").addEventListener("click",e=>{
   document.querySelectorAll("#toggle button").forEach(x=>x.classList.remove("on"));
   b.classList.add("on"); renderKPI(b.dataset.p);
 });
+if(DATA.precedente&&DATA.precedente.titolo) document.getElementById("btnprec").textContent=DATA.precedente.titolo;
+if(DATA.mese&&DATA.mese.titolo) document.getElementById("btnmese").textContent=DATA.mese.titolo;
 renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
 </script>
