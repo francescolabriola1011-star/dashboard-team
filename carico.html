@@ -91,13 +91,20 @@
 .gpm { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
 .gpm-i { font-size:13px; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:6px 13px; }
 .gpm-i b { color:var(--ink); font-weight:700; }
+.glrow { display:grid; grid-template-columns:minmax(0,1fr) 140px auto; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); }
+.glname { font-weight:600; font-size:15px; }
+.glbar { height:7px; background:color-mix(in srgb,var(--muted) 16%,transparent); border-radius:4px; overflow:hidden; display:block; }
+.glfill { display:block; height:100%; border-radius:4px; background:var(--ok); }
+.glleft { font-size:13px; font-weight:700; min-width:118px; text-align:right; }
+.glempty { font-size:13px; color:var(--muted); padding:12px 0; }
+@media (max-width:560px) { .glrow{grid-template-columns:1fr auto} .glbar{grid-column:1 / -1; order:3} }
 @media (max-width:560px) { .tiles{grid-template-columns:1fr} .gtiles{grid-template-columns:1fr 1fr} .prow{grid-template-columns:88px 1fr auto} .pstato{display:none} }
 </style>
 <div class="wrap">
   <div class="top">
     <div>
       <div class="h1">Carico Delivery</div>
-      <div class="sub">Aggiornato 03/10/2026 07:02 · fonte ClickUp</div>
+      <div class="sub">Aggiornato 03/10/2026 18:19 · fonte ClickUp</div>
     </div>
     <div class="toggle">
       <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
@@ -112,6 +119,12 @@
     <div class="tile"><span class="tile-k">Posti liberi onboarding</span>
       <span class="tile-v free">0<small>/sett.</small></span>
       <span class="tile-sub">39.6h libere sul team · collo: Alessandro</span></div>
+  </div>
+  <div class="sec" id="glsec">Go live · 7 giorni dall'onboarding</div>
+  <div class="panel" id="glpanel">
+    <div class="glrow" data-ini="2026-09-29" data-scad="2026-10-06"><span class="glname">Cosimo Chirico</span><span class="glbar"><span class="glfill"></span></span><span class="glleft"></span></div>
+    <div class="glrow" data-ini="2026-10-02" data-scad="2026-10-09"><span class="glname">Marco Pellegatta</span><span class="glbar"><span class="glfill"></span></span><span class="glleft"></span></div>
+    <div class="glempty" style="display:none">Nessun onboarding in corso.</div>
   </div>
   <div class="sec">Salute cliente · semaforo (lead · lavora lead · apt · impegni di partenza)</div>
   <div class="panel">
@@ -147,7 +160,7 @@
         </div>
         <div class="srow">
           <span class="sname">Marco La Corte</span>
-          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--crit)" title="ROSSO"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--crit)" title="ROSSO"></span></span>
+          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--crit)" title="ROSSO"></span></span>
           <span></span>
           <span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">ROSSO</span>
         </div>
@@ -194,7 +207,7 @@
     <div class="tile"><span class="tile-k">Clienti in delivery</span><span class="tile-v">10</span><span class="tile-sub">portafoglio team (De Lio/Serpilli esclusi)</span></div>
     <div class="tile"><span class="tile-k">A rischio churn</span><span class="tile-v">6</span><span class="tile-sub">6 cliente/i ROSSO</span></div>
     <div class="tile"><span class="tile-k">Apt presentati</span><span class="tile-v">7</span><span class="tile-sub">totale da avvio · da KPI Tracker</span></div>
-    <div class="tile"><span class="tile-k">Garanzia +100k</span><span class="tile-v">2<small>/20</small></span><span class="tile-sub">apt investitori presentati</span></div>
+    <div class="tile"><span class="tile-k">Garanzia +100k</span><span class="tile-v">3<small>/20</small></span><span class="tile-sub">apt investitori presentati</span></div>
     <div class="tile"><span class="tile-k">Recensioni · referral</span><span class="tile-v">0 · 0</span><span class="tile-sub">raccolti sui verdi</span></div>
   </div>
   <div class="sec">Garanzia +100k per cliente</div>
@@ -202,8 +215,8 @@
         <div class="grow">
           <span class="sname">Marco La Corte <span class="gsem" style="background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)">GIALLO</span></span>
           <span class="gplan">Trimestrale · obj 2/mese</span>
-          <span class="gval">0 / 2</span>
-          <div class="gbar"><div class="gfill" style="width:0%;background:var(--warn)"></div></div>
+          <span class="gval">1 / 2</span>
+          <div class="gbar"><div class="gfill" style="width:50%;background:var(--warn)"></div></div>
         </div>
         <div class="grow">
           <span class="sname">Flavio Bosia <span class="gsem" style="background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)">GIALLO</span></span>
@@ -521,6 +534,26 @@ function setMode(m){
   });
 }
 setMode('w');
+// go live: conto alla rovescia dal giorno dell'onboarding, scade a fine del 7° giorno
+function golive(){
+  var now = new Date(), vivi = 0;
+  document.querySelectorAll('.glrow').forEach(function(r){
+    var p = r.getAttribute('data-ini').split('-'), q = r.getAttribute('data-scad').split('-');
+    var ini = new Date(+p[0], +p[1]-1, +p[2]), fine = new Date(+q[0], +q[1]-1, +q[2], 23, 59, 59);
+    var ms = fine - now;
+    if(ms <= 0){ r.style.display = 'none'; return; }
+    vivi++;
+    var gg = Math.floor(ms/86400000), hh = Math.floor(ms%86400000/3600000);
+    var pct = Math.min(100, Math.max(0, (now-ini)/(fine-ini)*100));
+    var col = gg >= 4 ? 'var(--ok)' : (gg >= 2 ? 'var(--warn)' : 'var(--crit)');
+    var f = r.querySelector('.glfill'); f.style.width = pct+'%'; f.style.background = col;
+    var t = r.querySelector('.glleft');
+    t.textContent = (gg ? gg+(gg===1?' giorno ':' giorni ') : '')+hh+' h al go live';
+    t.style.color = col;
+  });
+  var e = document.querySelector('.glempty'); if(e) e.style.display = vivi ? 'none' : '';
+}
+golive(); setInterval(golive, 60000);
 // auto-refresh: ricarica il file ogni 10 min così dopo il run giornaliero vedi sempre fresco
 setTimeout(function(){ location.reload(); }, 600000);
 </script>
