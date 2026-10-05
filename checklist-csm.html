@@ -16,6 +16,14 @@ h2{font-size:18px;margin:34px 0 10px}
 .oggi{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:18px;margin-top:22px}
 .oggi h2{margin:0 0 4px}
 .oggi .vuoto{color:var(--muted);font-size:14px}
+.oggi h3{font-size:14px;margin:18px 0 2px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.cnt2{font-weight:400;font-size:12px;color:var(--muted)}
+ul.punti{margin:4px 0 0 27px;padding:0 0 0 16px;list-style:disc;font-size:13px;color:var(--muted);line-height:1.5}
+ul.punti b{color:var(--ink);font-weight:600}
+.quante{margin-left:8px;font-size:11.5px;color:var(--muted);font-weight:400}
+li.az.urg{border-left:3px solid var(--accent);padding-left:10px}
+li.az.fatto ul.punti{opacity:.5}
+.vecchio{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:8px}
 .bar{display:flex;gap:14px;align-items:center;margin:14px 0 0;font-size:13px;color:var(--muted);flex-wrap:wrap}
 .bar button{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:5px 10px;cursor:pointer}
 details.sez{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;padding:4px 16px}
@@ -42,15 +50,19 @@ body.solo-csm .altro{display:none}
 <div class="wrap">
   <h1>Checklist CSM</h1>
   <div class="sub">Come si segue un cliente, dal pagamento al rinnovo. Una pagina sola, uguale per tutti i clienti.<br>
-  67 passi del CSM letti dalla checklist_team_v4 · aggiornata il 05/10/2026 16:57</div>
+  67 passi del CSM letti dalla checklist_team_v4 · aggiornata il 05/10/2026 17:03</div>
   <div class="links">
     <a href="carico.html">Centrale Carlo: appuntamenti e clienti da muovere</a>
     <a href="https://docs.google.com/document/d/1OisfakIB6utsLOgF9x9bsF_D_8K58YbhqP76oKkG5Oo/edit" target="_blank">SOP CSM onboarding</a>
     <a href="https://docs.google.com/spreadsheets/d/1jZ0Z9R4NmRZc_4oyTYLLFn_blW1OMD9J_kTFRVbtbps/edit" target="_blank">Checklist completa (foglio)</a>
   </div>
 
-  <div class="oggi">
+  <div class="oggi" id="oggi" data-gen="2026-10-05">
     <h2 id="oggi-titolo">Oggi</h2>
+    <h3>Clienti da sentire <span class="cnt2">11 clienti, dai dati della Centrale · 05/10/2026 14:16</span></h3>
+    <div class="vecchio" id="az-vecchio" hidden>Le azioni sui clienti non sono state ricalcolate oggi. Apri la Centrale Carlo per i dati vivi.</div>
+    <ul id="azioni"><li class="passo az urg" data-key="az-flavio-bosia" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Flavio Bosia</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Sentilo prima dell&#x27;appuntamento di oggi e seguilo da vicino.</b> E&#x27; il suo PRIMO appuntamento: preparazione, conferma del lead, poi esito a caldo</li></ul></li><li class="passo az urg" data-key="az-stefano-moratti" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Stefano Moratti</b><span class="quante">3 cose</span></span></label><ul class="punti"><li><b>Sentilo prima dell&#x27;appuntamento di oggi.</b> Ha un appuntamento oggi: conferma del lead e, a fine giornata, l&#x27;esito</li><li><b>Fatti dire l&#x27;esito e fallo scrivere nel Modulo Fatturato.</b> Appuntamento del 25/09 senza esito: presentato, assente, riprogrammato o chiuso?</li><li><b>Prepara il rinnovo.</b> Il contratto scade il 27/10/2026, fra 22 giorni</li></ul></li><li class="passo az urg" data-key="az-cosimo-chirico" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Cosimo Chirico</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Porta avanti l&#x27;onboarding.</b> In onboarding, go live entro domani (06/10). Cosa manca per partire?</li></ul></li><li class="passo az urg" data-key="az-marco-pellegatta" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Marco Pellegatta</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Porta avanti l&#x27;onboarding.</b> In onboarding, go live fra 4 giorni (09/10). Cosa manca per partire?</li></ul></li><li class="passo az urg" data-key="az-luigi-micheloni" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Luigi Micheloni</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Ricordagli l&#x27;appuntamento di domani.</b> Conferma al lead mandata? Script riletto?</li></ul></li><li class="passo az" data-key="az-alessandro-zaghini" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Alessandro Zaghini</b><span class="quante">2 cose</span></span></label><ul class="punti"><li><b>Fatti dire l&#x27;esito e fallo scrivere nel Modulo Fatturato.</b> Appuntamento del 28/09 senza esito: presentato, assente, riprogrammato o chiuso?</li><li><b>Scrivigli: e&#x27; nel primo mese.</b> Nel primo mese si scrive ogni 2 o 3 giorni, non solo nei giorni fissi</li></ul></li><li class="passo az" data-key="az-marcello-del-gaudio" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Marcello Del Gaudio</b><span class="quante">2 cose</span></span></label><ul class="punti"><li><b>Fatti dire l&#x27;esito e fallo scrivere nel Modulo Fatturato.</b> Appuntamento del 28/09 senza esito: presentato, assente, riprogrammato o chiuso?</li><li><b>Scrivigli: e&#x27; nel primo mese.</b> Nel primo mese si scrive ogni 2 o 3 giorni, non solo nei giorni fissi</li></ul></li><li class="passo az" data-key="az-marco-la-corte" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Marco La Corte</b><span class="quante">3 cose</span></span></label><ul class="punti"><li><b>Fatti dire l&#x27;esito e fallo scrivere nel Modulo Fatturato.</b> Appuntamenti del 25/09, 28/09 senza esito: presentato, assente, riprogrammato o chiuso?</li><li><b>Sentilo: ha lead ma nessun appuntamento in agenda.</b> I lead arrivano e non c&#x27;e&#x27; un prossimo appuntamento segnato. Li sta chiamando?</li><li><b>Prepara il rinnovo.</b> Il contratto scade il 02/11/2026, fra 28 giorni</li></ul></li><li class="passo az" data-key="az-raffaele-de-leonardis" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Raffaele De Leonardis</b><span class="quante">2 cose</span></span></label><ul class="punti"><li><b>Sentilo: ha lead ma nessun appuntamento in agenda.</b> I lead arrivano e non c&#x27;e&#x27; un prossimo appuntamento segnato. Li sta chiamando?</li><li><b>Fagli mettere le date nel Modulo Fatturato.</b> 13 righe con nome o nota ma senza data: quegli appuntamenti non si vedono</li></ul></li><li class="passo az" data-key="az-fabio-ricciarelli" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Fabio Ricciarelli</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Scrivigli: e&#x27; nel primo mese.</b> Nel primo mese si scrive ogni 2 o 3 giorni, non solo nei giorni fissi</li></ul></li><li class="passo az" data-key="az-giovanni-caruso" data-routine="1" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t"><b>Giovanni Caruso</b><span class="quante">1 cosa</span></span></label><ul class="punti"><li><b>Scrivigli: e&#x27; nel primo mese.</b> Nel primo mese si scrive ogni 2 o 3 giorni, non solo nei giorni fissi</li></ul></li></ul>
+    <h3>Routine del giorno</h3>
     <div class="sub" id="oggi-sub"></div>
     <ul id="oggi-lista"></ul>
   </div>
@@ -86,7 +98,11 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
 (function(){
   var NOMI=["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
   var d=new Date(), wd=d.getDay(), md=d.getDate();
-  var oggiKey=d.toISOString().slice(0,10);
+  var oggiKey=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+md).slice(-2);
+  if(document.getElementById("oggi").dataset.gen!==oggiKey){
+    document.getElementById("azioni").hidden=true; document.getElementById("az-vecchio").hidden=false; }
+  else if(!document.getElementById("azioni").children.length){
+    document.getElementById("azioni").innerHTML='<li class="vuoto">Nessun cliente da sentire in particolare oggi.</li>'; }
   function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function set(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
   function chiave(li){return "ckcsm:"+li.dataset.key+(li.dataset.routine==="1"?":"+oggiKey:"")}
