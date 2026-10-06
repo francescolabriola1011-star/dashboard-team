@@ -70,6 +70,16 @@
 .chip { font-size:12px; color:var(--muted); background:color-mix(in srgb,var(--muted) 12%,transparent); padding:3px 9px; border-radius:20px; }
 .chip b { color:var(--ink); font-weight:700; }
 .foot { color:var(--muted); font-size:12px; margin-top:20px; line-height:1.5; }
+.ogrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:4px 22px; }
+.ocli { padding:11px 0; border-bottom:1px solid var(--line); }
+.ohead { display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:6px; }
+.orow { display:grid; grid-template-columns:62px 1fr 44px; align-items:center; gap:8px; margin:3px 0; }
+.olab { font-size:12px; color:var(--muted); }
+.obar { height:6px; background:color-mix(in srgb,var(--muted) 16%,transparent); border-radius:4px; overflow:hidden; display:block; }
+.ofill { display:block; height:100%; border-radius:4px; background:var(--accent); }
+.ofill.odone { background:var(--ok); }
+.oval { font-size:12px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; }
+.oempty { font-size:12px; color:var(--muted); }
 .srow { display:grid; grid-template-columns:1fr auto auto auto; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line); }
 .srow:last-child { border-bottom:0; }
 .sname { font-weight:600; font-size:15px; }
@@ -117,7 +127,7 @@
   <div class="top">
     <div>
       <div class="h1">Carico Delivery</div>
-      <div class="sub">Aggiornato 06/10/2026 09:48 · fonte ClickUp</div>
+      <div class="sub">Aggiornato 06/10/2026 12:27 · fonte ClickUp</div>
     </div>
     <div class="toggle">
       <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
@@ -126,12 +136,12 @@
   </div>
   <div class="tiles">
     <div class="tile"><span class="tile-k">Ore da svolgere</span>
-      <span class="tile-v"><span id="tot" data-w="19.7" data-m="77.1"></span><small id="totu">/sett.</small></span>
-      <span class="tile-sub" data-w="CSM Carlo 9.8h · MB Alessandro 9.9h" data-m="CSM Carlo 39.2h · MB Alessandro 37.9h"></span></div>
+      <span class="tile-v"><span id="tot" data-w="21.3" data-m="83.9"></span><small id="totu">/sett.</small></span>
+      <span class="tile-sub" data-w="CSM Carlo 10.6h · MB Alessandro 10.7h" data-m="CSM Carlo 42.6h · MB Alessandro 41.3h"></span></div>
     <div class="tile"><span class="tile-k">Clienti seguiti</span><span class="tile-v">12</span></div>
     <div class="tile"><span class="tile-k">Posti liberi onboarding</span>
       <span class="tile-v free">0<small>/sett.</small></span>
-      <span class="tile-sub">40.3h libere sul team · collo: Alessandro</span></div>
+      <span class="tile-sub">38.7h libere sul team · collo: Alessandro</span></div>
   </div>
   <div class="sec" id="glsec">Go live · 7 giorni dall'onboarding</div>
   <div class="panel" id="glpanel">
@@ -142,91 +152,67 @@
   <div class="sec">Centrale operativa Carlo · appuntamenti clienti</div>
   <div class="banner"><b>Focus di oggi:</b> gestisci gli appuntamenti di oggi e gli esiti ancora mancanti. I nomi dei lead restano nel Google Calendar privato di Carlo. Questa vista espone solo cliente, data e conteggio.</div>
   <div class="gtiles apt-tiles">
-    <div class="tile"><span class="tile-k">Appuntamenti oggi</span><span class="tile-v">1</span></div>
+    <div class="tile"><span class="tile-k">Appuntamenti oggi</span><span class="tile-v">0</span></div>
     <div class="tile"><span class="tile-k">Prossimi 14 giorni</span><span class="tile-v">0</span></div>
-    <div class="tile"><span class="tile-k">Esiti mancanti</span><span class="tile-v">7</span></div>
-    <div class="tile"><span class="tile-k">Clienti da muovere</span><span class="tile-v">3</span></div>
+    <div class="tile"><span class="tile-k">Esiti mancanti</span><span class="tile-v">5</span></div>
+    <div class="tile"><span class="tile-k">Clienti da muovere</span><span class="tile-v">4</span></div>
   </div>
   <div class="apt-grid">
-    <div><div class="sec">Oggi e prossimi</div><div class="panel apt-panel"><div class="apt-row"><span class="sname">Luigi Micheloni</span><span class="apt-date">06/10/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">oggi</span></div></div></div>
-    <div><div class="sec">Eccezioni dopo l'appuntamento</div><div class="panel apt-panel"><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-date">05/10/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Flavio Bosia</span><span class="apt-date">05/10/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-date">28/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Marcello Del Gaudio</span><span class="apt-date">28/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Alessandro Zaghini</span><span class="apt-date">28/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-date">25/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-date">25/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div></div></div>
+    <div><div class="sec">Oggi e prossimi</div><div class="panel apt-panel"><div class="apt-empty">Nessun appuntamento registrato nei prossimi 14 giorni.</div></div></div>
+    <div><div class="sec">Eccezioni dopo l'appuntamento</div><div class="panel apt-panel"><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-date">05/10/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Flavio Bosia</span><span class="apt-date">05/10/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-date">28/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-date">25/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-date">25/09/2026</span><span class="apt-count">1 apt</span><span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">esito da registrare</span></div></div></div>
   </div>
   <div class="sec">Acquisizione attiva senza appuntamenti futuri registrati</div>
-  <div class="panel apt-panel"><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div><div class="apt-row"><span class="sname">Raffaele De Leonardis</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div></div>
-  <div class="apt-source">Fonti lette: <b>12/12</b> Moduli Fatturato · 13 righe con nome o nota ma senza data · pre check conversazioni: <b>n.d. · accesso conversazioni GHL non collegato</b></div>
-  <div class="sec">Salute cliente · semaforo (lead · lavora lead · apt · impegni di partenza)</div>
-  <div class="panel">
-        <div class="srow">
-          <span class="sname">Raffaele De Leonardis</span>
-          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--crit)" title="ROSSO"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--warn)" title="GIALLO"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)">ROSSO</span>
+  <div class="panel apt-panel"><div class="apt-row"><span class="sname">Luigi Micheloni</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div><div class="apt-row"><span class="sname">Marco La Corte</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div><div class="apt-row"><span class="sname">Raffaele De Leonardis</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div><div class="apt-row"><span class="sname">Stefano Moratti</span><span class="apt-wide">acquisizione con CPL presente, nessun appuntamento futuro registrato</span><span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">da muovere</span></div></div>
+  <div class="apt-source">Fonti lette: <b>4/12</b> Moduli Fatturato · 8 fonti non leggibili · 13 righe con nome o nota ma senza data · pre check conversazioni: <b>n.d. · accesso conversazioni GHL non collegato</b></div>
+  <div class="sec">Salute cliente · obiettivi di ottobre 2026 (lead · apt · apt +100k)</div>
+  <div class="panel ogrid">
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Raffaele De Leonardis</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Luigi Micheloni</span>
-          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--warn)" title="GIALLO"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">GIALLO</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Luigi Micheloni</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:3%"></span></span><span class="oval">1/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Alessandro Zaghini</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Alessandro Zaghini</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:7%"></span></span><span class="oval">2/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Marcello Del Gaudio</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Marcello Del Gaudio</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:10%"></span></span><span class="oval">3/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Flavio Bosia</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--warn)" title="GIALLO"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">GIALLO</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Flavio Bosia</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:23%"></span></span><span class="oval">7/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Marco La Corte</span>
-          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--warn)" title="GIALLO"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">GIALLO</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Marco La Corte</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:27%"></span></span><span class="oval">8/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Stefano Moratti</span>
-          <span class="sdots"><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--ok)" title="VERDE"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--warn)" title="GIALLO"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)">GIALLO</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Stefano Moratti</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:7%"></span></span><span class="oval">2/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Davide Dal Bosco</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Davide Dal Bosco</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Fabio Ricciarelli</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Fabio Ricciarelli</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:20%"></span></span><span class="oval">6/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Giovanni Caruso</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Giovanni Caruso</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div>
         </div>
-        <div class="srow">
-          <span class="sname">Cosimo Chirico</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Cosimo Chirico</span></div>
+          <div class="oempty">n.d. · tab non leggibile</div>
         </div>
-        <div class="srow">
-          <span class="sname">Marco Pellegatta</span>
-          <span class="sdots"><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span><span class="sdot" style="background:var(--muted2)" title="—"></span></span>
-          <span></span>
-          <span class="spill" style="color:var(--muted2);background:color-mix(in srgb,var(--muted2) 14%,transparent)">—</span>
+        <div class="ocli">
+          <div class="ohead"><span class="sname">Marco Pellegatta</span></div>
+          <div class="oempty">n.d. · tab non leggibile</div>
         </div>
   </div>
   <div class="sec">Garanzia +100k · salute delivery</div>
@@ -272,7 +258,7 @@
         </div>
         <div class="grow">
           <span class="sname">Davide Dal Bosco <span class="gsem" style="background:color-mix(in srgb,var(--muted2) 16%,transparent);color:var(--muted2)">NON PARTITA</span></span>
-          <span class="gplan">Semestrale · obj 2/mese</span>
+          <span class="gplan">Semestrale · obj 2/mese · non partita</span>
           <span class="gval">0 / 2</span>
           <div class="gbar"><div class="gfill" style="width:0%;background:var(--muted2)"></div></div>
         </div>
@@ -296,7 +282,7 @@
         </div>
         <div class="grow">
           <span class="sname">Cosimo Chirico <span class="gsem" style="background:color-mix(in srgb,var(--muted2) 16%,transparent);color:var(--muted2)">NON PARTITA</span></span>
-          <span class="gplan">Trimestrale · obj 2/mese · non partita</span>
+          <span class="gplan">Trimestrale · obj 2/mese</span>
           <span class="gval">0 / 2</span>
           <div class="gbar"><div class="gfill" style="width:0%;background:var(--muted2)"></div></div>
         </div>
@@ -314,7 +300,7 @@
         </div>
   </div>
   <div class="sec">Salute portafoglio · da PM Scorecard</div>
-  <div class="gpm"><span class="gpm-i"><b>—</b> Garanzie a rischio</span><span class="gpm-i"><b>0,00%</b> Churn</span><span class="gpm-i"><b>0,75</b> Renewal</span></div>
+  <div class="gpm"><span class="gpm-i"><b>—</b> Garanzie a rischio</span><span class="gpm-i"><b>0,25</b> Churn</span><span class="gpm-i"><b>0,75</b> Renewal</span></div>
   <div class="sec">Rinnovi a rischio · prossime 8 settimane</div>
   <div class="banner"><b>€ 2.167 di MRR in scadenza</b> · € 6.501 di valore contratti. Tasso di rinnovo reale 75% · cassa attesa € 4.876 · a rischio € 1.625</div>
   <style>.rrow{display:grid;grid-template-columns:14px 1.4fr 1fr .8fr 1fr;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid rgba(128,128,128,.15);font-size:13px}.rrow:last-child{border-bottom:0}.rdot{width:9px;height:9px;border-radius:50%}.rnm{font-weight:600}.rdt,.rmr,.rvl{opacity:.8}.rvl{text-align:right;font-weight:600}.rnota{opacity:.75}</style>
@@ -327,11 +313,11 @@
   <div class="panel">
         <div class="prow">
           <div class="pname">Carlo</div>
-          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="33" data-mpct="30"
+          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="35" data-mpct="33"
                data-wcol="var(--ok)" data-mcol="var(--ok)"></div></div>
           <div class="pmeta">
-            <span class="pcap" data-w="9.8h / 30h sett." data-m="39.2h / 130h mese"></span>
-            <span class="ppct" data-w="33%" data-m="30%"
+            <span class="pcap" data-w="10.6h / 30h sett." data-m="42.6h / 130h mese"></span>
+            <span class="ppct" data-w="35%" data-m="33%"
                   data-wcol="var(--ok)" data-mcol="var(--ok)"></span>
           </div>
           <div class="pstato" data-w="OK" data-m="OK"
@@ -339,11 +325,11 @@
         </div>
         <div class="prow">
           <div class="pname">Alessandro</div>
-          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="33" data-mpct="29"
+          <div class="pbarwrap"><div class="pbar" data-w="" data-m="" data-wpct="36" data-mpct="32"
                data-wcol="var(--ok)" data-mcol="var(--ok)"></div></div>
           <div class="pmeta">
-            <span class="pcap" data-w="9.9h / 30h sett." data-m="37.9h / 130h mese"></span>
-            <span class="ppct" data-w="33%" data-m="29%"
+            <span class="pcap" data-w="10.7h / 30h sett." data-m="41.3h / 130h mese"></span>
+            <span class="ppct" data-w="36%" data-m="32%"
                   data-wcol="var(--ok)" data-mcol="var(--ok)"></span>
           </div>
           <div class="pstato" data-w="OK" data-m="OK"
@@ -377,6 +363,23 @@
           <div class="llab"><span>Contratto</span><b>9%</b></div>
           <div class="avbar"><div class="avfill " style="width:9%"></div></div>
           <div class="cmeta">Avvio 19/09/2026 → rinnovo 19/03/2027 · giorno 17 di 181 · 164 al rinnovo</div>
+          
+          <div class="lwrap">
+            <div class="llab"><span>Lavori ClickUp</span><b>0/47 · 0%</b></div>
+            <div class="avbar"><div class="avfill" style="width:0%;background:var(--crit)"></div></div>
+            <div class="cnext">prossima: Aggiornamenti al cliente lunedi e venerdi <span class="cmore">+46 aperte</span></div>
+          </div>
+          <div class="cstats"><span class="chours" data-w="1.6h / sett." data-m="6.8h / mese"></span></div>
+          <div class="chips" data-w='<span class="chip">Carlo <b>0.8h</b></span><span class="chip">Alessandro <b>0.8h</b></span>' data-m='<span class="chip">Carlo <b>3.4h</b></span><span class="chip">Alessandro <b>3.4h</b></span>'></div>
+        </div>
+        <div class="ccard">
+          <div class="chead">
+            <span class="cname">Davide Dal Bosco</span>
+            <span class="cav onb">Onboarding · 1/6 · 1° mese (30g al calo)</span>
+          </div>
+          <div class="llab"><span>Contratto</span><b>0%</b></div>
+          <div class="avbar"><div class="avfill " style="width:0%"></div></div>
+          <div class="cmeta">Avvio 06/10/2026 → rinnovo 06/04/2027 · giorno 0 di 182 · 182 al rinnovo</div>
           
           <div class="lwrap">
             <div class="llab"><span>Lavori ClickUp</span><b>0/47 · 0%</b></div>
@@ -538,18 +541,6 @@
           </div>
           <div class="cstats"><span class="chours" data-w="2.5h / sett." data-m="2.5h / mese"></span></div>
           <div class="chips" data-w='<span class="chip">Alessandro <b>1.5h</b></span><span class="chip">Carlo <b>1.0h</b></span>' data-m='<span class="chip">Alessandro <b>1.5h</b></span><span class="chip">Carlo <b>1.0h</b></span>'></div>
-        </div>
-        <div class="ccard">
-          <div class="chead">
-            <span class="cname">Davide Dal Bosco</span>
-            <span class="cav nuovo">Non iniziato · 0/6</span>
-          </div>
-          <div class="llab"><span>Contratto</span><b>0%</b></div>
-          <div class="avbar"><div class="avfill " style="width:0%"></div></div>
-          <div class="cmeta">Avvio previsto 27/08/2026 · non ancora partito</div>
-          
-          <div class="cstats"><span class="chours" data-w="0.0h / sett." data-m="0.0h / mese"></span></div>
-          <div class="chips" data-w='' data-m=''></div>
         </div>
   </div>
   <div class="foot">Ore dalla Ricetta (Maxifoglio del foglio Carico Delivery). Vista <b>Mese</b> = minuti × volte/mese; vista <b>Settimana</b> = media a settimana (mese ÷ 4,33). Le voci <b>Primo mese</b> (setup MB, onboarding CSM) scadono da sole al 31° giorno dall'avvio delivery. Le voci <b>Fisso</b> sono lavoro della persona non legato a un cliente e contano una volta sola. Le riunioni interne restano fuori. Una voce senza minuti vale zero finché non si compila. Tara minuti e volte/mese nella Ricetta. De Lio e Serpilli esclusi (gestiti a parte).</div>
