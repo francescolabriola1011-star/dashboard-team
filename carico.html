@@ -131,6 +131,7 @@
       <div class="h1">Carico Delivery</div>
       <div class="sub">Aggiornato 12/10/2026 08:30 · fonte ClickUp</div>
       <div style="margin-top:12px"><a href="checklist-csm.html" style="display:inline-block;font-size:14px;font-weight:700;color:#fff;background:var(--accent);text-decoration:none;border-radius:10px;padding:10px 16px">Apri il CRM di Carlo →</a></div>
+      
     </div>
     <div class="toggle">
       <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
@@ -508,6 +509,7 @@ function golive(){
   var e = document.querySelector('.glempty'); if(e) e.style.display = vivi ? 'none' : '';
 }
 golive(); setInterval(golive, 60000);
+
 // auto-refresh: ricarica il file ogni 10 min così dopo il run giornaliero vedi sempre fresco
 setTimeout(function(){ location.reload(); }, 600000);
 </script>
