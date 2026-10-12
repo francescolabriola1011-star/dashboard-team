@@ -108,6 +108,7 @@ li.wk.r{color:var(--muted)}
 .bar{display:flex;gap:14px;align-items:center;margin:10px 0 0;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
 .bar button{font:inherit;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:5px 11px;cursor:pointer}
 .bar button:hover{border-color:var(--gold)}
+.bar .sync{font-weight:700;color:var(--ink)}
 .proc{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;align-items:start}
 .proc h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 10px;font-weight:700}
 details.sez{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;padding:2px 16px}
@@ -147,7 +148,7 @@ body.solo-csm .altro{display:none}
   <div class="eyebrow">Delivery · Customer Success</div>
   <h1>Checklist CSM</h1>
   <div class="hsub">Come si segue un cliente, dal pagamento al rinnovo. Una pagina sola, uguale per tutti.<br>
-  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 12/10/2026 15:05 · dati della Centrale 12/10/2026 08:30</div>
+  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 12/10/2026 16:49 · dati della Centrale 12/10/2026 08:30</div>
   <div class="links">
     <a class="pri" href="carico.html">Centrale Carlo</a>
     <a href="https://docs.google.com/document/d/1OisfakIB6utsLOgF9x9bsF_D_8K58YbhqP76oKkG5Oo/edit" target="_blank">SOP CSM onboarding</a>
@@ -199,7 +200,8 @@ Chi è già aggiornato si salta"><label><input type="checkbox"><span>PASSO 5 (OP
   <div class="bar">
     <label><input type="checkbox" id="solo" checked> solo i passi del CSM</label>
     <button id="reset">azzera le spunte</button>
-    <span>Le spunte restano solo su questo browser. Griglia e routine si azzerano ogni giorno.</span>
+    <span>Le spunte sono condivise: chi apre questo link vede le stesse, in una quindicina di secondi. Griglia e routine si azzerano ogni giorno.</span>
+    <span id="sync" class="sync"></span>
   </div>
   <div class="proc">
     <div><h3 id="nuovo">Cliente nuovo, dal G0 al Giorno 7</h3><details class="sez altro"><summary><span class="num">1</span><span class="st">Chiusura e passaggio (Giorno 0): venditore</span><span class="cnt">0 passi CSM</span></summary><ul><li class="passo altro" data-key="s1-0" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">IL CRONOMETRO PARTE DAL PAGAMENTO: G0 = giorno del bonifico, campagne live entro G+5 lavorativi</span></label><div class="meta"><span class="ruolo">Venditore + Founder</span><span class="quando">G0</span></div><details><summary>perché e dettagli</summary><div>La call di onboarding si fissa e si fa anche col solo acconto.</div><div>Responsabile del G+5 e&#x27; il MB col CSM a supporto, e la data va in ClickUp.</div><div>L&#x27;unica cosa che mette in pausa il conteggio e&#x27; la mancanza di accessi lato cliente (Business Manager, numero WA, pagamento ads): si scrive nel gruppo e in ClickUp &#x27;cronometro in pausa: in attesa di X&#x27;</div></details></li><li class="passo altro" data-key="s1-1" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Contratto firmato e bonifico ricevuto</span></label><div class="meta"><span class="ruolo">Venditore</span><span class="quando">Giorno 0</span></div></li><li class="passo altro" data-key="s1-2" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Note GHL: buyer persona / zona / budget ads / ticket medio / compliance</span></label><div class="meta"><span class="ruolo">Venditore</span><span class="quando">Giorno 0</span></div><details><summary>perché e dettagli</summary><div>Senza queste note CSM e MB lavorano alla cieca</div></details></li><li class="passo altro" data-key="s1-3" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Spostare lead a Cliente Acquisito (stato VINTA) con valore / data firma / piano / durata</span></label><div class="meta"><span class="ruolo">Venditore</span><span class="quando">Giorno 0</span></div></li><li class="passo altro" data-key="s1-4" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Notificare CSM su WhatsApp: nome / settore / zona / budget / link note GHL</span></label><div class="meta"><span class="ruolo">Venditore</span><span class="quando">Giorno 0</span></div></li><li class="passo altro" data-key="s1-5" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Aggiornare foglio commissioni: data / cliente / piano / importo</span></label><div class="meta"><span class="ruolo">Venditore</span><span class="quando">Giorno 0</span></div></li></ul></details><details class="sez"><summary><span class="num">2</span><span class="st">Setup tecnico (Giorno 1)</span><span class="cnt">14 passi CSM</span></summary><ul><li class="sotto altro">Apertura ambienti (founder)</li><li class="passo altro" data-key="s2-0" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Aprire cartella Drive cliente</span></label><div class="meta"><span class="ruolo">Founder</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>Lo fa Francesco</div></details></li><li class="passo altro" data-key="s2-1" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Aprire sub-account GHL con snapshot del settore</span></label><div class="meta"><span class="ruolo">Founder</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>Lo fa Francesco</div></details></li><li class="sotto">Configurazione sub-account (CSM)</li><li class="passo" data-key="s2-2" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Inserire nome business / email / indirizzo cliente</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="passo" data-key="s2-3" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Creare utente cliente: Settings → My Staff → Add Employee</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="passo" data-key="s2-4" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Attivare permessi: Conversations + Opportunities + Contacts + Calendars + Dashboard</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="passo" data-key="s2-5" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Disattivare permessi: Workflows e Settings</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>CRITICO: protegge le automazioni</div></details></li><li class="passo" data-key="s2-6" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Verificare che la mail credenziali arrivi al cliente</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>Se non arriva: spam o reinvia</div></details></li><li class="passo" data-key="s2-7" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Far CREARE al cliente il calendario con le sue disponibilità, poi prendere il link e passarlo a MB</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>Il calendario è del cliente, sulla sua disponibilità.</div><div>Il link serve in TRE posti: fine del modulo lead, messaggio 2 e messaggio 3 del follow up.</div><div>Senza calendario il cliente non è pronto ad accendere la spesa.</div><div>Dal 30/09/2026: il calendario, come le automazioni, non lo decide il cliente.</div><div>Se rifiuta quello GHL gli si chiede il link del suo Calendly e lo si collega.</div></details></li><li class="passo" data-key="s2-8" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Collegare l integrazione privata Antigravity al sub-account</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div><details><summary>perché e dettagli</summary><div>Serve per generare copy/report e riempire i file KPI Tracker</div></details></li><li class="sotto">Verifica snapshot (CSM)</li><li class="passo" data-key="s2-9" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Tag: Lead-Nuovo / Appuntamento-Fissato / Cliente-Perso / Follow-up</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="passo" data-key="s2-10" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Pipeline: Lead → Contatto → Appuntamento → Preventivo → Chiuso</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="passo" data-key="s2-11" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Workflow attivi: Benvenuto (3 WA) / Nurturing (3 mail) / Appuntamento (conferma + reminder) / No-Show / Lead no-risposta (7gg)</span></label><div class="meta"><span class="ruolo">CSM</span><span class="quando">Giorno 1</span></div></li><li class="sotto">Foglio Lead e ClickUp (CSM)</li><li class="passo" data-key="s2-12" data-routine="0" data-giorni="" data-mese=""><label><input type="checkbox"><span class="t">Foglio Lead: il Giorno 1 NON si crea.
@@ -229,6 +231,7 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
 </div>
 <script>
 (function(){
+  var SYNC="https://script.google.com/macros/s/AKfycbyYBeMPQ6wKtKeScl-XAK5dgqb7TOlUZTsE3u2ZyXZwMbcE7qQnV3oQly9dDEzcrDcC/exec";  // indirizzo dell'archivio condiviso; vuoto = spunte solo su questo browser
   var NOMI=["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
   var MESI=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   var d=new Date(), wd=d.getDay(), md=d.getDate();
@@ -239,6 +242,12 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     document.getElementById("az-vecchio").hidden=false; }
   function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function set(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+  // ogni spunta ha una chiave; reg dice come si disegna, cosi' la stessa chiave si aggiorna
+  // uguale sia da un clic qui sia da un clic fatto da un altro
+  var reg={};
+  function lega(k,fn){(reg[k]=reg[k]||[]).push(fn)}
+  function mostra(k,on){(reg[k]||[]).forEach(function(f){f(on)})}
+  function cambia(k,on){ set(k,on?"1":null); mostra(k,on); punteggio(); invia(k,on); }
   // griglia del giorno: quattro caselle per cliente, si azzera ogni giorno
   var righe=[].slice.call(document.querySelectorAll(".crow"));
   function gkey(r,i){return "ckcsm:g|"+r.dataset.cli+"|"+i+":"+oggiKey}
@@ -249,12 +258,9 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     document.getElementById("sbar").style.width=(righe.length?ok/righe.length*100:0)+"%"; }
   righe.forEach(function(r){
     [].forEach.call(r.querySelectorAll(".box"),function(b){
-      var k=gkey(r,b.dataset.i), on=get(k)==="1";
-      b.classList.toggle("on",on); b.setAttribute("aria-pressed",on);
-      b.addEventListener("click",function(){
-        var v=!b.classList.contains("on"); b.classList.toggle("on",v); b.setAttribute("aria-pressed",v);
-        set(k,v?"1":null); punteggio(); }); }); });
-  punteggio();
+      var k=gkey(r,b.dataset.i);
+      lega(k,function(on){ b.classList.toggle("on",on); b.setAttribute("aria-pressed",on); });
+      b.addEventListener("click",function(){ cambia(k,!b.classList.contains("on")); }); }); });
   function chiave(li){return "ckcsm:"+li.dataset.key+(li.dataset.routine==="1"?":"+oggiKey:"")}
   // settimana: il giorno di oggi in evidenza con la routine aperta; nel weekend il lunedi
   var weekend=(wd===0||wd===6), rif=new Date(d);
@@ -265,8 +271,8 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     else if(g.dataset.data<oggiKey) g.classList.add("passato"); });
   [].forEach.call(document.querySelectorAll("li.wk"),function(li){
     var k="ckcsm:"+li.dataset.key+":"+li.dataset.data, cb=li.querySelector("input");
-    cb.checked=get(k)==="1"; li.classList.toggle("fatto",cb.checked);
-    cb.addEventListener("change",function(){ set(k,cb.checked?"1":null); li.classList.toggle("fatto",cb.checked); }); });
+    lega(k,function(on){ cb.checked=on; li.classList.toggle("fatto",on); });
+    cb.addEventListener("change",function(){ cambia(k,cb.checked); }); });
   var passi=[].slice.call(document.querySelectorAll("li.passo"));
   // routine del giorno; nel weekend si mostra quella di lunedi, per arrivare preparati
   var rwd=rif.getDay(), rmd=rif.getDate();
@@ -282,26 +288,63 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
   document.getElementById("oggi-titolo").textContent="Oggi, "+NOMI[wd]+" "+md+" "+MESI[d.getMonth()];
   document.getElementById("oggi-sub").textContent=(weekend?"Weekend: lunedì "+rmd+" tocca questa routine":"Routine del giorno")+(n?" · "+n+" passi":"");
   if(!n) lista.innerHTML='<li class="vuoto">Nessun passo fisso. Controlla la Centrale Carlo per gli appuntamenti dei clienti.</li>';
-  // spunte
+  // spunte dei passi: originale e copia in "Oggi" hanno la stessa chiave
   var tutti=[].slice.call(document.querySelectorAll("li.passo"));
-  function sync(key,val){
-    tutti.forEach(function(li){ if(li.dataset.key===key){
-      li.querySelector("input").checked=val; li.classList.toggle("fatto",val); } });
-  }
   tutti.forEach(function(li){
-    var cb=li.querySelector("input"), v=get(chiave(li))==="1";
-    cb.checked=v; li.classList.toggle("fatto",v);
-    cb.addEventListener("change",function(){ set(chiave(li),cb.checked?"1":null); sync(li.dataset.key,cb.checked); });
+    var cb=li.querySelector("input"), k=chiave(li);
+    lega(k,function(on){ cb.checked=on; li.classList.toggle("fatto",on); });
+    cb.addEventListener("change",function(){ cambia(k,cb.checked); });
   });
+  Object.keys(reg).forEach(function(k){ mostra(k,get(k)==="1"); });
+  punteggio();
   var solo=document.getElementById("solo");
   function applica(){ document.body.classList.toggle("solo-csm",solo.checked); }
   solo.addEventListener("change",applica); applica();
   document.getElementById("reset").addEventListener("click",function(){
-    tutti.forEach(function(li){ set(chiave(li),null); li.querySelector("input").checked=false; li.classList.remove("fatto"); });
-    righe.forEach(function(r){ [].forEach.call(r.querySelectorAll(".box"),function(b){
-      set(gkey(r,b.dataset.i),null); b.classList.remove("on"); b.setAttribute("aria-pressed",false); }); });
-    punteggio();
+    if(SYNC&&!confirm("Le spunte sono condivise: si azzerano per tutti. Confermi?")) return;
+    Object.keys(reg).forEach(function(k){ if(get(k)==="1") cambia(k,false); });
   });
+  // archivio condiviso: ogni clic parte subito, e ogni 15 secondi si rilegge cosa hanno fatto gli altri
+  var coda={}, volo={}, toccata={}, timer=null, stato=document.getElementById("sync");
+  function ora(){var x=new Date();return ("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2)}
+  function dice(t){ if(stato) stato.textContent=t; }
+  function ricevi(rem){
+    var adesso=Date.now();
+    Object.keys(reg).forEach(function(k){
+      if(k in coda||k in volo||(toccata[k]&&adesso-toccata[k]<8000)) return;  // un clic appena fatto qui non si sovrascrive
+      var on=String(rem[k]||"")==="1";
+      if((get(k)==="1")!==on){ set(k,on?"1":null); mostra(k,on); } });
+    punteggio(); }
+  function invia(k,on){
+    if(!SYNC) return;
+    toccata[k]=Date.now(); coda[k]=on?"1":"";
+    clearTimeout(timer); timer=setTimeout(spedisci,400); }
+  function spedisci(){
+    var lotto=coda, chiavi=Object.keys(lotto);
+    if(!chiavi.length||Object.keys(volo).length) return;
+    coda={}; volo=lotto;
+    fetch(SYNC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({set:lotto})})
+      .then(function(r){return r.json()})
+      .then(function(j){ if(!j||!j.ok) throw new Error("no"); volo={}; ricevi(j.stato||{}); dice("Salvata per tutti alle "+ora());
+        if(Object.keys(coda).length) spedisci(); })
+      .catch(function(){ volo={}; chiavi.forEach(function(k){ if(!(k in coda)) coda[k]=lotto[k]; });
+        dice("Non salvata, riprovo fra poco"); }); }
+  function rileggi(){
+    if(!SYNC||document.hidden) return;
+    if(Object.keys(coda).length){ spedisci(); return; }
+    fetch(SYNC+"?t="+Date.now())
+      .then(function(r){return r.json()})
+      .then(function(j){ if(j&&j.ok){ ricevi(j.stato||{}); dice("Aggiornata alle "+ora()); } })
+      .catch(function(){ dice("Senza rete, riprovo fra poco"); }); }
+  if(SYNC){
+    // primo giro su questo browser: le spunte che c'erano gia' qui salgono nell'archivio invece di sparire
+    if(get("ckcsm:_condivisa")!=="1"){
+      Object.keys(reg).forEach(function(k){ if(get(k)==="1") coda[k]="1"; });
+      set("ckcsm:_condivisa","1"); }
+    rileggi(); setInterval(rileggi,15000);
+    document.addEventListener("visibilitychange",function(){ if(!document.hidden) rileggi(); });
+    window.addEventListener("focus",rileggi);
+  }
 })();
 </script>
 </body></html>
