@@ -129,9 +129,17 @@
   <div class="top">
     <div>
       <div class="h1">Carico Delivery</div>
-      <div class="sub">Aggiornato 12/10/2026 08:30 · fonte ClickUp</div>
+      <div class="sub">Aggiornato 12/10/2026 18:31 · fonte ClickUp</div>
       <div style="margin-top:12px"><a href="checklist-csm.html" style="display:inline-block;font-size:14px;font-weight:700;color:#fff;background:var(--accent);text-decoration:none;border-radius:10px;padding:10px 16px">Apri il CRM di Carlo →</a></div>
-      
+      <div class="camp" style="margin-top:10px;font-size:13px">
+        <button id="campbtn" type="button" style="font:inherit;font-weight:700;color:var(--accent);background:transparent;border:1.5px solid var(--accent);border-radius:10px;padding:8px 14px;cursor:pointer">Aggiorna ora</button>
+        <span id="campstato" style="margin-left:8px;color:var(--muted)"></span>
+        <details style="margin-top:8px;color:var(--muted)"><summary style="cursor:pointer">Per le automazioni del team</summary>
+          <div style="margin-top:6px;line-height:1.5">Dopo aver scritto nei fogli (Modulo Fatturato, KPI Tracker, ClickUp), la vostra automazione chiama questo indirizzo e la pagina si rigenera entro 15 minuti:<br>
+          <code style="word-break:break-all;font-size:12px">https://script.google.com/macros/s/AKfycbyYBeMPQ6wKtKeScl-XAK5dgqb7TOlUZTsE3u2ZyXZwMbcE7qQnV3oQly9dDEzcrDcC/exec?aggiorna=carico&amp;chi=NOME&amp;motivo=COSA</code><br>
+          Una chiamata GET basta (browser, curl, webhook GHL, Claude). Le richieste arrivate insieme diventano un giro solo. La pagina legge i fogli: i dati si correggono li', non qui.</div>
+        </details>
+      </div>
     </div>
     <div class="toggle">
       <button id="bw" class="on" onclick="setMode('w')">Settimana</button>
@@ -166,47 +174,47 @@
   <div class="panel ogrid">
         <div class="ocli">
           <div class="ohead"><span class="sname">Giovanni Caruso</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:10%"></span></span><span class="oval">3/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:28%"></span></span><span class="oval">126/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:7%"></span></span><span class="oval">2/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:27%"></span></span><span class="oval">121/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Stefano Moratti</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:27%"></span></span><span class="oval">8/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:40%"></span></span><span class="oval">179/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:33%"></span></span><span class="oval">10/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:39%"></span></span><span class="oval">175/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Davide Dal Bosco</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:20%"></span></span><span class="oval">6/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:20%"></span></span><span class="oval">89/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:20%"></span></span><span class="oval">6/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:19%"></span></span><span class="oval">86/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Cosimo Chirico</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:17%"></span></span><span class="oval">5/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:27%"></span></span><span class="oval">121/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:17%"></span></span><span class="oval">5/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:26%"></span></span><span class="oval">117/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Fabio Ricciarelli</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:30%"></span></span><span class="oval">9/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:44%"></span></span><span class="oval">198/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:27%"></span></span><span class="oval">8/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:43%"></span></span><span class="oval">192/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Marco La Corte</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">11/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:38%"></span></span><span class="oval">170/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:40%"></span></span><span class="oval">12/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">168/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Raffaele De Leonardis</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:23%"></span></span><span class="oval">7/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:31%"></span></span><span class="oval">139/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:23%"></span></span><span class="oval">7/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:30%"></span></span><span class="oval">137/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Luigi Micheloni</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:13%"></span></span><span class="oval">4/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">168/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:13%"></span></span><span class="oval">4/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">166/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Alessandro Zaghini</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:13%"></span></span><span class="oval">4/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:38%"></span></span><span class="oval">173/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:13%"></span></span><span class="oval">4/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:38%"></span></span><span class="oval">170/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Marcello Del Gaudio</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">11/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:36%"></span></span><span class="oval">160/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:37%"></span></span><span class="oval">11/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:35%"></span></span><span class="oval">158/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Flavio Bosia</span></div>
-          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:47%"></span></span><span class="oval">14/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:36%"></span></span><span class="oval">161/450 €</span></div>
+          <div class="orow"><span class="olab">Lead</span><span class="obar"><span class="ofill" style="width:53%"></span></span><span class="oval">16/30</span></div><div class="orow"><span class="olab">Apt</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/6</span></div><div class="orow"><span class="olab">Apt +100k</span><span class="obar"><span class="ofill" style="width:0%"></span></span><span class="oval">0/2</span></div><div class="orow"><span class="olab">Spesa</span><span class="obar"><span class="ofill" style="width:35%"></span></span><span class="oval">158/450 €</span></div>
         </div>
         <div class="ocli">
           <div class="ohead"><span class="sname">Marco Pellegatta</span></div>
@@ -510,6 +518,30 @@ function golive(){
 }
 golive(); setInterval(golive, 60000);
 
+// campanello: chiede al Mac di Francesco di rigirare il motore e ripubblicare
+(function(){
+  var U = "https://script.google.com/macros/s/AKfycbyYBeMPQ6wKtKeScl-XAK5dgqb7TOlUZTsE3u2ZyXZwMbcE7qQnV3oQly9dDEzcrDcC/exec", b = document.getElementById('campbtn'), st = document.getElementById('campstato');
+  if(!b) return;
+  var attesa = false;
+  function quando(t){ var d = new Date(t); return isNaN(d) ? '' : d.toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
+  function guarda(){
+    fetch(U+'?richieste=1&t='+Date.now()).then(function(r){return r.json();}).then(function(j){
+      var c = (j.richieste||[]).filter(function(x){return x.pagina==='carico';});
+      var u = c[c.length-1]; if(!u){ st.textContent=''; return; }
+      if(u.stato==='in attesa'){ attesa = true; st.textContent = 'In coda da '+quando(u.richiesta_il)+' ('+u.chi+'): si rigenera entro 15 minuti'; b.disabled = true; return; }
+      b.disabled = false;
+      st.textContent = 'Ultimo giro a richiesta: '+(u.esito||u.stato)+' ('+u.chi+')';
+      if(attesa){ attesa = false; st.textContent = 'Aggiornata, ricarico la pagina...'; setTimeout(function(){ location.reload(); }, 90000); }
+    }).catch(function(){});
+  }
+  b.addEventListener('click', function(){
+    b.disabled = true; st.textContent = 'Invio la richiesta...';
+    fetch(U+'?aggiorna=carico&chi=pagina&motivo=tasto%20Aggiorna%20ora&t='+Date.now())
+      .then(function(r){return r.json();}).then(function(){ guarda(); })
+      .catch(function(){ b.disabled = false; st.textContent = 'Richiesta non partita, riprova'; });
+  });
+  guarda(); setInterval(guarda, 30000);
+})();
 // auto-refresh: ricarica il file ogni 10 min così dopo il run giornaliero vedi sempre fresco
 setTimeout(function(){ location.reload(); }, 600000);
 </script>
