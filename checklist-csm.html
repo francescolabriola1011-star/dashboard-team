@@ -6,18 +6,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head><body>
 <style>
-:root{--bg:#F3F5F9;--panel:#fff;--ink:#0B1A3A;--muted:#5B6680;--line:#E2E6EE;--soft:#EEF2F8;
-  --navy:#0B1A3A;--gold:#D4A537;--yellow:#FFD21F;--goldsoft:#FBF4DF;--goldink:#8A6512}
-@media (prefers-color-scheme:dark){:root{--bg:#06112A;--panel:#0E1E42;--ink:#EEF2F8;--muted:#9AA7C2;--line:#1D2E57;
-  --soft:#152852;--goldsoft:#2A2512;--goldink:#E6C068}}
+:root{--bg:#060d22;--panel:rgba(17,31,66,.62);--ink:#EEF2F8;--muted:#9AA7C2;--line:rgba(255,255,255,.09);--soft:rgba(255,255,255,.06);
+  --navy:#0B1A3A;--gold:#D4A537;--yellow:#FFD21F;--goldsoft:rgba(212,165,55,.14);--goldink:#E6C068;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:64px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px}
+body{margin:0;min-height:100vh;background:
+  radial-gradient(900px 620px at 8% -6%,rgba(212,165,55,.30),transparent 62%),
+  radial-gradient(700px 520px at 100% 10%,rgba(40,90,200,.28),transparent 60%),var(--bg);background-attachment:fixed;color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px 60px}
-.hero{background:var(--navy);color:#fff;padding:28px 0 22px;border-bottom:3px solid var(--gold)}
+.hero{color:#fff;padding:32px 0 18px}
+.htop{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+h1 .hl{background:linear-gradient(90deg,var(--yellow),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ring{--p:0;width:118px;height:118px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  background:conic-gradient(var(--yellow) calc(var(--p)*1%),rgba(255,255,255,.08) 0);box-shadow:0 0 30px rgba(255,210,31,.18)}
+.ring>div{width:96px;height:96px;border-radius:50%;background:#0b1530;display:grid;place-content:center}
+.ring b{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.ring small{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.altri{margin-top:6px;font:inherit;font-size:12px;font-weight:700;color:var(--yellow);background:transparent;border:1px solid rgba(255,210,31,.35);border-radius:99px;padding:4px 11px;cursor:pointer}
 .hero .wrap{padding-bottom:0}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow)}
-h1{font-size:30px;letter-spacing:-.025em;margin:6px 0 4px;font-weight:800}
+h1{font-size:38px;letter-spacing:-.03em;margin:6px 0 6px;font-weight:800;line-height:1.08}
 .hsub{color:#C4CDE0;font-size:13px;line-height:1.5}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
 .links a{font-size:12.5px;font-weight:600;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 13px}
@@ -27,17 +35,17 @@ nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 
 nav.tabs .wrap{display:flex;gap:4px;padding-top:8px;padding-bottom:8px;overflow-x:auto}
 nav.tabs a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;white-space:nowrap}
 nav.tabs a:hover{background:var(--soft);color:var(--ink)}
-h2{font-size:19px;letter-spacing:-.01em;margin:36px 0 4px;font-weight:800}
+h2{font-size:22px;letter-spacing:-.01em;margin:36px 0 4px;font-weight:800}
 h3.grp{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px;font-weight:700;display:flex;gap:8px;align-items:center}
 h3.grp .pill{background:var(--soft);color:var(--ink);border-radius:999px;padding:1px 8px;letter-spacing:0}
 h3.grp.hot .pill{background:var(--gold);color:var(--navy)}
 .h2top{margin-top:26px}
 .sub{color:var(--muted);font-size:13px;line-height:1.5}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi{background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 .kpi.hot{border-color:var(--gold);box-shadow:inset 4px 0 0 var(--gold)}
 .kl{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.kv{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kv{font-size:34px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
 .ks{font-size:12px;color:var(--muted);line-height:1.4}
 .collo{margin-top:12px;background:var(--goldsoft);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:14px;padding:13px 16px;font-size:14px;line-height:1.5;display:flex;gap:12px;align-items:flex-start}
 .collo .ic{flex:none;width:26px;height:26px;border-radius:8px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800}
@@ -48,7 +56,7 @@ h3.grp.hot .pill{background:var(--gold);color:var(--navy)}
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 4px}
 .legend div{font-size:12px;color:var(--muted);line-height:1.4;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
 .legend b{display:block;color:var(--ink);font-size:12.5px;margin-bottom:2px}
-.crow{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;transition:background .2s,border-color .2s}
+.crow{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px;transition:background .2s,border-color .2s}
 .crow.urg{box-shadow:inset 4px 0 0 var(--gold)}
 .crow.full{background:color-mix(in srgb,var(--yellow) 10%,var(--panel));border-color:color-mix(in srgb,var(--gold) 50%,var(--line))}
 .crow.full .motivi{opacity:.5}
@@ -57,22 +65,22 @@ small.man{display:block;font-size:12px;color:var(--goldink);margin-top:3px;font-
 .tag{font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 8px;background:var(--soft);color:var(--muted);letter-spacing:.02em}
 .tag.avvio{background:var(--navy);color:var(--yellow)}
 .tag.rin{background:var(--goldsoft);color:var(--goldink)}
-@media (prefers-color-scheme:dark){.tag.avvio{background:var(--yellow);color:var(--navy)}}
+.tag.avvio{background:var(--yellow);color:var(--navy)}
 .mtrs{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
 .mtr{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
 .mtr i{position:relative;width:64px;height:5px;border-radius:99px;background:var(--soft)}
 .mtr i::before{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);border-radius:99px;background:var(--navy)}
 .mtr i::after{content:"";position:absolute;top:-3px;bottom:-3px;left:var(--t);width:2px;background:var(--gold);border-radius:1px}
-@media (prefers-color-scheme:dark){.mtr i::before{background:#C4CDE0}}
+.mtr i::before{background:#C4CDE0 !important}
 .mtr b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
 .mtr.sotto b{color:var(--goldink)}
 .mtr.nd i::after{display:none}
-.boxes{display:grid;grid-template-columns:repeat(4,64px);gap:6px}
-.box{height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--panel);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;color:var(--muted);font:inherit}
-.box .lb{font-size:9.5px;font-weight:600;letter-spacing:.01em}
+.boxes{display:grid;grid-template-columns:repeat(4,78px);gap:7px}
+.box{height:52px;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;color:var(--muted);font:inherit}
+.box .lb{font-size:11px;font-weight:700;letter-spacing:.01em}
 .box .ck{font-size:15px;font-weight:800;line-height:1;opacity:.18}
 .box:hover{border-color:var(--gold)}
-.box.on{background:var(--yellow);border-color:var(--yellow);color:var(--navy)}
+.box.on{background:linear-gradient(135deg,var(--yellow),var(--gold));border-color:var(--yellow);color:var(--navy);box-shadow:0 0 14px rgba(255,210,31,.35)}
 .box.on .ck{opacity:1}
 ul.motivi{grid-column:1/-1;margin:0;padding:8px 0 0;border-top:1px dashed var(--line);list-style:none;display:grid;gap:6px}
 ul.motivi li{font-size:13px;color:var(--muted);line-height:1.45}
@@ -86,7 +94,7 @@ ul.motivi b{color:var(--ink);font-weight:600}
 .rgiorno>summary{cursor:pointer;font-weight:700;font-size:14px;padding:10px 0}
 .rgiorno li.vuoto{color:var(--muted);font-size:13px;padding:6px 0 12px}
 .week{display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));gap:10px;overflow-x:auto;padding:12px 0 6px}
-.giorno{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+.giorno{background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;padding:12px;min-width:0}
 .giorno.oggi-col{border:2px solid var(--gold);box-shadow:0 6px 18px -10px color-mix(in srgb,var(--gold) 70%,transparent)}
 .giorno.passato{opacity:.55}
 .gh{font-weight:800;font-size:14px;display:flex;justify-content:space-between;align-items:baseline}
@@ -137,7 +145,7 @@ body.solo-csm .altro{display:none}
 .f{color:var(--muted);font-size:12px;margin-top:32px;line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
 @media (max-width:900px){.kpis,.legend{grid-template-columns:repeat(2,1fr)}.proc{grid-template-columns:1fr}}
 @media (max-width:640px){
-  h1{font-size:25px}
+  h1{font-size:27px} .htop{grid-template-columns:1fr} .ring{width:96px;height:96px} .ring>div{width:78px;height:78px}
   .crow{grid-template-columns:1fr}
   .boxes{grid-template-columns:repeat(4,1fr)}
   .kv{font-size:24px}
@@ -145,35 +153,24 @@ body.solo-csm .altro{display:none}
 }
 </style>
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">Delivery · Customer Success</div>
-  <h1>Checklist CSM</h1>
+  <div class="htop"><div>
+  <div class="eyebrow">Checklist CSM · Delivery</div>
+  <h1>Checklist di <span class="hl" id="h-oggi">oggi</span></h1>
   <div class="hsub">Come si segue un cliente, dal pagamento al rinnovo. Una pagina sola, uguale per tutti.<br>
-  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 17/10/2026 11:05 · dati della Centrale 17/10/2026 08:29</div>
+  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 17/10/2026 12:39 · dati della Centrale 17/10/2026 08:29</div>
   <div class="links">
     <a class="pri" href="carico.html">Centrale Carlo</a>
     <a href="https://docs.google.com/document/d/1OisfakIB6utsLOgF9x9bsF_D_8K58YbhqP76oKkG5Oo/edit" target="_blank">SOP CSM onboarding</a>
     <a href="https://docs.google.com/spreadsheets/d/1jZ0Z9R4NmRZc_4oyTYLLFn_blW1OMD9J_kTFRVbtbps/edit" target="_blank">Checklist completa (foglio)</a>
+  </div></div>
+  <div class="ring" id="ring"><div><b id="ring-v">0/12</b><small>a posto oggi</small></div></div>
   </div>
 </div></header>
 <nav class="tabs"><div class="wrap">
-  <a href="#settimana">Settimana</a><a href="#oggi">Oggi</a><a href="#procedura">Procedura</a>
+  <a href="#oggi">Oggi</a><a href="#settimana">Settimana</a><a href="#procedura">Procedura</a>
 </div></nav>
 <div class="wrap">
   <div class="kpis"><div class="kpi hot"><div class="kl">Esiti da farsi dire</div><div class="kv">12</div><div class="ks">appuntamenti in 8 clienti</div></div><div class="kpi hot"><div class="kl">Lead senza agenda</div><div class="kv">9</div><div class="ks">clienti con lead e nessun appuntamento</div></div><div class="kpi hot"><div class="kl">Rinnovi entro 30 giorni</div><div class="kv">3</div><div class="ks">Moratti 10 gg, La Corte 16 gg, Bosia 28 gg</div></div><div class="kpi"><div class="kl">Clienti seguiti</div><div class="kv">12</div><div class="ks">6 nel primo mese, 0 in avvio</div></div></div>
-
-  <h2 id="settimana" class="h2top">Prossima settimana</h2>
-  <div class="sub">Clienti da seguire giorno per giorno. La routine fissa è chiusa sotto ogni giorno.</div>
-  <div class="week" id="week"><div class="giorno" data-data="2026-10-19"><div class="gh">Lunedì <span>19/10</span></div><div class="gt">Clienti · 11</div><ul><li class="wk urg" data-key="wk-alessandro-zaghini-fatti-dire-l-esito-del-28-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Alessandro Zaghini</b> fatti dire l&#x27;esito del 28/09</span></label></li><li class="wk urg" data-key="wk-fabio-ricciarelli-fatti-dire-l-esito-del-08-10" data-data="2026-10-19"><label><input type="checkbox"><span><b>Fabio Ricciarelli</b> fatti dire l&#x27;esito del 08/10</span></label></li><li class="wk urg" data-key="wk-flavio-bosia-fatti-dire-l-esito-del-05-10" data-data="2026-10-19"><label><input type="checkbox"><span><b>Flavio Bosia</b> fatti dire l&#x27;esito del 05/10</span></label></li><li class="wk urg" data-key="wk-luigi-micheloni-fatti-dire-l-esito-del-06-10-24-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Luigi Micheloni</b> fatti dire l&#x27;esito del 06/10, 24/09</span></label></li><li class="wk urg" data-key="wk-marcello-del-gaudio-fatti-dire-l-esito-del-28-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marcello Del Gaudio</b> fatti dire l&#x27;esito del 28/09</span></label></li><li class="wk urg" data-key="wk-marco-la-corte-fatti-dire-l-esito-del-14-10-25-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marco La Corte</b> fatti dire l&#x27;esito del 14/10, 25/09</span></label></li><li class="wk urg" data-key="wk-raffaele-de-leonardis-fatti-dire-l-esito-del-16-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> fatti dire l&#x27;esito del 16/09, 29/09</span></label></li><li class="wk urg" data-key="wk-stefano-moratti-fatti-dire-l-esito-del-05-10-25-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Stefano Moratti</b> fatti dire l&#x27;esito del 05/10, 25/09</span></label></li><li class="wk" data-key="wk-alessandro-zaghini-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Alessandro Zaghini</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-cosimo-chirico-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Cosimo Chirico</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-davide-dal-bosco-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Davide Dal Bosco</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-fabio-ricciarelli-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Fabio Ricciarelli</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-flavio-bosia-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Flavio Bosia</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-giovanni-caruso-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Giovanni Caruso</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-luigi-micheloni-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Luigi Micheloni</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-marcello-del-gaudio-ha-lead-ma-agenda-vuota-sentil" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marcello Del Gaudio</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-raffaele-de-leonardis-ha-lead-ma-agenda-vuota-sent" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-raffaele-de-leonardis-13-righe-senza-data-nel-modu" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> 13 righe senza data nel Modulo Fatturato</span></label></li><li class="wk" data-key="wk-stefano-moratti-ricordagli-l-appuntamento-di-doman" data-data="2026-10-19"><label><input type="checkbox"><span><b>Stefano Moratti</b> ricordagli l&#x27;appuntamento di domani</span></label></li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-19" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
-Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-19" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
-Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-20"><div class="gh">Martedì <span>20/10</span></div><div class="gt">Clienti · 2</div><ul><li class="wk urg" data-key="wk-stefano-moratti-appuntamento-sentilo-prima-esito-d" data-data="2026-10-20"><label><input type="checkbox"><span><b>Stefano Moratti</b> appuntamento: sentilo prima, esito dopo</span></label></li><li class="wk" data-key="wk-marco-la-corte-ricordagli-l-appuntamento-di-domani" data-data="2026-10-20"><label><input type="checkbox"><span><b>Marco La Corte</b> ricordagli l&#x27;appuntamento di domani</span></label></li><li class="wk" data-key="wk-stefano-moratti-ricordagli-l-appuntamento-di-doman" data-data="2026-10-20"><label><input type="checkbox"><span><b>Stefano Moratti</b> ricordagli l&#x27;appuntamento di domani</span></label></li></ul><details class="rout"><summary>Routine · 1 passo</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-20" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
-Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-21"><div class="gh">Mercoledì <span>21/10</span></div><div class="gt">Clienti · 2</div><ul><li class="wk urg" data-key="wk-marco-la-corte-appuntamento-sentilo-prima-esito-do" data-data="2026-10-21"><label><input type="checkbox"><span><b>Marco La Corte</b> appuntamento: sentilo prima, esito dopo</span></label></li><li class="wk urg" data-key="wk-stefano-moratti-appuntamento-sentilo-prima-esito-d" data-data="2026-10-21"><label><input type="checkbox"><span><b>Stefano Moratti</b> appuntamento: sentilo prima, esito dopo</span></label></li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-21" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
-Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-9-0" data-data="2026-10-21" title="GIRO DEADLINE in riunione delivery, cliente per cliente: quanti apt erano stati chiesti entro venerdì scorso, quanti risultano spuntati sulle caselle 2 APT, qual è la deadline della settimana che viene"><label><input type="checkbox"><span>GIRO DEADLINE in riunione delivery, cliente per cliente</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-22"><div class="gh">Giovedì <span>22/10</span></div><div class="gt">Clienti</div><ul><li class="nul">nessun cliente in agenda</li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-22" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
-Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-22" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
-Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-23"><div class="gh">Venerdì <span>23/10</span></div><div class="gt">Clienti</div><ul><li class="nul">nessun cliente in agenda</li></ul><details class="rout"><summary>Routine · 8 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-23" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
-Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-23" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
-Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li><li class="wk r" data-key="wr-9-3" data-data="2026-10-23" title="PASSO 3: CSM compila i SUOI numeri: funnel della settimana nella tab di ogni cliente (apt fissati, apt presentati, +100k) e la riga CSM della settimana sul PM Scorecard"><label><input type="checkbox"><span>PASSO 3: CSM compila i SUOI numeri</span></label></li><li class="wk r" data-key="wr-9-4" data-data="2026-10-23" title="PASSO 4: CSM manda il REPORT INTERNO nel gruppo del team, un blocco per ogni cliente attivo, LEGGENDO i numeri dai fogli appena compilati"><label><input type="checkbox"><span>PASSO 4: CSM manda il REPORT INTERNO nel gruppo del team, un blocco per ogni…</span></label></li><li class="wk r" data-key="wr-9-5" data-data="2026-10-23" title="PASSO 5 (OPZIONALE): CSM scrive ai clienti che durante la settimana NON ha sentito: due righe di risultato, la deadline, la cosa che deve fare lui.
-Chi è già aggiornato si salta"><label><input type="checkbox"><span>PASSO 5 (OPZIONALE): CSM scrive ai clienti che durante la settimana NON ha…</span></label></li><li class="wk r" data-key="wr-9-6" data-data="2026-10-23" title="Dentro il report, la deadline è quella decisa mercoledì: numero di appuntamenti e data"><label><input type="checkbox"><span>Dentro il report, la deadline è quella decisa mercoledì</span></label></li><li class="wk r" data-key="wr-9-7" data-data="2026-10-23" title="CSM segna nella Scorecard PM della settimana che il report interno è partito e a quali clienti ha scritto"><label><input type="checkbox"><span>CSM segna nella Scorecard PM della settimana che il report interno è partito…</span></label></li><li class="wk r" data-key="wr-9-8" data-data="2026-10-23" title="Se un numero è brutto si scrive lo stesso e per primo"><label><input type="checkbox"><span>Se un numero è brutto si scrive lo stesso e per primo</span></label></li></ul></details></div></div>
-  <div class="collo"><span class="ic">1</span><div><b>12 appuntamenti senza esito in 8 clienti.</b> Finché non sono scritti nel Modulo Fatturato la garanzia del mese non li conta. Prima telefonata della giornata: farseli dire.</div></div>
 
   <section id="oggi" data-gen="2026-10-17">
     <h2 id="oggi-titolo">Oggi</h2>
@@ -194,6 +191,21 @@ Chi è già aggiornato si salta"><label><input type="checkbox"><span>PASSO 5 (OP
     <details class="rgiorno" open><summary id="oggi-sub">Routine del giorno</summary>
       <ul id="oggi-lista"></ul></details>
   </section>
+
+  <h2 id="settimana" class="h2top">Prossima settimana</h2>
+  <div class="sub">Clienti da seguire giorno per giorno. La routine fissa è chiusa sotto ogni giorno.</div>
+  <div class="week" id="week"><div class="giorno" data-data="2026-10-19"><div class="gh">Lunedì <span>19/10</span></div><div class="gt">Clienti · 11</div><ul><li class="wk urg" data-key="wk-alessandro-zaghini-fatti-dire-l-esito-del-28-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Alessandro Zaghini</b> fatti dire l&#x27;esito del 28/09</span></label></li><li class="wk urg" data-key="wk-fabio-ricciarelli-fatti-dire-l-esito-del-08-10" data-data="2026-10-19"><label><input type="checkbox"><span><b>Fabio Ricciarelli</b> fatti dire l&#x27;esito del 08/10</span></label></li><li class="wk urg" data-key="wk-flavio-bosia-fatti-dire-l-esito-del-05-10" data-data="2026-10-19"><label><input type="checkbox"><span><b>Flavio Bosia</b> fatti dire l&#x27;esito del 05/10</span></label></li><li class="wk urg" data-key="wk-luigi-micheloni-fatti-dire-l-esito-del-06-10-24-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Luigi Micheloni</b> fatti dire l&#x27;esito del 06/10, 24/09</span></label></li><li class="wk urg" data-key="wk-marcello-del-gaudio-fatti-dire-l-esito-del-28-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marcello Del Gaudio</b> fatti dire l&#x27;esito del 28/09</span></label></li><li class="wk urg" data-key="wk-marco-la-corte-fatti-dire-l-esito-del-14-10-25-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marco La Corte</b> fatti dire l&#x27;esito del 14/10, 25/09</span></label></li><li class="wk urg" data-key="wk-raffaele-de-leonardis-fatti-dire-l-esito-del-16-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> fatti dire l&#x27;esito del 16/09, 29/09</span></label></li><li class="wk urg" data-key="wk-stefano-moratti-fatti-dire-l-esito-del-05-10-25-09" data-data="2026-10-19"><label><input type="checkbox"><span><b>Stefano Moratti</b> fatti dire l&#x27;esito del 05/10, 25/09</span></label></li><li class="wk" data-key="wk-alessandro-zaghini-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Alessandro Zaghini</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-cosimo-chirico-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Cosimo Chirico</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-davide-dal-bosco-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Davide Dal Bosco</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-fabio-ricciarelli-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Fabio Ricciarelli</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-flavio-bosia-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Flavio Bosia</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-giovanni-caruso-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Giovanni Caruso</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-luigi-micheloni-ha-lead-ma-agenda-vuota-sentilo" data-data="2026-10-19"><label><input type="checkbox"><span><b>Luigi Micheloni</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-marcello-del-gaudio-ha-lead-ma-agenda-vuota-sentil" data-data="2026-10-19"><label><input type="checkbox"><span><b>Marcello Del Gaudio</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-raffaele-de-leonardis-ha-lead-ma-agenda-vuota-sent" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> ha lead ma agenda vuota: sentilo</span></label></li><li class="wk" data-key="wk-raffaele-de-leonardis-13-righe-senza-data-nel-modu" data-data="2026-10-19"><label><input type="checkbox"><span><b>Raffaele De Leonardis</b> 13 righe senza data nel Modulo Fatturato</span></label></li><li class="wk" data-key="wk-stefano-moratti-ricordagli-l-appuntamento-di-doman" data-data="2026-10-19"><label><input type="checkbox"><span><b>Stefano Moratti</b> ricordagli l&#x27;appuntamento di domani</span></label></li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-19" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
+Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-19" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
+Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-20"><div class="gh">Martedì <span>20/10</span></div><div class="gt">Clienti · 2</div><ul><li class="wk urg" data-key="wk-stefano-moratti-appuntamento-sentilo-prima-esito-d" data-data="2026-10-20"><label><input type="checkbox"><span><b>Stefano Moratti</b> appuntamento: sentilo prima, esito dopo</span></label></li><li class="wk" data-key="wk-marco-la-corte-ricordagli-l-appuntamento-di-domani" data-data="2026-10-20"><label><input type="checkbox"><span><b>Marco La Corte</b> ricordagli l&#x27;appuntamento di domani</span></label></li><li class="wk" data-key="wk-stefano-moratti-ricordagli-l-appuntamento-di-doman" data-data="2026-10-20"><label><input type="checkbox"><span><b>Stefano Moratti</b> ricordagli l&#x27;appuntamento di domani</span></label></li></ul><details class="rout"><summary>Routine · 1 passo</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-20" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
+Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-21"><div class="gh">Mercoledì <span>21/10</span></div><div class="gt">Clienti · 2</div><ul><li class="wk urg" data-key="wk-marco-la-corte-appuntamento-sentilo-prima-esito-do" data-data="2026-10-21"><label><input type="checkbox"><span><b>Marco La Corte</b> appuntamento: sentilo prima, esito dopo</span></label></li><li class="wk urg" data-key="wk-stefano-moratti-appuntamento-sentilo-prima-esito-d" data-data="2026-10-21"><label><input type="checkbox"><span><b>Stefano Moratti</b> appuntamento: sentilo prima, esito dopo</span></label></li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-21" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
+Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-9-0" data-data="2026-10-21" title="GIRO DEADLINE in riunione delivery, cliente per cliente: quanti apt erano stati chiesti entro venerdì scorso, quanti risultano spuntati sulle caselle 2 APT, qual è la deadline della settimana che viene"><label><input type="checkbox"><span>GIRO DEADLINE in riunione delivery, cliente per cliente</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-22"><div class="gh">Giovedì <span>22/10</span></div><div class="gt">Clienti</div><ul><li class="nul">nessun cliente in agenda</li></ul><details class="rout"><summary>Routine · 2 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-22" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
+Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-22" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
+Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li></ul></details></div><div class="giorno" data-data="2026-10-23"><div class="gh">Venerdì <span>23/10</span></div><div class="gt">Clienti</div><ul><li class="nul">nessun cliente in agenda</li></ul><details class="rout"><summary>Routine · 8 passi</summary><ul><li class="wk r" data-key="wr-7-2" data-data="2026-10-23" title="OGNI GIORNO specchio al cliente: &#x27;oggi sono arrivati 3 lead e ne risulta chiamato solo 1&#x27;.
+Se il lead non risponde parte il follow up audio"><label><input type="checkbox"><span>OGNI GIORNO specchio al cliente</span></label></li><li class="wk r" data-key="wr-7-4" data-data="2026-10-23" title="Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì (lunedì numeri e priorità, giovedì reminder su moduli e appuntamenti, venerdì recap ed esiti) e rispondere entro 24h lavorative.
+Se un cliente scrive in privato al CSM, si risponde chiedendo di usare il gruppo e si anticipa il problema in chat; la call solo se urgente (dal 07/10/2026)"><label><input type="checkbox"><span>Scrivere per primi nel gruppo WA lunedì, giovedì e venerdì</span></label></li><li class="wk r" data-key="wr-9-3" data-data="2026-10-23" title="PASSO 3: CSM compila i SUOI numeri: funnel della settimana nella tab di ogni cliente (apt fissati, apt presentati, +100k) e la riga CSM della settimana sul PM Scorecard"><label><input type="checkbox"><span>PASSO 3: CSM compila i SUOI numeri</span></label></li><li class="wk r" data-key="wr-9-4" data-data="2026-10-23" title="PASSO 4: CSM manda il REPORT INTERNO nel gruppo del team, un blocco per ogni cliente attivo, LEGGENDO i numeri dai fogli appena compilati"><label><input type="checkbox"><span>PASSO 4: CSM manda il REPORT INTERNO nel gruppo del team, un blocco per ogni…</span></label></li><li class="wk r" data-key="wr-9-5" data-data="2026-10-23" title="PASSO 5 (OPZIONALE): CSM scrive ai clienti che durante la settimana NON ha sentito: due righe di risultato, la deadline, la cosa che deve fare lui.
+Chi è già aggiornato si salta"><label><input type="checkbox"><span>PASSO 5 (OPZIONALE): CSM scrive ai clienti che durante la settimana NON ha…</span></label></li><li class="wk r" data-key="wr-9-6" data-data="2026-10-23" title="Dentro il report, la deadline è quella decisa mercoledì: numero di appuntamenti e data"><label><input type="checkbox"><span>Dentro il report, la deadline è quella decisa mercoledì</span></label></li><li class="wk r" data-key="wr-9-7" data-data="2026-10-23" title="CSM segna nella Scorecard PM della settimana che il report interno è partito e a quali clienti ha scritto"><label><input type="checkbox"><span>CSM segna nella Scorecard PM della settimana che il report interno è partito…</span></label></li><li class="wk r" data-key="wr-9-8" data-data="2026-10-23" title="Se un numero è brutto si scrive lo stesso e per primo"><label><input type="checkbox"><span>Se un numero è brutto si scrive lo stesso e per primo</span></label></li></ul></details></div></div>
+  <div class="collo"><span class="ic">1</span><div><b>12 appuntamenti senza esito in 8 clienti.</b> Finché non sono scritti nel Modulo Fatturato la garanzia del mese non li conta. Prima telefonata della giornata: farseli dire.</div></div>
+
 
   <h2 id="procedura">Procedura completa</h2>
   <div class="sub">Si apre una sezione alla volta. Ogni passo ha il suo perché sotto.</div>
@@ -255,7 +267,9 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     var ok=0; righe.forEach(function(r){
       var on=r.querySelectorAll(".box.on").length===4; r.classList.toggle("full",on); if(on) ok++; });
     document.getElementById("score").textContent=ok+"/"+righe.length;
-    document.getElementById("sbar").style.width=(righe.length?ok/righe.length*100:0)+"%"; }
+    document.getElementById("sbar").style.width=(righe.length?ok/righe.length*100:0)+"%";
+    var rv=document.getElementById("ring-v"); if(rv){ rv.textContent=ok+"/"+righe.length;
+      document.getElementById("ring").style.setProperty("--p",righe.length?Math.round(ok/righe.length*100):0); } }
   righe.forEach(function(r){
     [].forEach.call(r.querySelectorAll(".box"),function(b){
       var k=gkey(r,b.dataset.i);
@@ -286,6 +300,14 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     }
   });
   document.getElementById("oggi-titolo").textContent="Oggi, "+NOMI[wd]+" "+md+" "+MESI[d.getMonth()];
+  var ho=document.getElementById("h-oggi"); if(ho) ho.textContent=NOMI[wd]+" "+md+" "+MESI[d.getMonth()];
+  [].forEach.call(document.querySelectorAll(".giorno"),function(g){
+    var vv=[].slice.call(g.querySelectorAll("li.wk")).filter(function(li){return !li.closest("details.rout")});
+    if(vv.length<=6) return;
+    vv.slice(6).forEach(function(li){li.hidden=true});
+    var b=document.createElement("button"); b.className="altri"; b.type="button"; b.textContent="altri "+(vv.length-6);
+    b.addEventListener("click",function(){ vv.forEach(function(li){li.hidden=false}); b.remove(); });
+    vv[5].parentNode.parentNode.insertBefore(b,vv[5].parentNode.nextSibling); });
   document.getElementById("oggi-sub").textContent=(weekend?"Weekend: lunedì "+rmd+" tocca questa routine":"Routine del giorno")+(n?" · "+n+" passi":"");
   if(!n) lista.innerHTML='<li class="vuoto">Nessun passo fisso. Controlla la Centrale Carlo per gli appuntamenti dei clienti.</li>';
   // spunte dei passi: originale e copia in "Oggi" hanno la stessa chiave
