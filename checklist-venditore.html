@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checklist Venditore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0B1A3A;--panel:rgba(30,64,140,.42);--ink:#F3F6FD;--muted:#A9BBE0;--line:rgba(150,190,255,.20);--soft:rgba(255,255,255,.09);
+  --navy:#0B1A3A;--gold:#D4A537;--yellow:#FFD21F;--goldsoft:rgba(212,165,55,.14);--goldink:#E6C068;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;min-height:100vh;background:
+  radial-gradient(900px 600px at 0% -10%,rgba(212,165,55,.38),transparent 60%),
+  radial-gradient(900px 700px at 100% 0%,rgba(59,130,246,.55),transparent 62%),
+  linear-gradient(180deg,#13306b 0%,#0e2454 45%,#0B1A3A 100%);background-attachment:fixed;color:var(--ink);
+  font-family:Inter,ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px}
+a{color:var(--yellow)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 60px}
+.hero{padding:32px 0 18px} .hero .wrap{padding-bottom:0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow)}
+h1{font-size:38px;letter-spacing:-.03em;margin:6px 0;font-weight:800;line-height:1.08}
+h1 .hl{background:linear-gradient(90deg,var(--yellow),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hsub{color:#C4CDE0;font-size:13px;line-height:1.5}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.links a{font-size:12.5px;font-weight:600;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 13px}
+.links a:hover{border-color:var(--yellow);color:var(--yellow)}
+.links.mini{margin:0 0 8px} .links.mini a{font-size:11.5px;padding:4px 10px}
+nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;padding-top:8px;padding-bottom:8px;overflow-x:auto}
+nav.tabs a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;white-space:nowrap}
+nav.tabs a:hover{background:var(--soft);color:var(--ink)}
+h2{font-size:22px;margin:36px 0 4px;font-weight:800}
+h3.grp{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px;font-weight:700;display:flex;gap:8px;align-items:center}
+h3.grp .pill{background:var(--gold);color:var(--navy);border-radius:999px;padding:1px 8px;letter-spacing:0}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.kpi{background:linear-gradient(160deg,rgba(52,98,196,.45),var(--panel));border:1px solid var(--line);border-top:3px solid var(--yellow);border-radius:16px;padding:16px 18px}
+.kl{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kv{font-size:34px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.ks{font-size:12px;color:var(--muted)}
+.crow{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.crow.fatto{opacity:.5} .crow.fatto .nm label{text-decoration:line-through}
+.crow.canc{opacity:.5} .crow.call{align-items:center} .crow.call .az{flex-direction:row}
+.nm{font-weight:700;font-size:15px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.nm label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.nm input,li.passo input{width:17px;height:17px;accent-color:#D4A537;cursor:pointer}
+.ora{background:var(--navy);color:var(--yellow);border-radius:6px;padding:1px 7px;font-size:13px}
+small.man{display:block;font-size:12.5px;color:var(--goldink);margin-top:4px;font-weight:600}
+.tag{font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 8px;background:var(--soft);color:var(--muted)}
+.tag.rin{background:var(--goldsoft);color:var(--goldink)}
+.tag.avvio{display:inline-block;margin-top:6px;background:var(--yellow);color:var(--navy)}
+pre.msg{white-space:pre-wrap;font:inherit;font-size:13px;line-height:1.5;color:#DCE4F5;background:rgba(0,0,0,.18);border-radius:10px;padding:10px 12px;margin:8px 0 6px;max-height:180px;overflow:auto}
+button.copia{font:inherit;font-size:12px;font-weight:700;border:1px solid rgba(255,210,31,.4);background:transparent;color:var(--yellow);border-radius:8px;padding:4px 11px;cursor:pointer}
+.az{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.az a{font-size:12px;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;white-space:nowrap}
+ul{list-style:none;margin:0;padding:0}
+li.wk{padding:6px 0;border-top:1px solid var(--line);font-size:12.5px;line-height:1.4}
+li.nul{font-size:12px;color:var(--muted);padding:6px 0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 16px 10px}
+.week{display:grid;grid-template-columns:repeat(5,minmax(180px,1fr));gap:10px;overflow-x:auto;padding:12px 0 6px}
+.giorno{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;min-width:0}
+.giorno.oggi-col{border:2px solid var(--gold)} .giorno.passato{opacity:.55}
+.gh{font-weight:800;font-size:14px;display:flex;justify-content:space-between} .gh span{font-weight:500;font-size:12px;color:var(--muted)}
+.gt{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 0 4px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)} th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+td a{text-decoration:none;font-weight:600}
+.mbar{display:inline-block;width:70px;height:6px;border-radius:99px;background:var(--soft);vertical-align:middle;overflow:hidden}
+.mbar i{display:block;height:100%;background:var(--yellow)}
+details.sez{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;padding:2px 16px}
+details.sez[open]{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+details.sez>summary{cursor:pointer;font-weight:600;font-size:14px;padding:12px 0;list-style:none;display:flex;gap:10px;align-items:center}
+details.sez>summary::-webkit-details-marker{display:none}
+.num{flex:none;background:var(--navy);color:var(--yellow);border-radius:7px;min-width:26px;text-align:center;padding:3px 6px;font-size:12px;font-weight:800}
+.cnt{margin-left:auto;color:var(--muted);font-weight:500;font-size:11.5px}
+.snota{color:var(--goldink);font-size:12.5px;margin:0 0 8px}
+.pd{display:grid;grid-template-columns:1fr 1.4fr;gap:18px;padding-bottom:10px}
+.pd h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:6px 0}
+li.passo{border-top:1px solid var(--line);padding:8px 0}
+li.passo label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:13.5px;line-height:1.45}
+li.passo.fatto .t{color:var(--muted);text-decoration:line-through}
+.bar{display:flex;gap:14px;align-items:center;margin:10px 0 0;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.bar .sync{font-weight:700;color:var(--ink)}
+.f{color:var(--muted);font-size:12px;margin-top:32px;line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.pd{grid-template-columns:1fr}}
+@media (max-width:640px){h1{font-size:27px}.crow{grid-template-columns:1fr}.az{flex-direction:row;align-items:center}.kv{font-size:24px}
+  .seqwrap{overflow-x:auto}}
+</style>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Checklist Venditore · Vendita</div>
+  <h1>La giornata di Michele, <span class="hl">giovedì 22 ottobre</span></h1>
+  <div class="hsub">Call, follow up e analisi delle call in una pagina sola. Legge GHL e i doc del follow up.<br>
+  Pagina aggiornata il 22/10/2026 22:50</div>
+  <div class="links">
+    <a href="https://docs.google.com/document/d/1nO1JqEP9T-2xCcPtF6Tphf_Lhoemo7defTGGdxlMQ9Y/edit" target="_blank">Follow up CF, 10 messaggi</a>
+    <a href="https://docs.google.com/document/d/1fhEaEX9SRQFAK-pnL_hp4mlnIrLciBEruhNpnnzRth4/edit" target="_blank">Follow up ORO, 10 messaggi</a>
+    <a href="#call">Checklist call</a>
+  </div>
+</div></header>
+<nav class="tabs"><div class="wrap">
+  <a href="#oggi">Oggi</a><a href="#settimana">Settimana</a><a href="#sequenza">In sequenza</a><a href="#call">Call</a>
+</div></nav>
+<div class="wrap">
+  <div class="kpis"><div class="kpi"><div class="kl">Call oggi</div><div class="kv">6</div><div class="ks">dal calendario GHL</div></div><div class="kpi"><div class="kl">Follow up oggi</div><div class="kv">15</div><div class="ks">messaggi e chiamate dovuti</div></div><div class="kpi"><div class="kl">In sequenza</div><div class="kv">15</div><div class="ks">156 in coda, 0 finiti</div></div><div class="kpi"><div class="kl">Esiti da segnare</div><div class="kv">6</div><div class="ks">call passate senza fase aggiornata</div></div></div>
+  <div class="bar"><span>Le spunte sono condivise con chi apre questo link.</span><span id="sync" class="sync"></span></div>
+
+  <section id="oggi" data-gen="2026-10-22">
+    <h3 class="grp">Call di oggi</h3>
+    <div class="crow call"><div><div class="nm"><span class="ora">11:00</span> Demo · Marco M.<span class="tag">ORO</span></div></div><div class="az"><a href="#call-3">checklist 3ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/jpFYXt6BdoPS3gdd7XgD" target="_blank">GHL</a></div></div><div class="crow call"><div><div class="nm"><span class="ora">12:00</span> Demo · Luca<span class="tag">ORO</span></div></div><div class="az"><a href="#call-3">checklist 3ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/nJj5FEEfAD2t5zytAGM8" target="_blank">GHL</a></div></div><div class="crow call"><div><div class="nm"><span class="ora">14:15</span> Discovery · Alessandro E.<span class="tag">CF</span></div></div><div class="az"><a href="#call-2">checklist 2ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/Lj7ZmbYsM0ATsXl8CpDo" target="_blank">GHL</a></div></div><div class="crow call"><div><div class="nm"><span class="ora">15:00</span> Demo · Kady K.<span class="tag">CF</span></div></div><div class="az"><a href="#call-3">checklist 3ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/McgbPItleIenPEXZVHDG" target="_blank">GHL</a></div></div><div class="crow call"><div><div class="nm"><span class="ora">16:30</span> Discovery · Francesca G.<span class="tag">CF</span></div></div><div class="az"><a href="#call-2">checklist 2ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/F2TGkRdEJZs97fe3ExdE" target="_blank">GHL</a></div></div><div class="crow call"><div><div class="nm"><span class="ora">17:30</span> Demo · Gianmarco L.<span class="tag">CF</span></div></div><div class="az"><a href="#call-3">checklist 3ª call</a><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/Zu7n6Z6MrPYuXPdJBccF" target="_blank">GHL</a></div></div>
+    <h3 class="grp">Follow up di oggi <span class="pill">15</span></h3>
+    <div class="sub" style="margin-bottom:8px">Spunta quando hai mandato. Il passo dopo arriva da solo fra 2 o 3 giorni.
+    Chi fissa una call esce da solo appena la fase in GHL cambia.</div>
+    <div class="crow fu" data-k="vend|fu|XfbwNNZjrw1vYuQaKgOu|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Matteo A.</label><span class="tag">CF</span><span class="tag">Nuovo lead</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/XfbwNNZjrw1vYuQaKgOu" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|RPkkTFD1QY54IuJ3FC4L|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Matteo A.</label><span class="tag">CF</span><span class="tag">Da richiamare</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/RPkkTFD1QY54IuJ3FC4L" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|genGAk2kUPWbXiJCrch9|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Gian M.</label><span class="tag">ORO</span><span class="tag">Nuovo lead</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/genGAk2kUPWbXiJCrch9" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|EwwSg492OziNVfhysTQG|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Ermanno C.</label><span class="tag">CF</span><span class="tag">Da richiamare</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/EwwSg492OziNVfhysTQG" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|KrtcUyUIvsEV0B7oClsr|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Marco C.</label><span class="tag">CF</span><span class="tag">No risposta</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/KrtcUyUIvsEV0B7oClsr" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|nq9m2uSQo9rQi76tKf29|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Elisabetta P.</label><span class="tag">ORO</span><span class="tag">No risposta</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/nq9m2uSQo9rQi76tKf29" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|ZkRb9jp480RuHWf9IM88|n1"><div><div class="nm"><label><input type="checkbox" class="ck"> Dimino M.</label><span class="tag">CF</span><span class="tag">No risposta</span></div><small class="man">Giorno 1 no risposta: 1 chiamata e 1 audio su WhatsApp</small><span class="tag avvio">prima registra un audio di 20 secondi</span></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/ZkRb9jp480RuHWf9IM88" target="_blank">apri in GHL</a></div></div><div class="crow fu" data-k="vend|fu|4rpj5d4bwcQTnX2xteB4|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Giuseppe V.</label><span class="tag">CF</span><span class="tag">Chiuso perso</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Giuseppe, come va? 😊
+
+Ti scrivo perché è appena uscito un video sul nostro canale che penso ti possa servire davvero.
+
+Nel video vengono messe a confronto due strade per arrivare allo stesso numero di appuntamenti: il passaparola e la pubblicità. A fine conto ci sono 700 euro di differenza 💶, e viene spiegato da dove escono.
+
+Il passaparola sembra gratis perché non arriva nessuna fattura. Però pensaci un attimo: i caffè, le cene, le telefonate per tenere vivi i rapporti, le ore passate ad aspettare che qualcuno faccia il tuo nome. Un costo ce l&#x27;ha, solo che non lo vedi scritto da nessuna parte.
+
+E c&#x27;è un&#x27;altra cosa: il passaparola non lo decidi tu. Ci sono mesi in cui arrivano tre nomi e mesi in cui non arriva nessuno, e non sai mai quale dei due sta per iniziare 🤷‍♂️
+
+Guardalo quando hai dieci minuti, magari con un caffè ☕, e poi dimmi cosa ne pensi 🙂
+
+https://youtu.be/fqmQsabahyo</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/4rpj5d4bwcQTnX2xteB4" target="_blank">apri in GHL</a><a href="https://youtu.be/fqmQsabahyo" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|9XlPAJJ0hwqc3cOMBSkw|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Massimiliano</label><span class="tag">ORO</span><span class="tag">No show</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Massimiliano, come va? 😊
+
+È appena uscito un video che tocca un punto che conosci bene.
+
+Chi vende oro fisico lo sa: un nominativo non è un acquisto. Puoi avere la lista piena e la cassaforte vuota, perché fra chi lascia i dati e chi mette la sua liquidità in oro c&#x27;è di mezzo tutto il lavoro.
+
+C&#x27;è chi voleva solo sapere il prezzo del giorno, chi era curioso, chi ci deve pensare in famiglia, chi aveva già comprato altrove. E in mezzo ci sono quelli veri, che hanno liquidità ferma e vogliono metterla al sicuro: il punto è trovare loro, non riempire una lista 🎯
+
+Nel video viene spiegata la differenza fra raccogliere contatti e trovare clienti che comprano davvero, e cosa serve per passare dal primo al secondo 👇
+
+https://youtu.be/Vf9v7Yek0ss
+
+Guardalo quando hai un attimo e dimmi cosa ne pensi 🙂</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/9XlPAJJ0hwqc3cOMBSkw" target="_blank">apri in GHL</a><a href="https://youtu.be/Vf9v7Yek0ss" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|rh4J8CR0JPuxvhUFcw1F|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Salvatore</label><span class="tag">CF</span><span class="tag">Follow-up / rimandato</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Salvatore, come va? 😊
+
+Ti scrivo perché è appena uscito un video sul nostro canale che penso ti possa servire davvero.
+
+Nel video vengono messe a confronto due strade per arrivare allo stesso numero di appuntamenti: il passaparola e la pubblicità. A fine conto ci sono 700 euro di differenza 💶, e viene spiegato da dove escono.
+
+Il passaparola sembra gratis perché non arriva nessuna fattura. Però pensaci un attimo: i caffè, le cene, le telefonate per tenere vivi i rapporti, le ore passate ad aspettare che qualcuno faccia il tuo nome. Un costo ce l&#x27;ha, solo che non lo vedi scritto da nessuna parte.
+
+E c&#x27;è un&#x27;altra cosa: il passaparola non lo decidi tu. Ci sono mesi in cui arrivano tre nomi e mesi in cui non arriva nessuno, e non sai mai quale dei due sta per iniziare 🤷‍♂️
+
+Guardalo quando hai dieci minuti, magari con un caffè ☕, e poi dimmi cosa ne pensi 🙂
+
+https://youtu.be/fqmQsabahyo</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/rh4J8CR0JPuxvhUFcw1F" target="_blank">apri in GHL</a><a href="https://youtu.be/fqmQsabahyo" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|kIO2e5NDfcWD3X7OHkSF|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Emanuele C.</label><span class="tag">CF</span><span class="tag">Follow-up / rimandato</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Emanuele, come va? 😊
+
+Ti scrivo perché è appena uscito un video sul nostro canale che penso ti possa servire davvero.
+
+Nel video vengono messe a confronto due strade per arrivare allo stesso numero di appuntamenti: il passaparola e la pubblicità. A fine conto ci sono 700 euro di differenza 💶, e viene spiegato da dove escono.
+
+Il passaparola sembra gratis perché non arriva nessuna fattura. Però pensaci un attimo: i caffè, le cene, le telefonate per tenere vivi i rapporti, le ore passate ad aspettare che qualcuno faccia il tuo nome. Un costo ce l&#x27;ha, solo che non lo vedi scritto da nessuna parte.
+
+E c&#x27;è un&#x27;altra cosa: il passaparola non lo decidi tu. Ci sono mesi in cui arrivano tre nomi e mesi in cui non arriva nessuno, e non sai mai quale dei due sta per iniziare 🤷‍♂️
+
+Guardalo quando hai dieci minuti, magari con un caffè ☕, e poi dimmi cosa ne pensi 🙂
+
+https://youtu.be/fqmQsabahyo</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/kIO2e5NDfcWD3X7OHkSF" target="_blank">apri in GHL</a><a href="https://youtu.be/fqmQsabahyo" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|gleW1G7u80myHCxmzKzX|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Manfredi S.</label><span class="tag">CF</span><span class="tag">Follow-up / rimandato</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Manfredi, come va? 😊
+
+Ti scrivo perché è appena uscito un video sul nostro canale che penso ti possa servire davvero.
+
+Nel video vengono messe a confronto due strade per arrivare allo stesso numero di appuntamenti: il passaparola e la pubblicità. A fine conto ci sono 700 euro di differenza 💶, e viene spiegato da dove escono.
+
+Il passaparola sembra gratis perché non arriva nessuna fattura. Però pensaci un attimo: i caffè, le cene, le telefonate per tenere vivi i rapporti, le ore passate ad aspettare che qualcuno faccia il tuo nome. Un costo ce l&#x27;ha, solo che non lo vedi scritto da nessuna parte.
+
+E c&#x27;è un&#x27;altra cosa: il passaparola non lo decidi tu. Ci sono mesi in cui arrivano tre nomi e mesi in cui non arriva nessuno, e non sai mai quale dei due sta per iniziare 🤷‍♂️
+
+Guardalo quando hai dieci minuti, magari con un caffè ☕, e poi dimmi cosa ne pensi 🙂
+
+https://youtu.be/fqmQsabahyo</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/gleW1G7u80myHCxmzKzX" target="_blank">apri in GHL</a><a href="https://youtu.be/fqmQsabahyo" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|nJj5FEEfAD2t5zytAGM8|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Luca</label><span class="tag">ORO</span><span class="tag">Chiuso perso</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Luca, come va? 😊
+
+È appena uscito un video che tocca un punto che conosci bene.
+
+Chi vende oro fisico lo sa: un nominativo non è un acquisto. Puoi avere la lista piena e la cassaforte vuota, perché fra chi lascia i dati e chi mette la sua liquidità in oro c&#x27;è di mezzo tutto il lavoro.
+
+C&#x27;è chi voleva solo sapere il prezzo del giorno, chi era curioso, chi ci deve pensare in famiglia, chi aveva già comprato altrove. E in mezzo ci sono quelli veri, che hanno liquidità ferma e vogliono metterla al sicuro: il punto è trovare loro, non riempire una lista 🎯
+
+Nel video viene spiegata la differenza fra raccogliere contatti e trovare clienti che comprano davvero, e cosa serve per passare dal primo al secondo 👇
+
+https://youtu.be/Vf9v7Yek0ss
+
+Guardalo quando hai un attimo e dimmi cosa ne pensi 🙂</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/nJj5FEEfAD2t5zytAGM8" target="_blank">apri in GHL</a><a href="https://youtu.be/Vf9v7Yek0ss" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|ds7lyW2lDE3FI9S6iWGc|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Fiammetta G.</label><span class="tag">ORO</span><span class="tag">Follow-up / rimandato</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Fiammetta, come va? 😊
+
+È appena uscito un video che tocca un punto che conosci bene.
+
+Chi vende oro fisico lo sa: un nominativo non è un acquisto. Puoi avere la lista piena e la cassaforte vuota, perché fra chi lascia i dati e chi mette la sua liquidità in oro c&#x27;è di mezzo tutto il lavoro.
+
+C&#x27;è chi voleva solo sapere il prezzo del giorno, chi era curioso, chi ci deve pensare in famiglia, chi aveva già comprato altrove. E in mezzo ci sono quelli veri, che hanno liquidità ferma e vogliono metterla al sicuro: il punto è trovare loro, non riempire una lista 🎯
+
+Nel video viene spiegata la differenza fra raccogliere contatti e trovare clienti che comprano davvero, e cosa serve per passare dal primo al secondo 👇
+
+https://youtu.be/Vf9v7Yek0ss
+
+Guardalo quando hai un attimo e dimmi cosa ne pensi 🙂</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/ds7lyW2lDE3FI9S6iWGc" target="_blank">apri in GHL</a><a href="https://youtu.be/Vf9v7Yek0ss" target="_blank">video</a></div></div><div class="crow fu" data-k="vend|fu|yGpe9VhIMbsm5uJfHrN1|m1"><div><div class="nm"><label><input type="checkbox" class="ck"> Rossella B.</label><span class="tag">CF</span><span class="tag">No show</span></div><small class="man">Messaggio 1 di 10: Video (lungo)</small><pre class="msg">Ciao Rossella, come va? 😊
+
+Ti scrivo perché è appena uscito un video sul nostro canale che penso ti possa servire davvero.
+
+Nel video vengono messe a confronto due strade per arrivare allo stesso numero di appuntamenti: il passaparola e la pubblicità. A fine conto ci sono 700 euro di differenza 💶, e viene spiegato da dove escono.
+
+Il passaparola sembra gratis perché non arriva nessuna fattura. Però pensaci un attimo: i caffè, le cene, le telefonate per tenere vivi i rapporti, le ore passate ad aspettare che qualcuno faccia il tuo nome. Un costo ce l&#x27;ha, solo che non lo vedi scritto da nessuna parte.
+
+E c&#x27;è un&#x27;altra cosa: il passaparola non lo decidi tu. Ci sono mesi in cui arrivano tre nomi e mesi in cui non arriva nessuno, e non sai mai quale dei due sta per iniziare 🤷‍♂️
+
+Guardalo quando hai dieci minuti, magari con un caffè ☕, e poi dimmi cosa ne pensi 🙂
+
+https://youtu.be/fqmQsabahyo</pre><button class="copia" type="button">copia il testo</button></div><div class="az"><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/yGpe9VhIMbsm5uJfHrN1" target="_blank">apri in GHL</a><a href="https://youtu.be/fqmQsabahyo" target="_blank">video</a></div></div>
+    <h3 class="grp">Esiti da segnare in GHL <span class="pill">6</span></h3>
+    <div class="box"><ul><li class="wk"><span><b>19/10</b> Discovery · Kady K.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/McgbPItleIenPEXZVHDG" target="_blank">sposta la fase</a></span></li><li class="wk"><span><b>19/10</b> Discovery · Gianmarco L.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/Zu7n6Z6MrPYuXPdJBccF" target="_blank">sposta la fase</a></span></li><li class="wk"><span><b>19/10</b> Discovery · Mauro L.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/ZyE1PXc9ZgmnOXE1mvOt" target="_blank">sposta la fase</a></span></li><li class="wk"><span><b>21/10</b> Discovery · Antonio G.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/QWUpkQFB6rPmYtlTWvti" target="_blank">sposta la fase</a></span></li><li class="wk"><span><b>21/10</b> Discovery · Giuseppe M.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/NzOgyHixsD4tsgQ9aIZd" target="_blank">sposta la fase</a></span></li><li class="wk"><span><b>21/10</b> Discovery · Gianluca C.: ancora in Demo fissata. <a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/oNfALBCzCn9m53lVmQja" target="_blank">sposta la fase</a></span></li></ul></div>
+    <h3 class="grp">Task GHL aperte</h3>
+    <p class="sub">Nessuna task GHL aperta per il venditore.</p>
+  </section>
+
+  <h2 id="settimana">Settimana dal 19/10</h2>
+  <div class="sub">Call dal calendario GHL e follow up previsti, giorno per giorno.</div>
+  <div class="week"><div class="giorno passato"><div class="gh">Lunedì<span>19/10</span></div><div class="gt">Call</div><ul><li class="wk"><span><b>11:00</b> Discovery · Kady K.</span></li><li class="wk"><span><b>12:00</b> Demo · Antonella T.</span></li><li class="wk"><span><b>13:00</b> Discovery · Riccardo O.</span></li><li class="wk"><span><b>15:00</b> Discovery · Alessandro P.</span></li><li class="wk"><span><b>15:00</b> Demo · Nicola Z.</span></li><li class="wk"><span><b>16:00</b> Discovery · Gianmarco L.</span></li><li class="wk"><span><b>17:00</b> Discovery · Mauro L.</span></li><li class="wk"><span><b>18:00</b> Discovery · Enzo G.</span></li></ul><div class="gt">Follow up</div><ul><li class="wk"><span><b>0</b> lead</span></li></ul></div><div class="giorno passato"><div class="gh">Martedì<span>20/10</span></div><div class="gt">Call</div><ul><li class="wk"><span><b>12:00</b> Demo · Giuseppe V.</span></li><li class="wk"><span><b>14:00</b> Aggiornamento · Riccardo D.</span></li><li class="wk"><span><b>15:30</b> Demo · Massimo S.</span></li><li class="wk"><span><b>17:00</b> Demo · Elisa M.</span></li><li class="wk"><span><b>18:30</b> Demo · Marino M.</span></li></ul><div class="gt">Follow up</div><ul><li class="wk"><span><b>0</b> lead</span></li></ul></div><div class="giorno passato"><div class="gh">Mercoledì<span>21/10</span></div><div class="gt">Call</div><ul><li class="wk"><span><b>09:00</b> Aggiornamento · Giuseppe V.</span></li><li class="wk"><span><b>10:00</b> Discovery · Massimiliano</span></li><li class="wk"><span><b>11:00</b> Discovery · Emanuele C.</span></li><li class="wk"><span><b>12:00</b> Discovery · Antonio G.</span></li><li class="wk"><span><b>15:00</b> Discovery · Giuseppe M.</span></li><li class="wk"><span><b>15:00</b> Demo · Manfredi S.</span></li><li class="wk"><span><b>17:30</b> Discovery · Gianluca C.</span></li><li class="wk"><span><b>18:00</b> Discovery · Rossella B.</span></li></ul><div class="gt">Follow up</div><ul><li class="wk"><span><b>0</b> lead</span></li></ul></div><div class="giorno oggi-col"><div class="gh">Giovedì<span>22/10</span></div><div class="gt">Call</div><ul><li class="wk"><span><b>11:00</b> Demo · Marco M.</span></li><li class="wk"><span><b>12:00</b> Demo · Luca</span></li><li class="wk"><span><b>14:15</b> Discovery · Alessandro E.</span></li><li class="wk"><span><b>15:00</b> Demo · Kady K.</span></li><li class="wk"><span><b>16:30</b> Discovery · Francesca G.</span></li><li class="wk"><span><b>17:30</b> Demo · Gianmarco L.</span></li></ul><div class="gt">Follow up</div><ul><li class="wk"><span><b>15</b> lead</span></li></ul></div><div class="giorno "><div class="gh">Venerdì<span>23/10</span></div><div class="gt">Call</div><ul><li class="wk"><span><b>09:00</b> Chiusura · Morena G.</span></li><li class="wk"><span><b>09:00</b> Discovery · Stefano P.</span></li><li class="wk"><span><b>11:00</b> Discovery · Alessio A.</span></li><li class="wk"><span><b>12:00</b> Call · Stefano M.</span></li><li class="wk"><span><b>13:00</b> Discovery · Gaspare C.</span></li><li class="wk"><span><b>14:00</b> Demo · Antonio G.</span></li><li class="wk"><span><b>15:00</b> Discovery · Christian B.</span></li><li class="wk"><span><b>16:00</b> Discovery · Fabio C.</span></li><li class="wk"><span><b>17:00</b> Demo · Giuseppe M.</span></li><li class="wk"><span><b>18:30</b> Demo · Andrea M.</span></li></ul><div class="gt">Follow up</div><ul><li class="wk"><span><b>0</b> lead</span></li></ul></div></div>
+
+  <h2 id="sequenza">In sequenza</h2>
+  <div class="sub">Ogni lead fermo fa 3 giorni di no risposta (se non ha mai risposto) e poi i 10 messaggi, uno ogni 2 o 3 giorni.
+  Entrano 15 lead nuovi al giorno, i più recenti per primi.</div>
+  <div class="seqwrap"><table><tr><th>Lead</th><th></th><th>Fase GHL</th><th>Fatti</th><th>Prossimo</th><th>Quando</th></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/ZkRb9jp480RuHWf9IM88" target="_blank">Dimino M.</a></td><td>CF</td><td>No risposta</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/nq9m2uSQo9rQi76tKf29" target="_blank">Elisabetta P.</a></td><td>ORO</td><td>No risposta</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/kIO2e5NDfcWD3X7OHkSF" target="_blank">Emanuele C.</a></td><td>CF</td><td>Follow-up / rimandato</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/EwwSg492OziNVfhysTQG" target="_blank">Ermanno C.</a></td><td>CF</td><td>Da richiamare</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/ds7lyW2lDE3FI9S6iWGc" target="_blank">Fiammetta G.</a></td><td>ORO</td><td>Follow-up / rimandato</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/genGAk2kUPWbXiJCrch9" target="_blank">Gian M.</a></td><td>ORO</td><td>Nuovo lead</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/4rpj5d4bwcQTnX2xteB4" target="_blank">Giuseppe V.</a></td><td>CF</td><td>Chiuso perso</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/nJj5FEEfAD2t5zytAGM8" target="_blank">Luca</a></td><td>ORO</td><td>Chiuso perso</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/gleW1G7u80myHCxmzKzX" target="_blank">Manfredi S.</a></td><td>CF</td><td>Follow-up / rimandato</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/KrtcUyUIvsEV0B7oClsr" target="_blank">Marco C.</a></td><td>CF</td><td>No risposta</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/9XlPAJJ0hwqc3cOMBSkw" target="_blank">Massimiliano</a></td><td>ORO</td><td>No show</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/XfbwNNZjrw1vYuQaKgOu" target="_blank">Matteo A.</a></td><td>CF</td><td>Nuovo lead</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/RPkkTFD1QY54IuJ3FC4L" target="_blank">Matteo A.</a></td><td>CF</td><td>Da richiamare</td><td><span class="mbar"><i style="width:0%"></i></span> 0/13</td><td>n1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/yGpe9VhIMbsm5uJfHrN1" target="_blank">Rossella B.</a></td><td>CF</td><td>No show</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr><tr><td><a href="https://app.gohighlevel.com/v2/location/Xmq3TDBDajmEuxN4p3d8/contacts/detail/rh4J8CR0JPuxvhUFcw1F" target="_blank">Salvatore</a></td><td>CF</td><td>Follow-up / rimandato</td><td><span class="mbar"><i style="width:0%"></i></span> 0/10</td><td>m1</td><td>22/10</td></tr></table></div>
+
+  <h2 id="call">Checklist call</h2>
+  <div class="sub">Prima della call: cosa avere pronto. Dopo: rispondi onesto, è l'analisi di te stesso.
+  Il testo intero sta negli script, qui solo i pezzi da sviluppare. Le spunte si azzerano ogni giorno.</div>
+  <div style="margin-top:12px"><details class="sez" id="call-1"><summary><span class="num">1</span><span class="st">1ª call</span><span class="cnt">10-12 minuti, vende solo il secondo appuntamento</span></summary><div class="links mini"><a href="https://docs.google.com/document/d/17hsJJ9SuA_BlP_NNF0TQ1QwfItL231_58yk15YKX7WI/edit" target="_blank">script CF</a><a href="https://docs.google.com/document/d/1NZ1YrjbXay8FFvRXzH7zFeRFXkgU8LFl6HiLfD7Pkj0/edit" target="_blank">script ORO</a></div><p class="snota">Nell&#x27;oro la fase 2 è Filtro e zona.</p><div class="pd"><div><h4>Prima</h4><ul><li class="passo" data-k="vend|ck|1p0"><label><input type="checkbox" class="ck"><span class="t">Riletto il modulo del lead: mandante, provincia, patrimonio dichiarato</span></label></li><li class="passo" data-k="vend|ck|1p1"><label><input type="checkbox" class="ck"><span class="t">Script della 1ª call aperto, gestionale aperto per scrivere mentre parla</span></label></li><li class="passo" data-k="vend|ck|1p2"><label><input type="checkbox" class="ck"><span class="t">Pronto a fare le due domande di consapevolezza e il perché non ha funzionato</span></label></li></ul></div><div><h4>Dopo, per analizzarti</h4><ul><li class="passo" data-k="vend|ck|1d0"><label><input type="checkbox" class="ck"><span class="t">Apertura, domande di rito, obiettivo, pain, consapevolezza, budget, recap: tutte le 7 fasi fatte</span></label></li><li class="passo" data-k="vend|ck|1d1"><label><input type="checkbox" class="ck"><span class="t">Diagnosi in apertura: ho capito quale nemico ha in testa e l&#x27;ho scritto con la sua frase</span></label></li><li class="passo" data-k="vend|ck|1d2"><label><input type="checkbox" class="ck"><span class="t">Non ho detto fasce di prezzo, garanzie nel dettaglio, tempi né come funziona oltre tre frasi</span></label></li><li class="passo" data-k="vend|ck|1d3"><label><input type="checkbox" class="ck"><span class="t">Fra marketing e budget sono rimasto sotto i 2 minuti</span></label></li><li class="passo" data-k="vend|ck|1d4"><label><input type="checkbox" class="ck"><span class="t">Budget: ho avuto un sì o un no chiaro</span></label></li><li class="passo" data-k="vend|ck|1d5"><label><input type="checkbox" class="ck"><span class="t">Seconda call fissata DENTRO la call, con data e ora</span></label></li><li class="passo" data-k="vend|ck|1d6"><label><input type="checkbox" class="ck"><span class="t">Gestionale compilato: mandante, provincia, portafoglio, obiettivo, nemico, budget, data</span></label></li></ul></div></div></details><details class="sez" id="call-2"><summary><span class="num">2</span><span class="st">2ª call, Discovery</span><span class="cnt">40-45 minuti, consulenza: lui parla per l&#x27;80%</span></summary><div class="links mini"><a href="https://docs.google.com/document/d/1Sk7o7CtGyCbj6STl0kKI3BTayCjDOPQfXY_DkErYuSE/edit" target="_blank">script CF</a><a href="https://docs.google.com/document/d/1wynH3V6hVOqlmW6K4gcrS7iRawHr6dhC15R03YuXeGQ/edit" target="_blank">script ORO</a><a href="https://docs.google.com/document/d/1W09Pba0Nl31pPs7Rfl0ccaTlCAKkc5y-riz5lkIOyeU/edit" target="_blank">obiezioni con video</a></div><p class="snota">Nell&#x27;oro la fase 6 è I numeri e il mix.</p><div class="pd"><div><h4>Prima</h4><ul><li class="passo" data-k="vend|ck|2p0"><label><input type="checkbox" class="ck"><span class="t">Note della 1ª call rilette: nemico, obiettivo, budget</span></label></li><li class="passo" data-k="vend|ck|2p1"><label><input type="checkbox" class="ck"><span class="t">So già che pacchetto proporrei in terza call</span></label></li><li class="passo" data-k="vend|ck|2p2"><label><input type="checkbox" class="ck"><span class="t">Tolleranza ritardo 3 minuti, poi si sposta</span></label></li></ul></div><div><h4>Dopo, per analizzarti</h4><ul><li class="passo" data-k="vend|ck|2d0"><label><input type="checkbox" class="ck"><span class="t">Ha parlato lui per l&#x27;80% del tempo</span></label></li><li class="passo" data-k="vend|ck|2d1"><label><input type="checkbox" class="ck"><span class="t">Inferno: ho ripreso il problema con le sue parole</span></label></li><li class="passo" data-k="vend|ck|2d2"><label><input type="checkbox" class="ck"><span class="t">Paradiso: obiettivo e perché profondo, scritti</span></label></li><li class="passo" data-k="vend|ck|2d3"><label><input type="checkbox" class="ck"><span class="t">Ha ammesso il blocco da solo, non gliel&#x27;ho detto io</span></label></li><li class="passo" data-k="vend|ck|2d4"><label><input type="checkbox" class="ck"><span class="t">I due numeri: li ho detti e li ho scritti</span></label></li><li class="passo" data-k="vend|ck|2d5"><label><input type="checkbox" class="ck"><span class="t">Budget con le fasce: domanda, solidifica, respingi</span></label></li><li class="passo" data-k="vend|ck|2d6"><label><input type="checkbox" class="ck"><span class="t">Obiezioni disinnescate in anticipo (contenuti o da solo, funziona davvero, budget ads, costo, altre agenzie)</span></label></li><li class="passo" data-k="vend|ck|2d7"><label><input type="checkbox" class="ck"><span class="t">Recap di transizione e terza call fissata in call</span></label></li><li class="passo" data-k="vend|ck|2d8"><label><input type="checkbox" class="ck"><span class="t">Da portare in terza: budget e come ci è arrivato, i due numeri, nemico e perché profondo</span></label></li></ul></div></div></details><details class="sez" id="call-3"><summary><span class="num">3</span><span class="st">3ª call, Demo</span><span class="cnt">45-60 minuti, si chiude in call</span></summary><div class="links mini"><a href="https://docs.google.com/document/d/1C-u8lzDtBqPKI_8Hv_0ZvFgYjacBmKPv_acfQLn0WBw/edit" target="_blank">script CF</a><a href="https://docs.google.com/document/d/1Iai081TeR-cY5eaagDjgsTmYs781bAifM833joZuNV0/edit" target="_blank">script ORO</a><a href="https://docs.google.com/document/d/1W09Pba0Nl31pPs7Rfl0ccaTlCAKkc5y-riz5lkIOyeU/edit" target="_blank">obiezioni con video</a></div><p class="snota">Nell&#x27;oro: conto pessimistico coi suoi numeri, garanzia come pavimento, esclusiva di zona, prezzo con ancoraggio, obiezione &quot;Nell&#x27;oro non avete mai lavorato&quot;.</p><div class="pd"><div><h4>Prima</h4><ul><li class="passo" data-k="vend|ck|3p0"><label><input type="checkbox" class="ck"><span class="t">Nelle note i cinque dati: portafoglio e obiettivo a 12 mesi, i due numeri, budget, nemico e perché, pacchetto e prezzo decisi</span></label></li><li class="passo" data-k="vend|ck|3p1"><label><input type="checkbox" class="ck"><span class="t">Aperti a schermo: prospetto, simulatore, contratto, Playbook obiezioni</span></label></li><li class="passo" data-k="vend|ck|3p2"><label><input type="checkbox" class="ck"><span class="t">Almeno 15 minuti liberi dalla call prima</span></label></li></ul></div><div><h4>Dopo, per analizzarti</h4><ul><li class="passo" data-k="vend|ck|3d0"><label><input type="checkbox" class="ck"><span class="t">Presa di controllo all&#x27;inizio</span></label></li><li class="passo" data-k="vend|ck|3d1"><label><input type="checkbox" class="ck"><span class="t">Recap del suo problema prima di mostrare qualsiasi cosa</span></label></li><li class="passo" data-k="vend|ck|3d2"><label><input type="checkbox" class="ck"><span class="t">Promessa prima, garanzia dopo come pavimento</span></label></li><li class="passo" data-k="vend|ck|3d3"><label><input type="checkbox" class="ck"><span class="t">Recap prima del prezzo, poi il listino senza giustificarmi</span></label></li><li class="passo" data-k="vend|ck|3d4"><label><input type="checkbox" class="ck"><span class="t">Chiusura assertiva: mail, contratto, firma, non una domanda</span></label></li><li class="passo" data-k="vend|ck|3d5"><label><input type="checkbox" class="ck"><span class="t">Firma e bonifico dentro la call</span></label></li><li class="passo" data-k="vend|ck|3d6"><label><input type="checkbox" class="ck"><span class="t">Obiezioni gestite con il Playbook, senza uscire dal personaggio</span></label></li><li class="passo" data-k="vend|ck|3d7"><label><input type="checkbox" class="ck"><span class="t">Downsell nell&#x27;ordine giusto, l&#x27;anno tolto come favore</span></label></li><li class="passo" data-k="vend|ck|3d8"><label><input type="checkbox" class="ck"><span class="t">Se non chiusa: registrazione mandata a Francesco</span></label></li></ul></div></div></details></div>
+
+  <div class="f">Un messaggio si corregge nel doc del follow up, una fase in GHL: questa pagina si rigenera da lì.</div>
+</div>
+<script>
+(function(){
+  var SYNC="https://script.google.com/macros/s/AKfycbyYBeMPQ6wKtKeScl-XAK5dgqb7TOlUZTsE3u2ZyXZwMbcE7qQnV3oQly9dDEzcrDcC/exec";
+  function iso(x){return x.getFullYear()+"-"+("0"+(x.getMonth()+1)).slice(-2)+"-"+("0"+x.getDate()).slice(-2)}
+  var oggiKey=iso(new Date());
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+  var reg={};
+  function lega(k,fn){(reg[k]=reg[k]||[]).push(fn)}
+  function mostra(k,on){(reg[k]||[]).forEach(function(f){f(on)})}
+  function cambia(k,on){ set(k,on?"1":null); mostra(k,on); invia(k,on); }
+  [].forEach.call(document.querySelectorAll("[data-k]"),function(el){
+    var cb=el.querySelector("input.ck"); if(!cb) return;
+    var k="ckcsm:"+el.dataset.k+":"+oggiKey;
+    lega(k,function(on){ cb.checked=on; el.classList.toggle("fatto",on); });
+    cb.addEventListener("change",function(){ cambia(k,cb.checked); }); });
+  [].forEach.call(document.querySelectorAll("button.copia"),function(b){
+    b.addEventListener("click",function(){
+      var t=b.previousElementSibling.textContent;
+      (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ b.textContent="copiato"; },
+        function(){ var r=document.createRange(); r.selectNodeContents(b.previousElementSibling);
+          var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent="selezionato, copia a mano"; });
+      setTimeout(function(){ b.textContent="copia il testo"; },2500); }); });
+  Object.keys(reg).forEach(function(k){ mostra(k,get(k)==="1"); });
+  var coda={}, volo={}, toccata={}, timer=null, stato=document.getElementById("sync");
+  function ora(){var x=new Date();return ("0"+x.getHours()).slice(-2)+":"+("0"+x.getMinutes()).slice(-2)}
+  function dice(t){ if(stato) stato.textContent=t; }
+  function ricevi(rem){
+    var adesso=Date.now();
+    Object.keys(reg).forEach(function(k){
+      if(k in coda||k in volo||(toccata[k]&&adesso-toccata[k]<8000)) return;
+      var on=String(rem[k]||"")==="1";
+      if((get(k)==="1")!==on){ set(k,on?"1":null); mostra(k,on); } }); }
+  function invia(k,on){
+    if(!SYNC) return;
+    toccata[k]=Date.now(); coda[k]=on?"1":"";
+    clearTimeout(timer); timer=setTimeout(spedisci,400); }
+  function spedisci(){
+    var lotto=coda, chiavi=Object.keys(lotto);
+    if(!chiavi.length||Object.keys(volo).length) return;
+    coda={}; volo=lotto;
+    fetch(SYNC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({set:lotto})})
+      .then(function(r){return r.json()})
+      .then(function(j){ if(!j||!j.ok) throw new Error("no"); volo={}; ricevi(j.stato||{}); dice("Salvata per tutti alle "+ora());
+        if(Object.keys(coda).length) spedisci(); })
+      .catch(function(){ volo={}; chiavi.forEach(function(k){ if(!(k in coda)) coda[k]=lotto[k]; });
+        dice("Non salvata, riprovo fra poco"); }); }
+  function rileggi(){
+    if(!SYNC||document.hidden) return;
+    if(Object.keys(coda).length){ spedisci(); return; }
+    fetch(SYNC+"?t="+Date.now())
+      .then(function(r){return r.json()})
+      .then(function(j){ if(j&&j.ok){ ricevi(j.stato||{}); dice("Aggiornata alle "+ora()); } })
+      .catch(function(){ dice("Senza rete, riprovo fra poco"); }); }
+  if(SYNC){
+    rileggi(); setInterval(rileggi,15000);
+    document.addEventListener("visibilitychange",function(){ if(!document.hidden) rileggi(); });
+    window.addEventListener("focus",rileggi);
+  }
+})();
+</script>
+</body></html>
