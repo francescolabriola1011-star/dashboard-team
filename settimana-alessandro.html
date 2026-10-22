@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>La settimana di Alessandro</title>
+<style>
+:root{--bg:#0B1A3A;--panel:rgba(30,64,140,.42);--line:rgba(150,190,255,.20);--ink:#FFFFFF;
+--muted:#AFC0DE;--giallo:#FFD21F;--oro:#D4A537;--su:#7FD6A4;--giu:#FFB067}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(1200px 600px at 10% -10%,rgba(60,110,220,.35),transparent 60%),
+radial-gradient(900px 500px at 110% 10%,rgba(212,165,55,.18),transparent 60%),var(--bg);min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:28px 16px 48px}
+.occhiello{color:var(--oro);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+h1{font-size:28px;margin:6px 0 2px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.giorno{margin:18px 0 6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,210,31,.08);font-size:14px;line-height:1.5}
+.giorno b{color:var(--giallo)}
+h2{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin:26px 0 10px;font-weight:700}
+.kpi{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:14px 14px 12px;margin-bottom:10px}
+.kpi.su{border-left-color:var(--su)}.kpi.giu{border-left-color:var(--giu)}
+.riga{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nome{font-size:14px;font-weight:600}
+.tag{font-size:10px;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.tag.qn{background:rgba(120,170,255,.22);color:#CFE0FF}.tag.ql{background:rgba(212,165,55,.25);color:#F3D88F}
+.val{font-size:34px;font-weight:700;margin-top:4px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.stato{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.su .stato{color:var(--su)}.giu .stato{color:var(--giu)}
+.barra{height:6px;background:rgba(255,255,255,.10);border-radius:99px;margin:8px 0 6px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--giallo);border-radius:99px}
+.sotto{font-size:12.5px;color:var(--muted);line-height:1.5}.sotto b{color:var(--ink)}
+.nota{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+.lista{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.voce{padding:11px 14px;border-top:1px solid var(--line);font-size:14px;line-height:1.45}
+.voce:first-child{border-top:0}.voce small{display:block;color:var(--muted);font-size:12px}
+.voce .f{color:var(--giallo);font-weight:700}
+.piede{color:var(--muted);font-size:11.5px;margin-top:28px;line-height:1.6}
+</style></head><body><div class="wrap">
+<div class="occhiello">La mia settimana · Media buyer</div>
+<h1>Alessandro</h1>
+<div class="sub">I tuoi numeri di questa settimana contro la tua media delle 4 settimane prima.
+Verde = in linea, arancio = sotto. Si aggiorna da sola ogni mattina.</div>
+<div class="giorno">Settimana dal <b>19/10</b>, giorno <b>4 su 7</b>. Sui numeri di quantita la barra dice se sei al ritmo della tua media a oggi.</div>
+<h2>Quanto lavoro</h2>
+  <div class="kpi giu">
+    <div class="riga"><span class="nome">Lead portati ai clienti</span><span class="tag qn">quantita</span></div>
+    <div class="val">15<span class="stato">sotto ritmo</span></div>
+    <div class="barra"><i style="width:61%"></i></div>
+    <div class="sotto">ritmo per stare in media a oggi: <b>24,7</b> · media 4 settimane: 43,3</div>
+    
+  </div>
+  <div class="kpi su">
+    <div class="riga"><span class="nome">Annunci nuovi lanciati</span><span class="tag qn">quantita</span></div>
+    <div class="val">15<span class="stato">in ritmo</span></div>
+    <div class="barra"><i style="width:100%"></i></div>
+    <div class="sotto">ritmo per stare in media a oggi: <b>5,7</b> · media 4 settimane: 10</div>
+    
+  </div><h2>Quanto rende</h2>
+  <div class="kpi giu">
+    <div class="riga"><span class="nome">Costo per lead medio</span><span class="tag ql">qualita</span></div>
+    <div class="val">€ 36,32<span class="stato">sotto</span></div>
+    
+    <div class="sotto">media 4 settimane: <b>€ 22,82</b> · piu' basso e' meglio</div>
+    <div class="nota">settimana parziale: il giudizio vero arriva lunedi</div>
+  </div>
+  <div class="kpi giu">
+    <div class="riga"><span class="nome">CVR lead su click</span><span class="tag ql">qualita</span></div>
+    <div class="val">3,9%<span class="stato">sotto</span></div>
+    
+    <div class="sotto">media 4 settimane: <b>4,7%</b></div>
+    <div class="nota">settimana parziale: il giudizio vero arriva lunedi</div>
+  </div>
+  <div class="kpi giu">
+    <div class="riga"><span class="nome">Clienti col CPL sotto 22</span><span class="tag ql">qualita</span></div>
+    <div class="val">8,3%<span class="stato">sotto</span></div>
+    
+    <div class="sotto">media 4 settimane: <b>33,3%</b></div>
+    <div class="nota">settimana parziale: il giudizio vero arriva lunedi</div>
+  </div><h2>Account da sistemare</h2><div class="sub" style="margin:-4px 0 10px">Dal collaudo ads del 22/10 alle 13:26, solo clienti del parco.</div><div class="lista"><div class="voce"><span class="f">Marcello Del Gaudio</span> · 6 da sistemare<small>modulo senza telefono (1), piu&#x27; moduli sulle ads attive (1), fascia eta&#x27; fuori standard (1), piu&#x27; di una domanda di qualifica (1), modulo attivo senza foglio noto (1), reels attivi (1)</small></div><div class="voce"><span class="f">Davide Dal Bosco</span> · 5 da sistemare<small>fascia eta&#x27; fuori standard (1), spesa su posizionamento escluso (1), reels attivi (1), piu&#x27; di una domanda di qualifica (1), modulo senza telefono (1)</small></div><div class="voce"><span class="f">Raffaele De Leonardis</span> · 4 da sistemare<small>modulo senza telefono (1), reels attivi (1), fascia eta&#x27; fuori standard (1), piu&#x27; di una domanda di qualifica (1)</small></div><div class="voce"><span class="f">Fabio Ricciarelli</span> · 3 da sistemare<small>spesa su posizionamento escluso (1), fascia eta&#x27; fuori standard (1), reels attivi (1)</small></div><div class="voce"><span class="f">Giovanni Caruso</span> · 3 da sistemare<small>spesa su posizionamento escluso (2), fascia eta&#x27; fuori standard (1)</small></div><div class="voce"><span class="f">Cosimo Chirico</span> · 2 da sistemare<small>fascia eta&#x27; fuori standard (1), reels attivi (1)</small></div><div class="voce"><span class="f">Flavio Bosia</span> · 2 da sistemare<small>fascia eta&#x27; fuori standard (1), reels attivi (1)</small></div><div class="voce"><span class="f">Luigi Micheloni</span> · 2 da sistemare<small>fascia eta&#x27; fuori standard (1), reels attivi (1)</small></div><div class="voce"><span class="f">Marco Pellegatta</span> · 2 da sistemare<small>fascia eta&#x27; fuori standard (1), spesa su posizionamento escluso (1)</small></div><div class="voce"><span class="f">Marco La Corte</span> · 1 da sistemare<small>fascia eta&#x27; fuori standard (1)</small></div></div>
+<div class="piede">Aggiornato 22/10/2026 16:02.<br>Fonti: PM Weekly (Quantitativi e qualitativi) da Meta e moduli lead; collaudo ads.<br>
+Quantita = quanto lavoro si fa. Qualita = quanto rende, rapporto fra due numeri.
+Un dato che manca resta n.d., non si stima.</div>
+</div></body></html>
