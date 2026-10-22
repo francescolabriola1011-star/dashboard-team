@@ -161,6 +161,18 @@ li.passo details summary{cursor:pointer;font-size:12px}
 li.passo details div{margin-top:4px}
 body.solo-csm .altro{display:none}
 .f{color:var(--muted);font-size:12px;margin-top:32px;line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+#relazione h2 small{font-size:13px;color:var(--muted);font-weight:600}
+.rl-kpis{grid-template-columns:repeat(3,1fr)}
+.rl-det{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--soft)}
+.rl-det summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--goldink)}
+.rl-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;padding:7px 0;border-top:1px solid var(--line)}
+.rl-row:first-child{border-top:0}
+.rl-n{font-weight:600;font-size:13.5px}
+.rl-b{display:flex;flex-wrap:wrap;gap:5px}
+.rl-b button{font:inherit;font-size:11.5px;font-weight:700;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer}
+.rl-b button:hover{border-color:var(--gold)}
+.rl-b button.on{background:linear-gradient(135deg,var(--yellow),var(--gold));color:var(--navy);border-color:var(--yellow)}
+@media (max-width:640px){.rl-kpis{grid-template-columns:1fr}}
 @media (max-width:900px){.kpis,.legend{grid-template-columns:repeat(2,1fr)}.proc{grid-template-columns:1fr}}
 @media (max-width:640px){
   h1{font-size:27px} .htop{grid-template-columns:1fr} .ring{width:96px;height:96px} .ring>div{width:78px;height:78px}
@@ -175,7 +187,7 @@ body.solo-csm .altro{display:none}
   <div class="eyebrow">Checklist CSM · Delivery</div>
   <h1>Checklist di <span class="hl" id="h-oggi">oggi</span></h1>
   <div class="hsub">Come si segue un cliente, dal pagamento al rinnovo. Una pagina sola, uguale per tutti.<br>
-  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 22/10/2026 19:05 · dati della Centrale 22/10/2026 17:32</div>
+  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 22/10/2026 22:58 · dati della Centrale 22/10/2026 17:32</div>
   <div class="links">
     <a class="pri" href="carico.html">Centrale Carlo</a>
     <a href="https://docs.google.com/document/d/1OisfakIB6utsLOgF9x9bsF_D_8K58YbhqP76oKkG5Oo/edit" target="_blank">SOP CSM onboarding</a>
@@ -188,7 +200,28 @@ body.solo-csm .altro{display:none}
   <a href="#oggi">Oggi</a><a href="#settimana">Settimana</a><a href="#procedura">Procedura</a>
 </div></nav>
 <div class="wrap">
+  <style>
+.nr{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin:18px 0 6px}
+.nr-card{background:linear-gradient(160deg,rgba(52,98,196,.45),rgba(30,64,140,.42));border:1px solid rgba(150,190,255,.22);border-radius:16px;padding:16px 18px;color:#F3F6FD;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.nr-card.num{border-top:3px solid #FFD21F}
+.nr-card.sf{border-top:3px solid #D4A537}
+.nr-k{font-size:11.5px;font-weight:700;color:#A9BBE0;text-transform:uppercase;letter-spacing:.06em}
+.nr-v{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.nr-v small{font-size:20px;color:#A9BBE0;font-weight:700}
+.nr-v .nr-ok{color:#FFD21F}
+.nr-bar{position:relative;height:9px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:10px 0 6px}
+.nr-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#FFD21F,#D4A537);border-radius:99px}
+.nr-bar b{position:absolute;top:-2px;bottom:-2px;width:2px;background:#fff;opacity:.85}
+.nr-s{font-size:12.5px;color:#C4CDE0;line-height:1.5}
+.nr-s b{color:#F3F6FD}
+.nr-due{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.nr-t{font-size:15px;font-weight:600;line-height:1.45;margin:8px 0 6px}
+.nr-tag{display:inline-block;font-size:11px;font-weight:800;border-radius:99px;padding:2px 9px;background:rgba(212,165,55,.2);color:#E6C068;border:1px solid rgba(212,165,55,.45)}
+.nr-tag.old{background:rgba(255,255,255,.08);color:#C4CDE0;border-color:rgba(255,255,255,.2)}
+@media (max-width:760px){.nr,.nr-due{grid-template-columns:1fr}}
+</style><div class="nr"><div class="nr-card num"><div><div class="nr-k">Il tuo numero · appuntamenti presentati dai clienti a ottobre</div><div class="nr-v"><span class="">7</span><small> / 20</small></div><div class="nr-bar"><i style="width:35%"></i><b style="left:71%"></b></div><div class="nr-s"><b>Moratti 3, Bosia 2, La Corte 2</b> · 1 chiusi dai clienti · tacca bianca = punto del mese · fonte Modulo Fatturato, spuntati Fatto</div></div></div><div class="nr-card sf"><div class="nr-k">Sfida della settimana</div><div class="nr-t">far chiudere almeno un cliente e spingere gli appuntamenti dei clienti verso 66 al mese (ottobre a 4 al 12/10, obiettivo minimo 20)</div><span class="nr-tag old">scaduta il 18/10 · la nuova si dà in riunione</span><div class="nr-s" style="margin-top:10px">numeri del 2026-10-22 22:47</div></div></div>
   <div class="kpis"><div class="kpi hot"><div class="kl">Esiti da farsi dire</div><div class="kv">4</div><div class="ks">appuntamenti in 3 clienti</div></div><div class="kpi hot"><div class="kl">Lead senza agenda</div><div class="kv">10</div><div class="ks">clienti con lead e nessun appuntamento</div></div><div class="kpi hot"><div class="kl">Rinnovi entro 30 giorni</div><div class="kv">3</div><div class="ks">Moratti 5 gg, La Corte 11 gg, Bosia 23 gg</div></div><div class="kpi"><div class="kl">Clienti seguiti</div><div class="kv">13</div><div class="ks">5 nel primo mese, 1 in avvio</div></div></div>
+  <section id="relazione"><h2>Relazione del mese <small id="rl-mese"></small></h2><div class="kpis rl-kpis"><div class="kpi rl-c" data-t="ref"><div class="kl">Referral chiesto</div><div class="kv"><span>0</span><small> / 13</small></div><div class="ks">clienti nel mese</div></div><div class="kpi rl-c" data-t="test"><div class="kl">Testimonianza chiesta</div><div class="kv"><span>0</span><small> / 13</small></div><div class="ks">clienti nel mese</div></div><div class="kpi rl-c" data-t="quest"><div class="kl">Questionario mandato</div><div class="kv"><span>0</span><small> / 13</small></div><div class="ks">clienti nel mese</div></div></div><details class="rl-det"><summary>Segna cliente per cliente</summary><div class="rl-list"><div class="rl-row" data-cli="Alessandro Zaghini"><div class="rl-n">Alessandro Zaghini</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Cosimo Chirico"><div class="rl-n">Cosimo Chirico</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Davide Dal Bosco"><div class="rl-n">Davide Dal Bosco</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Elisa Mecarelli"><div class="rl-n">Elisa Mecarelli</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Fabio Ricciarelli"><div class="rl-n">Fabio Ricciarelli</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Flavio Bosia"><div class="rl-n">Flavio Bosia</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Giovanni Caruso"><div class="rl-n">Giovanni Caruso</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Luigi Micheloni"><div class="rl-n">Luigi Micheloni</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Marcello Del Gaudio"><div class="rl-n">Marcello Del Gaudio</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Marco La Corte"><div class="rl-n">Marco La Corte</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Marco Pellegatta"><div class="rl-n">Marco Pellegatta</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Raffaele De Leonardis"><div class="rl-n">Raffaele De Leonardis</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div><div class="rl-row" data-cli="Stefano Moratti"><div class="rl-n">Stefano Moratti</div><div class="rl-b"><button type="button" data-t="ref" aria-pressed="false">Referral chiesto</button><button type="button" data-t="test" aria-pressed="false">Testimonianza chiesta</button><button type="button" data-t="quest" aria-pressed="false">Questionario mandato</button></div></div></div></details></section>
 
   <section id="oggi" data-gen="2026-10-22">
     <h2 id="oggi-titolo">Oggi</h2>
@@ -361,14 +394,25 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
       lega(k,function(on){ cb.checked=on; x.classList.toggle("fatto",on); rifai(); });
       cb.addEventListener("change",function(){ cambia(k,cb.checked); }); });
     rifai(); });
+  // relazione del mese: chiave col mese, nessuna scadenza; i contatori si rifanno a ogni clic
+  var mese=oggiKey.slice(0,7), rm=document.getElementById("rl-mese");
+  if(rm) rm.textContent=MESI[d.getMonth()]+" "+d.getFullYear();
+  var rlb=[].slice.call(document.querySelectorAll(".rl-b button"));
+  function contaRel(){
+    [].forEach.call(document.querySelectorAll(".rl-c"),function(c){
+      c.querySelector(".kv span").textContent=rlb.filter(function(b){return b.dataset.t===c.dataset.t&&b.classList.contains("on")}).length; }); }
+  rlb.forEach(function(b){
+    var k="ckcsm:rel|"+mese+"|"+b.closest(".rl-row").dataset.cli+"|"+b.dataset.t;
+    lega(k,function(on){ b.classList.toggle("on",on); b.setAttribute("aria-pressed",on); contaRel(); });
+    b.addEventListener("click",function(){ cambia(k,!b.classList.contains("on")); }); });
   Object.keys(reg).forEach(function(k){ mostra(k,get(k)==="1"); });
-  punteggio();
+  punteggio(); contaRel();
   var solo=document.getElementById("solo");
   function applica(){ document.body.classList.toggle("solo-csm",solo.checked); }
   solo.addEventListener("change",applica); applica();
   document.getElementById("reset").addEventListener("click",function(){
     if(SYNC&&!confirm("Le spunte sono condivise: si azzerano per tutti. Confermi?")) return;
-    Object.keys(reg).forEach(function(k){ if(get(k)==="1"&&k.indexOf("ckcsm:esito|")!==0) cambia(k,false); });
+    Object.keys(reg).forEach(function(k){ if(get(k)==="1"&&k.indexOf("ckcsm:esito|")!==0&&k.indexOf("ckcsm:rel|")!==0) cambia(k,false); });
   });
   // archivio condiviso: ogni clic parte subito, e ogni 15 secondi si rilegge cosa hanno fatto gli altri
   var coda={}, volo={}, toccata={}, timer=null, stato=document.getElementById("sync");
