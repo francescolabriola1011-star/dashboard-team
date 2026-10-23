@@ -187,7 +187,7 @@ body.solo-csm .altro{display:none}
   <div class="eyebrow">Checklist CSM · Delivery</div>
   <h1>Checklist di <span class="hl" id="h-oggi">oggi</span></h1>
   <div class="hsub">Come si segue un cliente, dal pagamento al rinnovo. Una pagina sola, uguale per tutti.<br>
-  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 23/10/2026 10:04 · dati della Centrale 23/10/2026 08:37</div>
+  67 passi del CSM dalla checklist_team_v4 · pagina aggiornata il 23/10/2026 10:07 · dati della Centrale 23/10/2026 08:37</div>
   <div class="links">
     <a class="pri" href="carico.html">Centrale Carlo</a>
     <a href="https://docs.google.com/document/d/1OisfakIB6utsLOgF9x9bsF_D_8K58YbhqP76oKkG5Oo/edit" target="_blank">SOP CSM onboarding</a>
@@ -336,6 +336,7 @@ Chi è già aggiornato si salta</span></label><div class="meta"><span class="ruo
     else if(g.dataset.data<oggiKey) g.classList.add("passato"); });
   [].forEach.call(document.querySelectorAll("li.wk"),function(li){
     var k="ckcsm:"+li.dataset.key+":"+li.dataset.data, cb=li.querySelector("input");
+    if(!cb) return;  // la voce esito ha i suoi bottoni, non la casella
     lega(k,function(on){ cb.checked=on; li.classList.toggle("fatto",on); });
     cb.addEventListener("change",function(){ cambia(k,cb.checked); }); });
   var passi=[].slice.call(document.querySelectorAll("li.passo"));
