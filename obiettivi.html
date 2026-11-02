@@ -279,7 +279,7 @@ if(DATA.precedente&&DATA.precedente.titolo) document.getElementById("btnprec").t
 if(DATA.mese&&DATA.mese.titolo) document.getElementById("btnmese").textContent=DATA.mese.titolo;
 renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
 // dentro il cockpit (tab Obiettivi) dice al contenitore quanto e' alta, cosi' non c'e' doppia barra di scorrimento
-if(window.parent!==window){const alto=()=>parent.postMessage({obiettiviAltezza:document.documentElement.scrollHeight},"*");
+if(window.parent!==window){document.body.style.setProperty("min-height","0","important");let _ult=0;const alto=()=>{const w=document.querySelector(".wrap")||document.body;const h=Math.ceil(w.getBoundingClientRect().bottom+window.scrollY);if(Math.abs(h-_ult)>2){_ult=h;parent.postMessage({obiettiviAltezza:h},"*");}};
   window.addEventListener("load",alto);window.addEventListener("resize",alto);new ResizeObserver(alto).observe(document.body);document.addEventListener("click",()=>setTimeout(alto,50));}
 </script>
 <style id="tema-blu">
