@@ -1,0 +1,1301 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cockpit Clienti10X</title>
+<style>
+  :root{
+    --bg:#F4F6F9; --surface:#FFFFFF; --surface-2:#FaFbFD; --border:#E4E8EF; --border-strong:#D3D9E3;
+    --ink:#0F1523; --muted:#59636F; --faint:#8A93A2;
+    --jade:#0F9D74; --jade-soft:rgba(15,157,116,.11);
+    --blue:#2D6BE0; --blue-soft:rgba(45,107,224,.11);
+    --amber:#C77F00; --amber-soft:rgba(199,127,0,.12);
+    --red:#E5484D; --red-soft:rgba(229,72,77,.11);
+    --violet:#7C5CE0; --grid:#EAEDF2;
+    --good:#0F9D74; --warn:#C77F00; --bad:#E5484D;
+    --shadow:0 1px 2px rgba(16,23,37,.04),0 6px 20px rgba(16,23,37,.05);
+    --shadow-lg:0 2px 4px rgba(16,23,37,.05),0 14px 40px rgba(16,23,37,.09);
+    --radius:16px; --radius-sm:11px;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0B0E13; --surface:#151A22; --surface-2:#1A202A; --border:#28303C; --border-strong:#333C4A;
+      --ink:#EAEEF4; --muted:#9BA5B4; --faint:#69727F;
+      --jade:#2ED4A2; --jade-soft:rgba(46,212,162,.13);
+      --blue:#5B8DEF; --blue-soft:rgba(91,141,239,.14);
+      --amber:#E3AC46; --amber-soft:rgba(227,172,70,.14);
+      --red:#F0676B; --red-soft:rgba(240,103,107,.13);
+      --violet:#9E86F0; --grid:#232B36;
+      --good:#2ED4A2; --warn:#E3AC46; --bad:#F0676B;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.32);
+      --shadow-lg:0 2px 6px rgba(0,0,0,.4),0 18px 48px rgba(0,0,0,.44);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F4F6F9; --surface:#FFFFFF; --surface-2:#FaFbFD; --border:#E4E8EF; --border-strong:#D3D9E3;
+    --ink:#0F1523; --muted:#59636F; --faint:#8A93A2;
+    --jade:#0F9D74; --jade-soft:rgba(15,157,116,.11); --blue:#2D6BE0; --blue-soft:rgba(45,107,224,.11);
+    --amber:#C77F00; --amber-soft:rgba(199,127,0,.12); --red:#E5484D; --red-soft:rgba(229,72,77,.11);
+    --violet:#7C5CE0; --grid:#EAEDF2; --good:#0F9D74; --warn:#C77F00; --bad:#E5484D;
+    --shadow:0 1px 2px rgba(16,23,37,.04),0 6px 20px rgba(16,23,37,.05);
+    --shadow-lg:0 2px 4px rgba(16,23,37,.05),0 14px 40px rgba(16,23,37,.09);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B0E13; --surface:#151A22; --surface-2:#1A202A; --border:#28303C; --border-strong:#333C4A;
+    --ink:#EAEEF4; --muted:#9BA5B4; --faint:#69727F;
+    --jade:#2ED4A2; --jade-soft:rgba(46,212,162,.13); --blue:#5B8DEF; --blue-soft:rgba(91,141,239,.14);
+    --amber:#E3AC46; --amber-soft:rgba(227,172,70,.14); --red:#F0676B; --red-soft:rgba(240,103,107,.13);
+    --violet:#9E86F0; --grid:#232B36; --good:#2ED4A2; --warn:#E3AC46; --bad:#F0676B;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.32);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.4),0 18px 48px rgba(0,0,0,.44);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+    -webkit-font-smoothing:antialiased;margin:0;padding:0}
+  .wrap{max-width:1160px;margin:0 auto;padding:30px 24px 72px}
+  .tnum{font-variant-numeric:tabular-nums}
+  @media (prefers-reduced-motion:no-preference){
+    .view{animation:fade .35s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  }
+
+  /* ---- header ---- */
+  header.top{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:20px;
+    border:1px solid var(--border);background:
+      radial-gradient(120% 140% at 100% 0%, var(--jade-soft), transparent 55%),
+      radial-gradient(120% 140% at 0% 0%, var(--blue-soft), transparent 50%),
+      var(--surface);
+    box-shadow:var(--shadow);padding:22px 24px}
+  .toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+  .brand{display:flex;flex-direction:column;gap:5px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  h1{font-size:28px;font-weight:750;margin:0;letter-spacing:-.025em;text-wrap:balance}
+  .asof{font-size:12.5px;color:var(--muted);text-align:right;line-height:1.7}
+  .asof b{color:var(--ink);font-weight:650}
+  .stripe{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+  .stripe .s{display:flex;flex-direction:column;gap:2px}
+  .stripe .sl{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .stripe .sv{font-size:19px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .stripe .sv.jade{color:var(--jade)} .stripe .sv.blue{color:var(--blue)} .stripe .sv.amber{color:var(--amber)}
+  .stripe .sv.good{color:var(--good)} .stripe .sv.bad{color:var(--bad)}
+  .stripe .sn{display:block;font-size:10.5px;color:var(--faint);margin-top:2px}
+  .stripe2{margin-top:12px;padding-top:12px}
+
+  /* ---- nav ---- */
+  nav.tabs{display:flex;gap:6px;margin:0 0 22px;padding:5px;background:var(--surface);
+    border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow);width:fit-content;max-width:100%;
+    overflow-x:auto;-webkit-overflow-scrolling:touch}
+  nav.tabs button{appearance:none;border:0;background:transparent;color:var(--muted);
+    font-family:inherit;font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:9px;
+    cursor:pointer;white-space:nowrap;transition:background .16s,color .16s;display:flex;align-items:center;gap:7px}
+  nav.tabs button:hover{color:var(--ink)}
+  nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+  nav.tabs button .cnt{font-size:11px;font-variant-numeric:tabular-nums;opacity:.7}
+  nav.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+  /* ---- generic cards / grids ---- */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:13px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:15px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+    transition:transform .16s,box-shadow .16s}
+  .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .kpi .lab{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:650}
+  .kpi .val{font-size:26px;font-weight:750;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+  .kpi .sub{font-size:11.5px;color:var(--faint);margin-top:4px}
+  .kpi .val.jade{color:var(--jade)} .kpi .val.blue{color:var(--blue)}
+  .kpi .val.amber{color:var(--amber)} .kpi .val.red{color:var(--red)}
+  .rail{position:absolute;left:0;top:0;bottom:0;width:3px}
+  .rail.jade{background:var(--jade)} .rail.blue{background:var(--blue)}
+  .rail.amber{background:var(--amber)} .rail.slate{background:var(--faint)}
+  .rail.red{background:var(--red)} .rail.violet{background:var(--violet)}
+  .bar{height:6px;border-radius:99px;background:var(--grid);margin-top:10px;overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:99px;background:var(--jade)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:18px 0 13px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:18px 0 13px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px 18px 14px;box-shadow:var(--shadow)}
+  .card.span2{grid-column:span 2}
+  .card h3{margin:0;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+  .card .csub{font-size:12px;color:var(--muted);margin:3px 0 12px}
+  .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:4px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .swatch{width:20px;height:0;border-top-width:2.5px;border-top-style:solid;border-radius:2px}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .gl{stroke:var(--grid);stroke-width:1}
+  .axl{fill:var(--faint);font-size:11px;font-family:var(--sans)}
+  .axv{fill:var(--muted);font-size:10.5px;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .dot{stroke:var(--surface);stroke-width:2}
+  .plabel{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+
+  /* ---- funnel ---- */
+  .funnel{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .fstage{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:14px}
+  .fstage .fl{font-size:12.5px;color:var(--muted);font-weight:600;text-align:right}
+  .fbar-wrap{position:relative;display:flex;align-items:center;gap:10px}
+  .fbar{height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;
+    color:#fff;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;min-width:44px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+  .fconv{font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .fconv b{color:var(--muted)}
+
+  /* ---- status list ---- */
+  .statlist{display:flex;flex-direction:column;gap:0}
+  .statrow{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;
+    padding:11px 0;border-bottom:1px solid var(--border)}
+  .statrow:last-child{border-bottom:0}
+  .statrow .sk{font-size:13px;color:var(--ink);font-weight:550}
+  .statrow .sv{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;min-width:58px}
+  .statrow .st{font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+    padding:3px 10px;border-radius:99px;letter-spacing:.03em;text-transform:uppercase;justify-self:end}
+  .chip::before{content:"";width:6px;height:6px;border-radius:99px;background:currentColor}
+  .chip.good{color:var(--good);background:var(--jade-soft)}
+  .chip.warn{color:var(--warn);background:var(--amber-soft)}
+  .chip.bad{color:var(--bad);background:var(--red-soft)}
+
+  /* ---- seller cards ---- */
+  .seller{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px 18px;box-shadow:var(--shadow)}
+  .seller .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .seller .name{font-size:15px;font-weight:700}
+  .seller .role{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .smetrics{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+  .smetric .m{font-size:22px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .smetric .k{font-size:11px;color:var(--muted);margin-top:1px}
+  .sbar{grid-column:1 / -1;margin-top:2px}
+  .sbar .bl{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);margin-bottom:5px}
+
+  /* ---- delivery clients ---- */
+  .dclients{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+  .dclient{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:15px 17px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+  .dclient .dh{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .dclient .dn{font-size:14.5px;font-weight:700}
+  .dclient .dcity{font-size:11.5px;color:var(--faint)}
+  .dclient .drow{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+  .dclient .drow b{color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums}
+  .banner{background:var(--amber-soft);border:1px solid color-mix(in srgb,var(--amber) 30%,transparent);
+    border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:var(--ink);margin-bottom:14px;
+    display:flex;gap:10px;align-items:flex-start}
+  .banner .bi{color:var(--amber);font-weight:800;flex-shrink:0}
+
+  /* ---- tables ---- */
+  .tablecard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden}
+  .tablecard .thead-row{display:flex;justify-content:space-between;align-items:center;
+    padding:15px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
+  .tablecard h3{margin:0;font-size:14.5px;font-weight:700}
+  .minilegend{font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+  .tscroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:600px;font-size:13.5px}
+  thead th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--faint);font-weight:650;padding:11px 18px;background:var(--surface-2);
+    border-bottom:1px solid var(--border);white-space:nowrap}
+  th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  tbody td{padding:12px 18px;border-bottom:1px solid var(--border);color:var(--ink);white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  .cname{font-weight:650}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:650;
+    padding:3px 9px;border-radius:99px;letter-spacing:.02em}
+  .pill::before{content:"";width:6px;height:6px;border-radius:99px;background:currentColor}
+  .pill.attivo{color:var(--jade);background:var(--jade-soft)}
+  .pill.firmato{color:var(--blue);background:var(--blue-soft)}
+  .pill.churned{color:var(--red);background:var(--red-soft)}
+  .pill.daincassare{color:var(--amber);background:var(--amber-soft)}
+  .pill.incassato{color:var(--jade);background:var(--jade-soft)}
+  .packtag{font-family:var(--mono);font-size:12px;color:var(--muted);
+    border:1px solid var(--border-strong);border-radius:6px;padding:1px 7px}
+  td.mrr{font-weight:650} .mrr.zero{color:var(--faint);font-weight:400}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:13px 18px;font-size:12px;color:var(--faint);flex-wrap:wrap;border-top:1px solid var(--border)}
+  .tot{font-variant-numeric:tabular-nums;color:var(--muted)}.tot b{color:var(--ink)}
+
+  /* ---- rinnovi timeline ---- */
+  .timeline{display:flex;flex-direction:column;gap:0;margin-top:2px}
+  .tl{display:grid;grid-template-columns:74px 1fr auto;align-items:center;gap:14px;
+    padding:13px 0;border-bottom:1px solid var(--border);position:relative}
+  .tl:last-child{border-bottom:0}
+  .tl .tldate{font-size:12px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tl .tldate small{display:block;font-size:10px;color:var(--faint);font-weight:600}
+  .tl .tlbody{display:flex;align-items:center;gap:11px}
+  .tl .dotm{width:11px;height:11px;border-radius:99px;border:2.5px solid var(--jade);background:var(--surface);flex-shrink:0}
+  .tl .dotm.q4{border-color:var(--amber)} .tl .dotm.next{background:var(--jade);border-color:var(--jade)}
+  .tl .tlname{font-size:13.5px;font-weight:600}
+  .tl .tlmeta{font-size:11.5px;color:var(--faint)}
+  .tl .tlval{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted)}
+
+  /* ---- CEO attention strip ---- */
+  .attention{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 18px;margin-bottom:20px;display:flex;flex-direction:column;gap:11px}
+  .attention .ah{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--faint);font-weight:700}
+  .alerts{display:flex;gap:10px;flex-wrap:wrap}
+  .alert{display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:11px;font-size:12.5px;
+    border:1px solid var(--border);background:var(--surface-2);flex:1 1 230px;min-width:200px}
+  .alert .adot{width:9px;height:9px;border-radius:99px;flex-shrink:0}
+  .alert.bad .adot{background:var(--bad)} .alert.warn .adot{background:var(--warn)} .alert.good .adot{background:var(--good)}
+  .alert .atx{color:var(--ink);line-height:1.35} .alert .atx b{font-weight:700}
+  .alert .atag{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);font-weight:700;white-space:nowrap;align-self:flex-start;padding-top:2px}
+
+  .nextsteps{counter-reset:step;display:flex;flex-direction:column;gap:8px;margin-top:2px;padding-top:11px;border-top:1px solid var(--border)}
+  .nextstep{position:relative;padding:8px 12px 8px 36px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:12.5px;color:var(--ink);line-height:1.4}
+  .nextstep::before{counter-increment:step;content:counter(step);position:absolute;left:10px;top:8px;width:18px;height:18px;border-radius:99px;background:var(--jade);color:#fff;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .nextstep b{color:var(--jade)}
+
+  footer.src{margin-top:26px;font-size:12px;color:var(--faint);line-height:1.7}
+  footer.src b{color:var(--muted);font-weight:650}
+  .hidden{display:none !important}
+  .group-continuation{margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+
+  @media (max-width:760px){
+    .wrap{padding:20px 14px 52px}
+    .kpis,.grid2,.grid3,.dclients{grid-template-columns:1fr 1fr}
+    .card.span2{grid-column:span 2}
+    h1{font-size:23px}
+  }
+  @media (max-width:520px){
+    .kpis,.grid2,.grid3,.dclients{grid-template-columns:1fr}
+    .card.span2{grid-column:span 1}
+    .fstage{grid-template-columns:70px 1fr}
+  }
+  .tappe{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+  .tappa .tk{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted)}
+  .tappa .tk b{color:var(--ink)}
+  #view-cruscotto .card .bar{margin-top:10px}
+  #view-cruscotto .fonti{margin-top:12px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+  #view-cruscotto table.andamento{font-size:12.5px;min-width:900px}
+  #view-cruscotto table.andamento th,#view-cruscotto table.andamento td{padding:8px 10px;text-align:right}
+  #view-cruscotto table.andamento th:first-child,#view-cruscotto table.andamento td:first-child{text-align:left;position:sticky;left:0;background:var(--surface);white-space:normal;min-width:170px}
+  #view-cruscotto table.andamento tr.obi td{color:var(--muted);font-style:italic}
+  .kpi .val small{font-size:12px;font-weight:600;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="toprow">
+      <div class="brand">
+        <div class="eyebrow">Clienti10X &#183; Cockpit</div>
+        <h1>Control tower</h1>
+      </div>
+      <!-- ASOF-START --><div class="asof">Numeri al <b>6 nov 2026</b> (ultima lettura fogli)<br>Obiettivo unico: <b>126 clienti</b> &#183; <b>&#8364;63.250 netti/mese</b> (fine piano, ott 2030)</div><!-- ASOF-END -->
+    </div>
+    <details class="piega"><summary>Tutti i numeri della testata e funnel cumulato</summary>
+    <!-- STRIPE-START --><div class="stripe">
+      <div class="s"><span class="sl">MRR attivo</span><span class="sv jade">&#8364;8.934</span></div>
+      <div class="s"><span class="sl">Clienti attivi</span><span class="sv blue">12 / 126</span></div>
+      <div class="s"><span class="sl">MRR dopo i rinnovi</span><span class="sv">&#8364;11.067</span></div>
+      <div class="s"><span class="sl">MRR al bivio 90 gg</span><span class="sv amber">&#8364;2.000</span></div>
+      <div class="s"><span class="sl">Firmati da avviare</span><span class="sv">3 &#183; &#8364;2.533</span></div>
+      <div class="s"><span class="sl">Verso 126 clienti</span><span class="sv">9,5%</span></div>
+    </div><!-- STRIPE-END -->
+    <!-- FUNNEL-TOT-START (scritto da motore/cockpit_funnel_tot.py --commit, non modificare a mano) --><div class="stripe stripe2">
+      <div class="s"><span class="sl">Funnel cumulato</span><span class="sv">giu → oggi</span><span class="sn">Sales Scorecard, riga TOTALE</span></div>
+      <div class="s"><span class="sl">Lead &#8594; 2 apt</span><span class="sv good">31,3%</span><span class="sn">135 / 431 &#183; soglia 28,4%</span></div>
+      <div class="s"><span class="sl">2 &#8594; 3 apt</span><span class="sv bad">60,0%</span><span class="sn">81 / 135 &#183; soglia 64,0%</span></div>
+      <div class="s"><span class="sl">3 apt &#8594; chiusa</span><span class="sv bad">19,8%</span><span class="sn">16 / 81 &#183; soglia 20,0%</span></div>
+      <div class="s"><span class="sl">Lead &#8594; chiusa</span><span class="sv good">3,7%</span><span class="sn">16 / 431 &#183; soglia 3,6%</span></div>
+    </div><!-- FUNNEL-TOT-END -->
+    </details>
+  </header>
+
+  <!-- DECISIONE-OGGI: blocco fisso, i numeri li legge lo script qui sotto dai marker STRIPE, ALERT-CASSA, ALERT-CRUSCOTTO, ALERT-RINNOVI e DUEBAND-ROW. Non scrive nessun motore. -->
+  <style>
+    .deci{margin:0 0 18px;background:#0B1A3A;color:#fff;border-radius:var(--radius);padding:18px 18px 16px;box-shadow:var(--shadow)}
+    .deci-q{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#D4A537;font-weight:800}
+    .deci-h{font-size:20px;font-weight:800;margin:4px 0 14px}
+    .deci-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .deci-t{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-top:3px solid #FFD21F;border-radius:10px;padding:10px 12px}
+    .deci-t.oro{border-top-color:#D4A537}
+    .deci-l{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.7);font-weight:700}
+    .deci-v{font-size:24px;font-weight:800;color:#FFD21F;margin-top:4px;font-variant-numeric:tabular-nums}
+    .deci-s{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px}
+    .deci-x{margin-top:14px;font-size:14px;line-height:1.5;color:#fff}
+    .deci-x b{color:#FFD21F}
+    .deci-f{margin-top:8px;font-size:11px;color:rgba(255,255,255,.55)}
+    details.piega{margin:0 0 18px}
+    details.piega>summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);padding:8px 2px;list-style:none}
+    details.piega>summary::before{content:"\25B8  "}
+    details.piega[open]>summary::before{content:"\25BE  "}
+    @media(max-width:760px){.deci-g{grid-template-columns:repeat(2,minmax(0,1fr))}.deci-v{font-size:20px}}
+  </style>
+  <section class="deci" aria-label="Decisione di oggi">
+    <div class="deci-q">La decisione di oggi</div>
+    <div class="deci-h">Dove va la settimana: cassa, crescita o rinnovi?</div>
+    <div class="deci-g">
+      <div class="deci-t"><div class="deci-l">Cassa spendibile</div><div class="deci-v" id="d-cassa">n.d.</div><div class="deci-s" id="d-cassa-s">minimo 13 settimane n.d.</div></div>
+      <div class="deci-t"><div class="deci-l">MRR attivo</div><div class="deci-v" id="d-mrr">n.d.</div><div class="deci-s" id="d-mrr-s">verso FASE 1</div></div>
+      <div class="deci-t oro"><div class="deci-l">Rinnovi al bivio 90 gg</div><div class="deci-v" id="d-rin">n.d.</div><div class="deci-s" id="d-rin-s">di MRR</div></div>
+      <div class="deci-t oro"><div class="deci-l">Prossima scadenza</div><div class="deci-v" id="d-due">n.d.</div><div class="deci-s" id="d-due-s"></div></div>
+    </div>
+    <div class="deci-x" id="d-sintesi">Sintesi non disponibile: mancano i blocchi dei motori.</div>
+    <div class="deci-f" id="d-fonte">Numeri letti dai blocchi di questa pagina, scritti dai motori.</div>
+  </section>
+  <script>
+  document.addEventListener('DOMContentLoaded',function(){
+    function t(sel){var e=document.querySelector(sel);return e?e.textContent.replace(/\s+/g,' ').trim():'';}
+    function stripe(lab){var r='';document.querySelectorAll('.stripe .s').forEach(function(s){var l=s.querySelector('.sl');if(l&&l.textContent.trim()===lab){var v=s.querySelector('.sv');r=v?v.textContent.trim():'';}});return r;}
+    function set(id,v){var e=document.getElementById(id);if(e&&v)e.textContent=v;}
+    var ac='';
+    document.querySelectorAll('.alerts .alert').forEach(function(a){var g=a.querySelector('.atag');if(g&&g.textContent.trim()==='Cassa')ac=a.textContent.replace(/\s+/g,' ');});
+    var mSp=ac.match(/spendibile (\u20ac[\d.]+)/), mMin=ac.match(/minimo a 13 settimane \u00e8 (\u20ac[\d.]+) \(([^)]+)\)/);
+    var mrr=stripe('MRR attivo'), biv=stripe('MRR al bivio 90 gg'), cli=stripe('Clienti attivi');
+    var fase='';document.querySelectorAll('.alerts .alert').forEach(function(a){var x=a.textContent.replace(/\s+/g,' ');var m=x.match(/FASE 1[^:]*: mancano (\u20ac[\d.]+) di MRR, (\d+) clienti/);if(m)fase=m;});
+    var rin='';document.querySelectorAll('.alerts .alert').forEach(function(a){var x=a.textContent.replace(/\s+/g,' ');var m=x.match(/\(([^)]+)\)\. Al tasso/);if(m)rin=m[1];});
+    var due=document.querySelector('.dueband-row .due');
+    if(mSp)set('d-cassa',mSp[1]);
+    if(mMin)set('d-cassa-s','minimo 13 sett. '+mMin[1]+' ('+mMin[2]+')');
+    set('d-mrr',mrr);
+    if(fase)set('d-mrr-s','FASE 1: mancano '+fase[1]+' e '+fase[2]+' clienti');
+    set('d-rin',biv); if(rin)set('d-rin-s',rin);
+    if(due){set('d-due',due.querySelector('.due-d').textContent.trim());set('d-due-s',due.querySelector('.due-n').textContent.trim()+' \u00b7 '+due.querySelector('.due-x').textContent.trim());}
+    var parti=[];
+    if(mMin)parti.push('Cassa: il punto pi\u00f9 basso delle prossime 13 settimane \u00e8 <b>'+mMin[1]+'</b>, '+mMin[2]+'.');
+    if(fase)parti.push('Crescita: per la FASE 1 mancano <b>'+fase[1]+'</b> di MRR, cio\u00e8 <b>'+fase[2]+' clienti</b>.');
+    if(biv)parti.push('Rinnovi: <b>'+biv+'</b> di MRR al bivio'+(rin?' ('+rin+')':'')+'.');
+    if(parti.length)document.getElementById('d-sintesi').innerHTML=parti.join(' ');
+    var asof=t('.asof b'); if(asof)set('d-fonte','Numeri al '+asof+', letti dai blocchi di questa pagina (Cassa 13w, Lista Clienti, Cruscotto). Il dettaglio sta nelle sezioni chiuse e nelle tab qui sotto.');
+  });
+  </script>
+
+  <style>
+    .dueband{margin:0 0 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+    .dueband-h{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:12px}
+    .dueband-sub{color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0;margin-left:8px}
+    .dueband-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px}
+    .due{flex:0 0 auto;min-width:132px;border:1px solid var(--border);border-left:3px solid var(--jade);border-radius:10px;padding:9px 12px;background:var(--surface-2)}
+    .due.urgent{border-left-color:var(--amber)}
+    .due.rin{border-left-color:var(--blue)}
+    .due.urgent.rin{border-left-color:var(--amber)}
+    .due-d{font-size:12px;font-weight:800;color:var(--ink)}
+    .due-n{font-size:13px;font-weight:700;margin-top:2px}
+    .due-x{font-size:12px;color:var(--muted);margin-top:1px}
+    .due-t{font-size:11px;color:var(--faint);margin-top:4px;font-weight:600}
+    .due.urgent .due-t{color:var(--amber);font-weight:700}
+  </style>
+  <details class="piega"><summary>Cosa arriva: rate e rinnovi in calendario</summary>
+  <section class="dueband" aria-label="Prossime scadenze e rinnovi">
+    <!-- DUEBAND-H-START --><div class="dueband-h">&#9654; Cosa arriva &#183; rate e rinnovi <span class="dueband-sub">da Scadenzario e Lista Clienti &#183; aggiornato 6 nov 2026</span></div><!-- DUEBAND-H-END -->
+    <!-- DUEBAND-ROW-START --><div class="dueband-row">
+      <div class="due rin urgent"><div class="due-d">14 nov</div><div class="due-n">Bosia</div><div class="due-x">Rinnovo 3 mesi &#183; &#8364;2.700</div><div class="due-t">rinnovo</div></div>
+      <div class="due"><div class="due-d">28 nov</div><div class="due-n">Capuano</div><div class="due-x">Trimestrale CF: pagamento 2 di 3 &#183; &#8364;900</div><div class="due-t">rata</div></div>
+      <div class="due"><div class="due-d">02 dic</div><div class="due-n">Corte</div><div class="due-x">Trimestrale CF 2.400 del 2/11, rata 2/2 &#183; &#8364;1.200</div><div class="due-t">rata</div></div>
+      <div class="due"><div class="due-d">25 dic</div><div class="due-n">Caruso</div><div class="due-x">Rata 2/2 annuale &#183; &#8364;4.800</div><div class="due-t">rata</div></div>
+      <div class="due"><div class="due-d">28 dic</div><div class="due-n">Capuano</div><div class="due-x">Trimestrale CF: pagamento 3 di 3 &#183; &#8364;900</div><div class="due-t">rata</div></div>
+      <div class="due rin"><div class="due-d">06 gen</div><div class="due-n">Chirico</div><div class="due-x">Rinnovo 3 mesi &#183; &#8364;2.700</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">04 feb</div><div class="due-n">Micheloni</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">24 feb</div><div class="due-n">Leonardis</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due"><div class="due-d">01 mar</div><div class="due-n">Pellegatta</div><div class="due-x">Rata 2/2 annuale &#183; &#8364;4.800</div><div class="due-t">rata</div></div>
+      <div class="due rin"><div class="due-d">03 mar</div><div class="due-n">Corte</div><div class="due-x">Rinnovo 3 mesi &#183; &#8364;2.700</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">17 mar</div><div class="due-n">Zaghini</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">19 mar</div><div class="due-n">Gaudio</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">01 apr</div><div class="due-n">Ricciarelli</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">06 apr</div><div class="due-n">Bosco</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due rin"><div class="due-d">27 apr</div><div class="due-n">Mecarelli</div><div class="due-x">Rinnovo 6 mesi &#183; &#8364;4.800</div><div class="due-t">rinnovo</div></div>
+      <div class="due urgent"><div class="due-d">da fissare</div><div class="due-n">Pesce</div><div class="due-x">Annuale ORO: residuo, piano di pagamento da definire &#183; &#8364;8.300</div><div class="due-t">data da fissare</div></div>
+    </div><!-- DUEBAND-ROW-END -->
+  </section>
+  </details>
+
+  <nav class="tabs" role="tablist" aria-label="Viste cockpit">
+    <button role="tab" aria-selected="true" data-view="oggi">Oggi</button>
+    <button role="tab" aria-selected="false" data-view="obiettivi">Obiettivi</button>
+    <button role="tab" aria-selected="false" data-view="scala">Crescita verso l&#8217;obiettivo</button>
+    <button role="tab" aria-selected="false" data-view="vendite">Vendite</button>
+    <button role="tab" aria-selected="false" data-view="clienti">Clienti e cassa <span class="cnt" id="cnt-mrr">&#8364;8,9k MRR</span></button>
+  </nav>
+
+  <!-- ============ OBIETTIVI (dashboard-obiettivi.html, rigenerata da genera_dashboard_obiettivi.py) ============ -->
+  <section class="view hidden" id="view-obiettivi" role="tabpanel">
+    <iframe id="frame-obiettivi" src="dashboard-obiettivi.html" title="Dashboard obiettivi" loading="lazy" style="width:100%;height:2400px;border:0;display:block;border-radius:14px;background:transparent"></iframe>
+  </section>
+
+  <!-- ============ CRUSCOTTO (foglio CRUSCOTTO Settimanale) ============ -->
+  <section class="view" id="view-cruscotto" role="tabpanel">
+    <!-- CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py --commit, non modificare a mano) -->
+    <div class="banner"><span class="bi">&#8250;</span><span><b>CRUSCOTTO &#8364;16,1k &#183; FASE 1 entro dic 2026.</b> Fonte: foglio <a href="https://docs.google.com/spreadsheets/d/1LfyJpI2BMwNclpArjhK097_DcNc7gj8ISbVvDMyO5Wk/edit" target="_blank" rel="noopener">CRUSCOTTO Settimanale</a>, tab CRUSCOTTO18K &#183; dati del foglio al 06/11/2026<br>Routine: si aggiorna da solo ogni giorno alle 07:00 (job cassa-settimanale: prima kpi_settimana riscrive i KPI nel foglio, poi questo blocco) &#183; ultimo giro 06/11 14:27</span></div>
+    <div class="kpis"><div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo oggi</div><div class="val jade tnum">&#8364;8.934</div><div class="bar"><i style="width:55.5%"></i></div><div class="sub">55% del target FASE 1 di &#8364;16.100</div></div><div class="kpi"><span class="rail blue"></span><div class="lab">MRR a regime &#183; attivi + firmati</div><div class="val blue tnum">&#8364;11.467</div><div class="bar"><i style="width:71.2%"></i></div><div class="sub">71% del target &#183; 15 clienti su 21</div></div><div class="kpi"><span class="rail amber"></span><div class="lab">Mancano a dicembre</div><div class="val amber tnum">&#8364;4.633</div><div class="sub">6 clienti nuovi</div></div><div class="kpi"><span class="rail violet"></span><div class="lab">Obiettivo del mese</div><div class="val  tnum">&#8364;22.665</div><div class="sub">4,5 chiusure &#183; 122,6 lead &#183; 58,0 discovery e 34,8 demo da fissare</div></div></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Mese in corso</h3><div class="csub">ads e lead: Ottobre 2026 (dal 06/10 al 06/11)</div></div></div>
+        <div class="statlist"><div class="statrow"><span class="sk">Incassato cash</span><span class="st">atteso &#8364;23.816 &#183; 0%</span><span class="sv">&#8364;0</span></div><div class="statrow"><span class="sk">MRR nuovo del mese</span><span class="st">avvii delivery, regola del 5</span><span class="sv">&#8364;3.133</span></div><div class="statrow"><span class="sk">Clienti nuovi del mese</span><span class="st">close rate lead &#8594; clienti 0%</span><span class="sv">0</span></div><div class="statrow"><span class="sk">Investito ads</span><span class="st">su &#8364;2.400 (94%)</span><span class="sv">&#8364;2.248</span></div><div class="statrow"><span class="sk">Lead</span><span class="st">su 110 (102%)</span><span class="sv">112</span></div><div class="statrow"><span class="sk">CPL</span><span class="st">Lead Gen, spesa / lead fino a ieri</span><span class="sv">&#8364;19,74</span></div></div>
+        <div class="bar"><i style="width:0.0%"></i></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>KPI della settimana chiusa</h3><div class="csub">Settimana 25 &#8594; 1 nov &#183; 3 su 6 in linea</div></div></div>
+        <div class="statlist"><div class="statrow"><span class="sk">Nuovo MRR / sett</span><span class="st">target ~&#8364;849</span><span class="sv">&#8364;800 <span class="chip bad">KO</span></span></div><div class="statrow"><span class="sk">2&#176; apt fatti</span><span class="st">target ~8,1</span><span class="sv">9 <span class="chip good">OK</span></span></div><div class="statrow"><span class="sk">3&#176; apt fatti</span><span class="st">target ~5,2</span><span class="sv">8 <span class="chip good">OK</span></span></div><div class="statrow"><span class="sk">Chiusure</span><span class="st">target ~1,04</span><span class="sv">1 <span class="chip bad">KO</span></span></div><div class="statrow"><span class="sk">CPL medio clienti</span><span class="st">target &lt; &#8364;25</span><span class="sv">&#8364;20,22 <span class="chip good">OK</span></span></div><div class="statrow"><span class="sk">Apt fatti dai clienti</span><span class="st">target ~16,8</span><span class="sv">2 <span class="chip bad">KO</span></span></div></div>
+        <div class="fonti">Scritto da kpi_settimana.py il 06/11/2026, settimana 25/10-01/11 chiusa.<br>Apt, show, close, chiusure: Sales Manager Scorecard colonna 25-1/11.<br>Nuovo MRR: avvii delivery della settimana in Lista Clienti (Elisa Mecarelli 800).<br>CPL e apt clienti: PM Weekly Scorecard colonna 26/10-01/11; target apt 12 attivi x 6 x 7/30.<br>MRR nuovo: avvii delivery dal 06/10 al 06/11 (regola del 5) in Lista Clienti: Davide Dal Bosco 800, Cosimo Chirico 733, Marco Pellegatta 800, Elisa Mecarelli 800. Scritto da kpi_settimana.py.</div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Obiettivo entro dicembre</h3><div class="csub">Obiettivo ott &#8594; dic (Previsionale pessimistico, 11 clienti)</div></div></div>
+        <div class="statlist">
+          <div class="statrow"><span class="sk">Obiettivo</span><span class="st"></span><span class="sv">&#8364;68.026</span></div>
+          <div class="statrow"><span class="sk">Incassato</span><span class="st">20%</span><span class="sv">&#8364;13.350</span></div>
+          <div class="statrow"><span class="sk">Manca da incassare</span><span class="st"></span><span class="sv">&#8364;54.676</span></div>
+        </div>
+        <div class="bar"><i style="width:19.6%"></i></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Tappe verso il milione</h3><div class="csub">cumulato reale contro la tappa</div></div></div>
+        <div class="tappe"><div class="tappa"><div class="tk"><span>Spesa ads</span><span class="tnum"><b>&#8364;9.650,02</b> / &#8364;65.711 &#183; 15%</span></div><div class="bar"><i style="width:14.7%"></i></div></div><div class="tappa"><div class="tk"><span>Lead</span><span class="tnum"><b>530</b> / 2.790 &#183; 19%</span></div><div class="bar"><i style="width:19.0%"></i></div></div><div class="tappa"><div class="tk"><span>Demo</span><span class="tnum"><b>93</b> / 507 &#183; 18%</span></div><div class="bar"><i style="width:18.3%"></i></div></div><div class="tappa"><div class="tk"><span>Vendite totali</span><span class="tnum"><b>25</b> / 212 &#183; 12%</span></div><div class="bar"><i style="width:11.8%"></i></div></div><div class="tappa"><div class="tk"><span>Fatturato</span><span class="tnum"><b>&#8364;82.750,00</b> / &#8364;1.000.000 &#183; 8%</span></div><div class="bar"><i style="width:8.3%"></i></div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chead"><div><h3>Andamento mese per mese</h3><div class="csub">reale fino al mese in corso, righe obiettivo dal Previsionale 36M pessimistico; mesi futuri vuoti, nessuna stima</div></div></div>
+      <div class="tscroll"><table class="andamento"><thead><tr><th>KPI</th><th>Mag '26</th><th>Giu '26</th><th>Lug '26</th><th>Ago '26</th><th>Set '26</th><th>Ott '26</th><th>Nov '26</th><th>Dic '26</th><th>Gen '27</th><th>Feb '27</th><th>Mar '27</th><th>Apr '27</th><th>Mag '27</th><th>Giu '27</th><th>Lug '27</th></tr></thead><tbody><tr><td>Incassato totale cash</td><td>&#8364;1.700</td><td>&#8364;2.800</td><td>&#8364;14.100</td><td>&#8364;2.140</td><td>&#8364;26.960</td><td>&#8364;13.350</td><td>&#8364;0</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="competenza">Fatturato mese</td><td>&#8364;1.100</td><td>&#8364;5.200</td><td>&#8364;12.200</td><td>&#8364;10.740</td><td>&#8364;30.710</td><td>&#8364;21.400</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="obi"><td>Obiettivo MRR Attivo mensile</td><td>&#8364;800</td><td>&#8364;1.600</td><td>&#8364;4.476</td><td>&#8364;5.969</td><td>&#8364;8.207</td><td>&#8364;10.370</td><td>&#8364;12.310</td><td>&#8364;14.026</td><td>&#8364;16.264</td><td>&#8364;18.353</td><td>&#8364;21.114</td><td>&#8364;23.576</td><td>&#8364;26.709</td><td>&#8364;29.544</td><td>&#8364;32.902</td></tr><tr><td title="fine mese">MRR attivo</td><td>&#8364;0</td><td>&#8364;0</td><td>&#8364;2.300</td><td>&#8364;3.484</td><td>&#8364;6.601</td><td>&#8364;8.934</td><td>&#8364;8.934</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="tot">Clienti attivi</td><td>2</td><td>2</td><td>5</td><td>6</td><td>9</td><td>12</td><td>12</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="churn">Clienti persi</td><td>2</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Clienti nuovi</td><td>2</td><td>2</td><td>3</td><td>2</td><td>5</td><td>4</td><td>0</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="obi"><td title="36M pessimistico">Obiettivo clienti nuovi/mese</td><td>1</td><td>1</td><td>4</td><td>3</td><td>4</td><td>4</td><td>5</td><td>5</td><td>5</td><td>5</td><td>6</td><td>6</td><td>7</td><td>7</td><td>8</td></tr><tr><td>Churn % mese</td><td>30%</td><td>0%</td><td>0%</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>MoM Incassato %</td><td></td><td>65%</td><td>404%</td><td>-85%</td><td>1160%</td><td>-50%</td><td>-100%</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="&#8364;">Differenza incassato</td><td></td><td>&#8364;1.100</td><td>&#8364;11.300</td><td>-&#8364;11.960</td><td>&#8364;24.820</td><td>-&#8364;13.610</td><td>-&#8364;13.350</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="mese">Investito ads</td><td>&#8364;456</td><td>&#8364;1.049</td><td>&#8364;1.319</td><td>&#8364;1.194</td><td>&#8364;2.204</td><td>&#8364;2.248</td><td>&#8364;6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td title="MRR attivo / clienti attivi">ARPU</td><td></td><td></td><td>&#8364;460</td><td>&#8364;581</td><td>&#8364;733</td><td>&#8364;745</td><td>&#8364;745</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+    </div>
+    <!-- CRUSCOTTO-END -->
+  </section>
+
+  <div class="attention">
+    <div class="ah">&#9670; Cosa decide i prossimi 90 giorni</div>
+    <div class="alerts">
+      <!-- ALERT-RINNOVI-START (scritto da motore/cockpit_orizzonte.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>22% del ricorrente va al bivio nei prossimi 90 giorni:</b> &#8364;2.000 di MRR su &#8364;8.934 scade fra 14/11 e 4/2 (Bosia, Chirico, Micheloni). Al tasso di rinnovo attuale (80,0%) il rischio ponderato &#232; &#8364;400 al mese</span><span class="atag">Rinnovi</span></div><!-- ALERT-RINNOVI-END -->
+      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.420, spendibile &#8364;10.420 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;3.330 (22 gen-28 gen); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;11.359</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
+      <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>FASE 1 entro dicembre:</b> mancano &#8364;4.633 di MRR, 6 clienti nuovi</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Nuovo MRR / sett fuori target:</b> &#8364;800 contro ~&#8364;849 (Settimana 25 &#8594; 1 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 1 contro ~1,04 (Settimana 25 &#8594; 1 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 2 contro ~16,8 (Settimana 25 &#8594; 1 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
+      <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 12 clienti attivi su 126. Ne mancano 114, con avanzamento del 9,5%</span><span class="atag">Crescita</span></div>
+      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 60,8% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 13,1% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
+      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Garanzia da onorare:</b> apt investitori +100k a 7/28. &#200; la garanzia scritta nel contratto su cui si gioca ogni rinnovo</span><span class="atag">Delivery</span></div>
+    </div>
+  </div>
+
+  <!-- ============ ORIZZONTE 90 GIORNI ============ -->
+  <section class="view" id="view-orizzonte" role="tabpanel">
+    <!-- ORIZZONTE-KPI-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) -->
+    <div class="kpis">
+      <div class="kpi"><span class="rail jade"></span><div class="lab">MRR atteso dopo i rinnovi</div><div class="val jade tnum">&#8364;11.067</div><div class="sub">&#8364;8.934 attivi + &#8364;2.533 firmati &#8722; &#8364;400 di churn ponderato (20,0%)</div></div>
+      <div class="kpi"><span class="rail blue"></span><div class="lab">MRR contrattualizzato</div><div class="val blue tnum">&#8364;11.467</div><div class="sub">attivi &#8364;8.934 + firmati &#8364;2.533, che entrano solo all&#8217;avvio delivery</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">MRR al bivio nei 90 giorni</div><div class="val amber tnum">&#8364;2.000</div><div class="sub">22% del ricorrente scade fra il 14/11 e il 4/2</div></div>
+      <div class="kpi"><span class="rail violet"></span><div class="lab">Prima cosa in scadenza</div><div class="val tnum">14 nov</div><div class="sub">Flavio Bosia &#183; &#8364;2.700 &#183; al bivio</div></div>
+    </div>
+    <!-- ORIZZONTE-KPI-END -->
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Cassa in arrivo mese per mese</h3><div class="csub">gi&#224; a contratto contro quello che dipende da un rinnovo</div></div></div>
+        <div class="legend"><span><i class="swatch" style="border-color:var(--jade)"></i>Certo</span><span><i class="swatch" style="border-color:var(--amber)"></i>Al bivio</span></div>
+        <svg id="chart-orizzonte" viewBox="0 0 460 220" role="img" aria-label="Cassa attesa per mese, quota certa e quota che dipende dai rinnovi"></svg>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Come nasce l'atteso</h3><div class="csub">formula in chiaro &#183; nessun numero stimato a naso</div></div></div>
+        <div class="statlist" id="calc-orizzonte"></div>
+      </div>
+    </div>
+    <div class="tablecard" style="margin-top:13px">
+      <div class="thead-row"><h3>Agenda dei prossimi 90 giorni</h3><!-- ORIZZONTE-FOOT-START (scritto da motore/cockpit_orizzonte.py) --><div class="minilegend">6 nov &#8594; 4 feb 2027</div></div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Data</th><th>Cosa succede</th><th>Chi</th><th class="num">Valore</th><th>Natura</th></tr></thead>
+        <tbody id="agenda-rows"></tbody>
+      </table></div>
+      <div class="foot"><span>8 eventi</span><span class="tot">Certo <b>&#8364;7.800</b> &#183; al bivio <b>&#8364;10.200</b> &#183; senza data <b>&#8364;8.300</b></span></div><!-- ORIZZONTE-FOOT-END -->
+    </div>
+  </section>
+
+  <!-- ============ DIREZIONE ============ -->
+  <section class="view hidden" id="view-direzione" role="tabpanel">
+    <div class="banner"><span class="bi">&#8250;</span><span><b>Economia del cliente e capacità di crescita.</b> Base di calcolo: LTV ricostruito il 10/8/2026. I margini di contribuzione escludono struttura e compenso di Francesco.</span></div>
+    <!-- DIREZIONE-KPI-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) -->
+    <div class="kpis">
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Quanto vale un cliente &#183; 1&#176; anno</div><div class="val jade tnum">&#8364;4.831</div><div class="sub">di margine &#183; &#8364;7.115 di incassato, mix 30/50/20 con rinnovo al 55%. Fonte Scenari 1M</div></div>
+      <div class="kpi"><span class="rail blue"></span><div class="lab">Ritorno su ogni euro di acquisizione</div><div class="val blue tnum">14,1 : 1</div><div class="sub">sano sopra 3 &#183; margine vita &#8364;6.945 al netto del CAC, pi&#249; il CAC &#8364;530, diviso il CAC</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Spazio non usato per cliente</div><div class="val amber tnum">&#8364;1.452</div><div class="sub">paghiamo &#8364;530, il tetto &#232; &#8364;1.982 = margine di un anno dell&#8217;LTV ufficiale &#8364;9.648, cio&#232; &#8364;5.946, &#247; 3, per tenere il rapporto 3:1</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Quanto vale un cliente &#183; intera vita</div><div class="val jade tnum">&#8364;6.945</div><div class="sub">di margine netto su &#8364;9.861 di margine fatturato &#183; &#8364;403 netti al mese. Fonte Scenari 1M</div></div>
+      <div class="kpi"><span class="rail blue"></span><div class="lab">ROI netto per euro investito &#183; consuntivo</div><div class="val blue tnum">3,31 &#8364;</div><div class="sub">ROI anno, dato reale non da modello. (&#8364;61.350 incassato &#8722; &#8364;29.885 spese totali) &#247; &#8364;9.505 di ads, cio&#232; netto in tasca per euro di ads. Fonte Report Mensile Acquisizione TOTALE. Ottobre da solo 3,53</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Rinnovo &#183; osservato vs modello</div><div class="val jade tnum">79% / 55%</div><div class="sub">osservato 78,9% su 19 clienti storici, fonte retention</div></div>
+    </div>
+    <!-- DIREZIONE-KPI-END -->
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Il verdetto, riga per riga</h3><div class="csub">dove siamo contro dove dovremmo essere</div></div></div>
+        <div class="statlist" id="direzione-rows"></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Dove sta il margine di un cliente</h3><div class="csub">prima firma contro rinnovi &#183; Pack B trimestrale</div></div></div>
+        <svg id="chart-ltv-split" viewBox="0 0 460 220" role="img" aria-label="Margine del primo anno diviso fra prima firma e rinnovi"></svg>
+        <div class="csub" style="margin-top:8px">La prima firma margina il <b>48,3%</b> perch&#233; paga il CAC. Ogni rinnovo margina il <b>70,0%</b>. Due terzi del margine del primo anno arrivano dai rinnovi: la retention vale pi&#249; dell'acquisizione, e il 75% qui sopra &#232; il dato osservato.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CRESCITA VERSO IL TRAGUARDO 174K ============ -->
+  <section class="view hidden" id="view-traiettoria" role="tabpanel">
+    <div class="banner"><span class="bi">&#8250;</span><span><b>Questa vista dice se la traiettoria porta all'obiettivo.</b> Confronta i clienti attivi con le tappe del Previsionale 36M pessimistico e con la fine del piano (ott 2030: 126 clienti, MRR atteso &#8364;114.306).</span></div>
+    <!-- TRAIETTORIA-KPI-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) -->
+    <div class="kpis">
+      <div class="kpi"><span class="rail blue"></span><div class="lab">Clienti attivi</div><div class="val blue tnum">12</div><div class="sub">fonte: Lista Clienti AME</div></div>
+      <div class="kpi"><span class="rail slate"></span><div class="lab">Obiettivo</div><div class="val tnum">126</div><div class="sub">clienti a fine piano, ott 2030</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Clienti mancanti</div><div class="val amber tnum">114</div><div class="sub">126 &#8722; 12</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Avanzamento</div><div class="val jade tnum">9,5%</div><div class="sub">12 &#247; 126</div></div>
+    </div>
+    <!-- TRAIETTORIA-KPI-END -->
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Traiettoria clienti</h3><div class="csub">reale, tappe previste e fine piano ott 2030</div></div></div>
+        <svg id="chart-mrr-traj" viewBox="0 0 460 220" role="img" aria-label="Clienti attivi e tappe verso la fine del piano, ott 2030"></svg>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Ponte del ricorrente</h3><div class="csub">dove finisce l'MRR se non si vende altro</div></div></div>
+        <div class="statlist" id="ponte-mrr"></div>
+      </div>
+    </div>
+    <div class="tablecard" style="margin-top:13px">
+      <div class="thead-row"><h3>Tappe verso la fine del piano</h3><div class="minilegend">fonte: Previsionale 36M pessimistico</div></div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Tappa</th><th>Clienti</th><th>Obiettivo</th><th>Avanzamento</th></tr></thead>
+        <tbody id="leve-rows"></tbody>
+      </table></div>
+      <div class="foot"><span>4 mesi pieni da agosto a dicembre</span><span class="tot">Ogni leva &#232; alternativa alle altre, non si sommano</span></div>
+    </div>
+  </section>
+
+  <!-- ============ STORICO ============ -->
+  <section class="view hidden" id="view-crescita" role="tabpanel">
+    <div class="kpis">
+      <div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo</div><div class="val jade tnum">&#8364;8.934</div><div class="sub">12 clienti che pagano ora</div></div>
+      <!-- STORICO-CONTR-START --><div class="kpi"><span class="rail blue"></span><div class="lab">MRR contrattualizzato</div><div class="val blue tnum">&#8364;11.467</div><div class="sub">MRR attivo + 3 clienti firmati, non ancora in delivery</div></div><!-- STORICO-CONTR-END -->
+      <div class="kpi" id="kpi-incassato-cash"><span class="rail amber"></span><div class="lab">Incassato cash ottobre</div><div class="val tnum">&#8364;0</div><div class="sub">per cassa &#183; regola del 5 &#183; fonte Bilancio</div></div>
+      <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads ottobre</div><div class="val tnum">&#8364;2.248</div><div class="sub">mese solare &#183; Meta, hiring escluso</div></div>
+      <!-- STORICO-VERSO-START --><div class="kpi"><span class="rail jade"></span><div class="lab">Verso 126 clienti</div><div class="val tnum">9,5%</div><div class="bar"><i style="width:9.5%"></i></div></div><!-- STORICO-VERSO-END -->
+    </div>
+    <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:22px 2px 11px">Essenziali CEO</div>
+    <div class="grid3">
+      <div class="card">
+        <!-- STORICO-UE-START -->
+        <div class="chead"><div><h3>Unit economics</h3><div class="csub">per cliente &#183; mix 30/50/20, rinnovo al 55% &#183; LTV/CAC = (margine vita + CAC) &#247; CAC</div></div></div>
+        <div class="statlist">
+          <div class="statrow"><span class="sk">CAC &#183; costo acquisizione</span><span class="sv">&#8364;530</span><span class="st">Unit Economics</span></div>
+          <div class="statrow"><span class="sk">Tetto CAC a 3:1</span><span class="sv">&#8364;1.982</span><span class="chip good">27% usato</span></div>
+          <div class="statrow"><span class="sk">LTV ufficiale &#183; incasso</span><span class="sv">&#8364;9.648</span><span class="st">vita intera</span></div>
+          <div class="statrow"><span class="sk">Margine vita &#183; dopo il CAC</span><span class="sv">&#8364;6.945</span><span class="st">Scenari 1M</span></div>
+          <div class="statrow"><span class="sk">LTV / CAC</span><span class="sv">14,1 : 1</span><span class="chip good">Sano</span></div>
+          <div class="statrow"><span class="sk">Payback CAC</span><span class="sv">Immediato</span><span class="st">incasso upfront</span></div>
+        </div>
+        <!-- STORICO-UE-END -->
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Gap all'obiettivo</h3><div class="csub">clienti attivi &#8594; 126 (fine piano ott 2030)</div></div></div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin:8px 0 3px"><span class="tnum" style="font-size:29px;font-weight:750;letter-spacing:-.02em;color:var(--amber)" id="gap-n">114</span><span style="font-size:12px;color:var(--faint)">clienti ancora da acquisire e mantenere</span></div>
+        <div class="bar" style="margin-bottom:13px"><i id="gap-bar" style="width:9.5%"></i></div>
+        <div class="statlist">
+          <div class="statrow"><span class="sk">Tappa gennaio 2027</span><span class="sv">22</span><span class="st">clienti</span></div>
+          <div class="statrow"><span class="sk">Tappa dicembre 2028</span><span class="sv">104</span><span class="st">clienti</span></div>
+          <div class="statrow"><span class="sk">Tappa dicembre 2029</span><span class="sv">119</span><span class="st">clienti</span></div>
+          <div class="statrow"><span class="sk">Netto a fine piano, ott 2030</span><span class="sv">&#8364;66.995</span><span class="st">al mese</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Concentrazione &amp; churn</h3><div class="csub">rischio portafoglio</div></div></div>
+        <div class="statlist">
+          <div class="statrow"><span class="sk">Top cliente &#183; Marco La Corte</span><span class="sv">9%</span><span class="st">dell&#8217;MRR attivo</span></div>
+          <div class="statrow"><span class="sk">Top 3 clienti</span><span class="sv">27%</span><span></span></div>
+          <div class="statrow"><span class="sk">Churn storico</span><span class="sv">4/20</span><span class="st">clienti persi da inizio</span></div>
+          <div class="statrow"><span class="sk">Tasso di rinnovo</span><span class="sv">80%</span><span class="chip good">16/20</span></div>
+          <div class="statrow"><span class="sk">A rischio ora</span><span class="sv">7</span><span class="chip warn">giallo o rosso</span></div>
+        </div>
+      </div>
+    </div>
+<!-- TIPO-INCASSO-START (scritto da motore/cockpit_statici.py) -->
+    <div class="card" style="margin-bottom:16px">
+        <div class="chead"><div><h3>Incassato per tipo</h3><div class="csub">front end, back end e cross-sell &#183; mese per mese &#183; fonte Report Mensile Acquisizione &#183; <span style="color:var(--jade);font-weight:700">&#9632;</span> FE clienti nuovi &#160; <span style="color:var(--blue);font-weight:700">&#9632;</span> BE rate e rinnovi &#160; <span style="color:var(--amber);font-weight:700">&#9632;</span> Cross-sell SP e Recruiting</div></div></div>
+        <div class="statlist">
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Aprile</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;800" style="display:block;width:3.0%;background:var(--jade)"></i></span></span><span class="sv" style="text-align:right">&#8364;800</span><span class="st" style="text-align:right">FE 100% &#183; BE 0% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Maggio</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;1.700" style="display:block;width:6.3%;background:var(--jade)"></i></span></span><span class="sv" style="text-align:right">&#8364;1.700</span><span class="st" style="text-align:right">FE 100% &#183; BE 0% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Giugno</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;1.700" style="display:block;width:6.3%;background:var(--jade)"></i><i title="BE &#8364;1.100" style="display:block;width:4.1%;background:var(--blue)"></i></span></span><span class="sv" style="text-align:right">&#8364;2.800</span><span class="st" style="text-align:right">FE 61% &#183; BE 39% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Luglio</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;10.300" style="display:block;width:38.2%;background:var(--jade)"></i><i title="BE &#8364;3.800" style="display:block;width:14.1%;background:var(--blue)"></i></span></span><span class="sv" style="text-align:right">&#8364;14.100</span><span class="st" style="text-align:right">FE 73% &#183; BE 27% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Agosto</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;1.000" style="display:block;width:3.7%;background:var(--jade)"></i><i title="BE &#8364;1.140" style="display:block;width:4.2%;background:var(--blue)"></i></span></span><span class="sv" style="text-align:right">&#8364;2.140</span><span class="st" style="text-align:right">FE 47% &#183; BE 53% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Settembre</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;17.650" style="display:block;width:65.5%;background:var(--jade)"></i><i title="BE &#8364;9.310" style="display:block;width:34.5%;background:var(--blue)"></i></span></span><span class="sv" style="text-align:right">&#8364;26.960</span><span class="st" style="text-align:right">FE 65% &#183; BE 35% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:600">Ottobre</span><span><span style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--border)"><i title="FE &#8364;8.900" style="display:block;width:33.0%;background:var(--jade)"></i><i title="BE &#8364;4.450" style="display:block;width:16.5%;background:var(--blue)"></i></span></span><span class="sv" style="text-align:right">&#8364;13.350</span><span class="st" style="text-align:right">FE 67% &#183; BE 33% &#183; CS 0%</span></div>
+          <div class="statrow" style="grid-template-columns:90px 1fr 92px 170px;align-items:center"><span class="sk" style="font-weight:750">Anno</span><span></span><span class="sv" style="text-align:right">&#8364;61.850</span><span class="st" style="text-align:right">FE 68% &#183; BE 32% &#183; CS 0%</span></div>
+        </div>
+    </div>
+    <!-- TIPO-INCASSO-END -->
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Fatturato mensile</h3><div class="csub">incassato per mese &#183; &#8364;</div></div></div>
+        <svg id="chart-fatturato" viewBox="0 0 460 220" role="img" aria-label="Fatturato: aprile 800, maggio 1700, giugno 2800, luglio 14100 euro"></svg>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>MRR storico</h3><div class="csub">ricorrente mensile reale</div></div></div>
+        <div class="legend">
+          <span><i class="swatch" style="border-color:var(--jade)"></i>MRR reale</span>
+        </div>
+        <svg id="chart-mrr" viewBox="0 0 460 220" role="img" aria-label="MRR reale giugno 1100 luglio 3400 agosto 4584 settembre 8934; traiettoria fino a dicembre 18000"></svg>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chead"><div><h3>Clienti attivi nel tempo</h3><div class="csub">clienti paganti a fine mese</div></div></div>
+      <svg id="chart-clienti" viewBox="0 0 940 190" role="img" aria-label="Clienti attivi: aprile 2, maggio 2, giugno 2, luglio 6, agosto 5"></svg>
+    </div>
+    <div class="tablecard" style="margin-top:13px">
+      <div class="thead-row">
+        <h3>Lista clienti &#183; LTV &amp; ultimi pagamenti</h3>
+        <div class="minilegend"><span class="pill attivo">Attivo</span><span class="pill firmato">Firmato</span><span class="pill churned">Churned</span></div>
+      </div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Cliente</th><th>Stato</th><th>Pack</th><th class="num">LTV incassato</th><th>Ultimo pag.</th><th>Cliente dal</th><th class="num">MRR</th></tr></thead>
+        <tbody id="client-rows"></tbody>
+      </table></div>
+      <div class="foot"><span>12 attivi &#183; 1 in pausa &#183; 2 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;54.500</b> &#183; MRR contrattualizzato <b>&#8364;10.734</b></span></div>
+    </div>
+    <!-- COMPETENZA vs CASSA settembre: fonte Scadenzario+Cashflow col J (Mese competenza) e Bilancio Buyer AME Totale!I25:J25, letti 29/09/2026 -->
+    <div class="tablecard" style="margin-top:13px" id="competenza-cassa-set">
+      <div class="thead-row">
+        <h3>Settembre &#183; competenza contro cassa</h3>
+        <div class="minilegend"><span class="pill firmato">Fatturato di competenza &#8364;30.500</span><span class="pill attivo">Incassato &#8364;26.960</span></div>
+      </div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Contratto firmato a settembre</th><th>Stato</th><th class="num">Competenza (contratto)</th><th class="num">Incassato</th><th class="num">Da incassare</th><th>Prossime rate</th></tr></thead>
+        <tbody>
+          <tr><td class="cname">Alessandro Zaghini</td><td><span class="pill attivo">Attivo</span></td><td class="num">&#8364;4.300</td><td class="num">&#8364;4.300</td><td class="num">&#8364;0</td><td>saldato il 07/10</td></tr>
+          <tr><td class="cname">Marcello Del Gaudio</td><td><span class="pill attivo">Attivo</span></td><td class="num">&#8364;4.800</td><td class="num">&#8364;4.800</td><td class="num">&#8364;0</td><td>pagato per intero il 15/09 &#183; delivery partita il 19/09</td></tr>
+          <tr><td class="cname">Giovanni Caruso</td><td><span class="pill attivo">Attivo</span></td><td class="num">&#8364;9.600</td><td class="num">&#8364;4.800</td><td class="num">&#8364;4.800</td><td>&#8364;4.800 il 25/03/2027</td></tr>
+          <tr><td class="cname">Cosimo Chirico</td><td><span class="pill attivo">Attivo</span></td><td class="num">&#8364;2.200</td><td class="num">&#8364;1.100</td><td class="num">&#8364;1.100</td><td>&#8364;1.100 il 29/10</td></tr>
+          <tr><td class="cname">Marco Pellegatta</td><td><span class="pill attivo">Attivo</span></td><td class="num">&#8364;9.600</td><td class="num">&#8364;4.800</td><td class="num">&#8364;4.800</td><td>incassati il 2/10 (regola del 5) &#183; &#8364;4.800 il 01/03/2027</td></tr>
+          <tr><td class="cname"><b>Totale competenza settembre</b></td><td></td><td class="num"><b>&#8364;30.500</b></td><td class="num"><b>&#8364;17.650</b></td><td class="num"><b>&#8364;12.850</b></td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="foot"><span>Incassato settembre &#8364;26.960 = &#8364;17.650 dei contratti di settembre + &#8364;4.300 saldo Ricciarelli (competenza agosto) + &#8364;4.300 saldo Dal Bosco del 1/10 (competenza agosto, regola del 5) + &#8364;500 rata Bosia (competenza giugno) + &#8364;210 percentuale vendite De Lio</span><span class="tot">Competenza fissa alla firma &#183; la cassa segue le rate</span></div>
+    </div>
+  </section>
+
+  <!-- ============ VENDITE ============ -->
+  <section class="view hidden" id="view-vendite" role="tabpanel">
+    <div class="kpis">
+      <div class="kpi"><span class="rail blue"></span><div class="lab">MRR nuovo &#183; nov</div><div class="val blue tnum">&#8364;0</div><div class="sub">competenza avvio delivery (regola del 5) &#183; partiti: Dal Bosco (6/10, &#8364;800), Chirico (6/10, &#8364;733), Pellegatta (12/10, &#8364;800), Mecarelli (27/10, &#8364;800) &#183; restano firmati: Capuano, Drago, Pesce, il loro MRR entra all&#8217;avvio</div></div>
+      <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; ott</div><div class="val tnum">&#8364;0</div><div class="sub">7 pagamenti &#183; Zaghini saldo 2.150 del 7/10 &#183; Mecarelli 4.800 &#183; Capuano 900 del 29/10 &#183; Chirico rata 1.100 del 31/10 &#183; Drago 2.700 e La Corte rinnovo 1.200 del 2/11</div></div>
+      <div class="kpi"><span class="rail slate"></span><div class="lab">Chiusure &#183; nov</div><div class="val tnum">0</div><div class="sub">mese dell&#8217;incasso (regola del 5) &#183; fonte KPI Direzione Vendite</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Close rate demo</div><div class="val tnum">18%</div><div class="sub">4 chiusure su 22 demo &#183; target 20% &#183; sotto soglia</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Funnel vendite &#183; novembre</h3><div class="csub">lead &#8594; discovery &#8594; demo &#8594; chiuso</div></div></div>
+        <div class="funnel" id="funnel"></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Semafori funnel</h3><div class="csub">medie tutte le settimane vs soglia</div></div></div>
+        <div class="statlist" id="semafori"></div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="seller" id="seller-michele"></div>
+      <div class="seller" id="seller-carlo"></div>
+    </div>
+    <!-- PROSPECT-FERMI-START (scritto da motore/prospect_fermi.py --commit, non modificare a mano) -->
+
+    <div class="tablecard">
+      <div class="thead-row">
+        <h3>Prospect da risentire oggi</h3>
+        <div class="minilegend">10 da chiamare &#183; 42 utili su 226 fermi da oltre 7 gg</div>
+      </div>
+      <div class="tscroll"><table style="min-width:640px">
+        <thead><tr><th>Prospect</th><th>Stage</th><th>Verticale</th><th>Perch&#233; risentirlo</th><th class="num">Fermo da</th></tr></thead>
+        <tbody>
+            <tr><td class="cname">Mauro Luchini</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.800 euro</td><td class="num"><span class="pill attivo">9 gg</span></td></tr>
+            <tr><td class="cname">Gianmarco Lentini</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.800 euro</td><td class="num"><span class="pill attivo">10 gg</span></td></tr>
+            <tr><td class="cname">Fiammetta Giurato</td><td>Follow-up / rimandato</td><td>Oro</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.800 euro</td><td class="num"><span class="pill daincassare">15 gg</span></td></tr>
+            <tr><td class="cname">Nicola Zaccarelli</td><td>Follow-up / rimandato</td><td>Oro</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.800 euro</td><td class="num"><span class="pill daincassare">16 gg</span></td></tr>
+            <tr><td class="cname">Marco Pianigiani</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.300 euro</td><td class="num"><span class="pill churned">44 gg</span></td></tr>
+            <tr><td class="cname">Federica</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 4.000 euro</td><td class="num"><span class="pill daincassare">20 gg</span></td></tr>
+            <tr><td class="cname">Antonio Francesco Gattabria</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 2.700 euro</td><td class="num"><span class="pill attivo">8 gg</span></td></tr>
+            <tr><td class="cname">Giuseppe Mancuso</td><td>Follow-up / rimandato</td><td>Oro</td><td style="white-space:normal;color:var(--muted)">trattativa da 2.700 euro</td><td class="num"><span class="pill attivo">13 gg</span></td></tr>
+            <tr><td class="cname">Aldo</td><td>Follow-up / rimandato</td><td>CF</td><td style="white-space:normal;color:var(--muted)">trattativa da 2.400 euro</td><td class="num"><span class="pill churned">94 gg</span></td></tr>
+            <tr><td class="cname">Alessandro La Corte</td><td>Follow-up / rimandato</td><td>Oro</td><td style="white-space:normal;color:var(--muted)">ha fatto la call, poi rimandato</td><td class="num"><span class="pill attivo">8 gg</span></td></tr>
+        </tbody>
+      </table></div>
+      <div style="padding:11px 18px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)">
+        Fonte GHL. Solo chi ha avuto una call fissata o ha un valore sulla trattativa, fermo da 7 a 60 giorni. Fuori 184 fermi senza nessuna call (iscritti evento, lead mai qualificati) e i lead assicurativi. Ordine: pagamento, demo, no show, poi il pi&#249; fresco. Aggiornato 06/11/2026 09:00.
+      </div>
+    </div>
+    <!-- PROSPECT-FERMI-END -->
+    <div class="card">
+      <div class="chead"><div><h3>Fatturato per mese</h3><div class="csub">incassato totale &#183; &#8364; &#183; specchio del Bilancio &#183; con crescita mese su mese</div></div></div>
+      <svg id="chart-vendite-trend" viewBox="0 0 940 210" role="img" aria-label="Fatturato incassato: aprile 800, maggio 1700, giugno 2800, luglio 14100 euro, con variazione mese su mese"></svg>
+    </div>
+  </section>
+
+  <!-- ============ RATE & RINNOVI ============ -->
+  <section class="view hidden" id="view-rate" role="tabpanel">
+    <div class="kpis">
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Da incassare</div><div class="val amber tnum">&#8364;7.800</div><div class="sub">4 rate nei prossimi 90 giorni (Capuano 28/11 &#183; La Corte 2/12 &#183; Caruso 25/12 &#183; Capuano 28/12) &#183; 6 aperte in tutto, &#8364;20.900</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Prossimo incasso</div><div class="val tnum">&#8364;900</div><div class="sub">Capuano &#8364;900 &#183; 28 nov</div></div>
+      <div class="kpi"><span class="rail violet"></span><div class="lab">Rinnovi Q4</div><div class="val tnum">3</div><div class="sub">Bosia 14/11, Chirico 6/1, Micheloni 4/2</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Rate scadute</div><div class="val tnum">0</div><div class="sub">nessuna rata oltre la scadenza (le annullate non contano)</div></div>
+    </div>
+    <!-- RETENTION-START (scritto da motore/retention.py --commit, non modificare a mano) -->
+    <div class="kpis">
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Tasso di rinnovo</div><div class="val amber tnum">80%</div><div class="sub">su 10 clienti ne restano <b>8</b></div></div>
+      <div class="kpi"><span class="rail red"></span><div class="lab">Churn</div><div class="val tnum">20%</div><div class="sub">4 persi su 20 clienti</div></div>
+      <div class="kpi"><span class="rail slate"></span><div class="lab">Rinnovi pagati</div><div class="val tnum">1</div><div class="sub">piu' 16 cicli prepagati (semestrali e annuali) &#183; 4 decisioni maturate</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Prossima scadenza</div><div class="val tnum">14/11/2026</div><div class="sub">il prossimo cliente al bivio del rinnovo</div></div>
+    </div>
+    <!-- RETENTION-END -->
+    <div class="grid2" style="align-items:start">
+      <div class="tablecard">
+        <div class="thead-row"><h3>Rate future in scadenza</h3><div class="minilegend"><span class="pill daincassare">Da incassare</span></div></div>
+        <div class="tscroll"><table style="min-width:480px">
+          <thead><tr><th>Cliente</th><th>Descrizione</th><th class="num">Importo</th><th>Scadenza</th></tr></thead>
+          <tbody id="rate-rows"></tbody>
+        </table></div>
+        <div class="foot"><span>6 rate aperte</span><span class="tot">Totale <b>&#8364;20.900</b> (di cui &#8364;8.300 senza data)</span></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Calendario rinnovi</h3><div class="csub">quando ogni cliente rinnova il contratto</div></div></div>
+        <div class="timeline" id="rinnovi"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREVISIONALE 3M ============ -->
+  <section class="view hidden" id="view-previsionale" role="tabpanel">
+    <div class="banner"><span class="bi">&#8250;</span><span><b>Previsionale, non consuntivo.</b> Proiezione del Previsionale 36M pessimistico del Trimestrale, la fonte unica del piano: i tre mesi dopo il mese contabile. Churn 45% a ogni rinnovo, rinnovo allo stesso prezzo con mesi di servizio regalati (semestrale 6+1, annuale 11+3), cross-sell 20%, dal 2027 mix 30/50/20 e listino 2.700 / 4.800 / 8.800, vita media 13,22 mesi. Le righe si riallineano col sync del cockpit; riquadri, grafici e piede le seguono da soli.</span></div>
+    <div class="kpis">
+      <div class="kpi"><span class="rail blue"></span><div class="lab" id="prev-k-inc-lab">Incasso previsto &#183; Nov-Gen</div><div class="val blue tnum" id="prev-k-inc">&#8364;104,5k</div><div class="sub">cassa upfront 3 mesi</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab" id="prev-k-net-lab">Netto previsto &#183; Nov-Gen</div><div class="val jade tnum" id="prev-k-net">&#8364;65,4k</div><div class="sub" id="prev-k-net-sub">margine medio ~63%</div></div>
+      <div class="kpi"><span class="rail slate"></span><div class="lab" id="prev-k-cl-lab">Clienti a gennaio</div><div class="val tnum" id="prev-k-cl">~24,1</div><div class="sub" id="prev-k-cl-sub">da 17,3 a fine novembre</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab" id="prev-k-ads-lab">Budget ads &#183; gennaio</div><div class="val tnum" id="prev-k-ads">&#8364;2.888</div><div class="sub" id="prev-k-ads-sub">da &#8364;2.000 di novembre</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="chead"><div><h3>Incasso vs netto &#183; prossimi 3 mesi</h3><div class="csub">previsionale &#183; &#8364;</div></div></div>
+        <div class="legend"><span><i class="swatch" style="border-color:var(--blue)"></i>Incasso</span><span><i class="swatch" style="border-color:var(--jade)"></i>Netto</span></div>
+        <svg id="chart-prev-incasso" viewBox="0 0 460 220" role="img" aria-label="Previsionale incasso e netto dei prossimi tre mesi"></svg>
+      </div>
+      <div class="card">
+        <div class="chead"><div><h3>Crescita clienti (modello)</h3><div class="csub">clienti totali previsti a fine mese</div></div></div>
+        <svg id="chart-prev-clienti" viewBox="0 0 460 220" role="img" aria-label="Clienti previsti a fine mese nei prossimi tre mesi"></svg>
+      </div>
+    </div>
+    <div class="tablecard" style="margin-top:13px">
+      <div class="thead-row"><h3>Previsionale mese per mese</h3><div class="minilegend">fonte: Trimestrale &#183; Previsionale 36M pessimistico</div></div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Mese</th><th class="num">Nuovi netti</th><th class="num">Tot clienti</th><th class="num">Incasso</th><th class="num">Netto</th><th class="num">Margine</th><th class="num">Ads</th></tr></thead>
+        <tbody id="prev-rows"></tbody>
+      </table></div>
+      <div class="foot"><span id="prev-foot-per">Nov 2026 &#8594; Gen 2027 &#183; Previsionale 36M pessimistico</span><span class="tot" id="prev-foot-net">Netto cumulato a gennaio <b>&#8364;65,4k</b></span></div>
+    </div>
+  </section>
+
+  <footer class="src">
+    <b>Fonti (dati reali letti dai fogli):</b> Lista Clienti AME (Clienti, Scadenzario e Cashflow) &#183; Trimestrale, Previsionale 36M pessimistico (fine piano ott 2030: 126 clienti, MRR atteso €114.306) &#183; Obiettivi Aziendali &#183; Bilancio 2026 BCF (Ricavi) &#183; Sales Manager Weekly Scorecard &#183; KPI Direzione Vendite &#183; KPI Tracker Clienti.<br>
+    <b>Come aggiornarla:</b> &#232; una fotografia. Di' &#8220;aggiorna la dashboard&#8221; &#8594; rileggo i fogli e rigenero, stesso link. I fogli restano la fonte unica.
+  </footer>
+</div>
+
+<script>
+const EUR = n => "\u20ac" + Math.round(n).toLocaleString("it-IT");
+const EURk = n => n>=1000 ? "\u20ac"+(n/1000).toLocaleString("it-IT",{maximumFractionDigits:1})+"k" : "\u20ac"+n;
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,x){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(x!=null)e.textContent=x;return e;}
+function clear(id){const s=document.getElementById(id);if(s)s.innerHTML="";return s;}
+
+/* ---------- CRESCITA charts ---------- */
+function drawFatturato(){
+  const data=[{m:"Apr",v:800},{m:"Mag",v:1700},{m:"Giu",v:2800},{m:"Lug",v:14100},{m:"Ago",v:2140},{m:"Set",v:26960},{m:"Ott",v:13350},{m:"Nov",v:0}];
+  const svg=clear("chart-fatturato");if(!svg)return;
+  const W=460,H=220,L=44,R=16,T=14,B=30,w=W-L-R,h=H-T-B,max=35000,ticks=[0,8750,17500,26250,35000];
+  const x=i=>L+w*i/(data.length-1),y=v=>T+h-h*v/max;
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},EURk(t)));});
+  let d="M "+x(0)+" "+y(data[0].v);for(let i=1;i<data.length;i++)d+=" L "+x(i)+" "+y(data[i].v);
+  const grad=el("linearGradient",{id:"gfat",x1:0,y1:0,x2:0,y2:1});
+  grad.appendChild(el("stop",{offset:"0%","stop-color":css("--blue"),"stop-opacity":.22}));
+  grad.appendChild(el("stop",{offset:"100%","stop-color":css("--blue"),"stop-opacity":0}));
+  svg.appendChild(el("defs",{})).appendChild(grad);
+  svg.appendChild(el("path",{d:d+" L "+x(data.length-1)+" "+y(0)+" L "+x(0)+" "+y(0)+" Z",fill:"url(#gfat)"}));
+  svg.appendChild(el("path",{d,fill:"none",stroke:css("--blue"),"stroke-width":2.5,"stroke-linejoin":"round","stroke-linecap":"round"}));
+  data.forEach((p,i)=>{svg.appendChild(el("text",{x:x(i),y:H-10,class:"axl","text-anchor":"middle"},p.m));
+    svg.appendChild(el("circle",{cx:x(i),cy:y(p.v),r:i===data.length-1?4.5:3.5,fill:css("--blue"),class:"dot"}));
+    if(i===data.length-1)svg.appendChild(el("text",{x:x(i),y:y(p.v)-11,class:"plabel","text-anchor":"end",fill:css("--blue")},EUR(p.v)));});
+}
+function drawMRR(){
+  const months=["Lug","Ago","Set","Ott","Nov"];
+  const reale=[2300,3484,6601,8934,8934];
+  const svg=clear("chart-mrr");if(!svg)return;
+  const W=460,H=220,L=44,R=20,T=16,B=30,w=W-L-R,h=H-T-B,max=15000,ticks=[0,3750,7500,11250,15000];
+  const x=i=>L+w*i/(months.length-1),y=v=>T+h-h*v/max;
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},EURk(t)));});
+  let dr="";reale.forEach((v,i)=>{if(v!=null)dr+=(dr?" L ":"M ")+x(i)+" "+y(v);});
+  svg.appendChild(el("path",{d:dr,fill:"none",stroke:css("--jade"),"stroke-width":2.8,"stroke-linejoin":"round","stroke-linecap":"round"}));
+  months.forEach((m,i)=>svg.appendChild(el("text",{x:x(i),y:H-10,class:"axl","text-anchor":"middle"},m)));
+  reale.forEach((v,i)=>{if(v!=null)svg.appendChild(el("circle",{cx:x(i),cy:y(v),r:i===4?4.5:3.5,fill:css("--jade"),class:"dot"}));});
+  svg.appendChild(el("text",{x:x(4),y:y(8934)-11,class:"plabel","text-anchor":"end",fill:css("--jade")},"\u20ac8.934"));
+}
+function drawClienti(){
+  const data=[{m:"Mag",v:2},{m:"Giu",v:2},{m:"Lug",v:5},{m:"Ago",v:6},{m:"Set",v:9},{m:"Ott",v:12},{m:"Nov",v:12}];
+  const svg=clear("chart-clienti");if(!svg)return;
+  const W=940,H=190,L=40,R=16,T=16,B=28,w=W-L-R,h=H-T-B,max=15,ticks=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  const y=v=>T+h-h*v/max,band=w/data.length,bw=Math.min(90,band*0.5);
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},t));});
+  data.forEach((p,i)=>{const cx=L+band*i+band/2,top=y(p.v),bh=y(0)-top,last=i===data.length-1;
+    svg.appendChild(el("rect",{x:cx-bw/2,y:top,width:bw,height:bh,rx:4,fill:last?css("--jade"):css("--jade-soft"),stroke:last?"none":css("--jade"),"stroke-width":last?0:1.2}));
+    svg.appendChild(el("text",{x:cx,y:top-8,class:"plabel","text-anchor":"middle",fill:css("--jade")},p.v));
+    svg.appendChild(el("text",{x:cx,y:H-9,class:"axl","text-anchor":"middle"},p.m));});
+}
+const clients=[
+  {n:"GMY",s:"Churned",p:"A",ltv:600,last:"22/04/2026",since:"22/04/2026",mrr:0},
+  {n:"Marco De Lio",s:"Churned",p:"C",ltv:4350,last:"29/09/2026",since:"05/05/2026",mrr:0},
+  {n:"Marzia Battocchio",s:"Churned",p:"A",ltv:300,last:"25/05/2026",since:"25/05/2026",mrr:0},
+  {n:"Emanuele Serpilli",s:"Churned",p:"B",ltv:1600,last:"09/07/2026",since:"29/05/2026",mrr:0},
+  {n:"Marco La Corte",s:"Attivo",p:"B",ltv:3600,last:"02/11/2026",since:"02/08/2026",mrr:800},
+  {n:"Flavio Bosia",s:"Attivo",p:"B",ltv:1700,last:"08/09/2026",since:"14/08/2026",mrr:567},
+  {n:"Stefano Moratti",s:"In pausa",p:"B",ltv:2400,last:"18/07/2026",since:"27/07/2026",mrr:0},
+  {n:"Raffaele De Leonardis",s:"Attivo",p:"B",ltv:3700,last:"24/07/2026",since:"24/08/2026",mrr:617},
+  {n:"Luigi Micheloni",s:"Attivo",p:"B",ltv:4200,last:"28/07/2026",since:"04/08/2026",mrr:700},
+  {n:"Davide Dal Bosco",s:"Attivo",p:"B",ltv:4800,last:"01/10/2026",since:"06/10/2026",mrr:800},
+  {n:"Fabio Ricciarelli",s:"Attivo",p:"B",ltv:4800,last:"30/09/2026",since:"01/10/2026",mrr:800},
+  {n:"Alessandro Zaghini",s:"Attivo",p:"B",ltv:4300,last:"07/10/2026",since:"17/09/2026",mrr:717},
+  {n:"Marcello Del Gaudio",s:"Attivo",p:"B",ltv:4800,last:"15/09/2026",since:"19/09/2026",mrr:800},
+  {n:"Giovanni Caruso",s:"Attivo",p:"B",ltv:4800,last:"25/09/2026",since:"04/10/2026",mrr:800},
+  {n:"Cosimo Chirico",s:"Attivo",p:"B",ltv:2200,last:"31/10/2026",since:"06/10/2026",mrr:733},
+  {n:"Marco Pellegatta",s:"Attivo",p:"B",ltv:4800,last:"02/10/2026",since:"12/10/2026",mrr:800},
+  {n:"Elisa Mecarelli",s:"Attivo",p:"B",ltv:4800,last:"20/10/2026",since:"27/10/2026",mrr:800},
+  {n:"Gianluca Capuano",s:"Firmato",p:"B",ltv:900,last:"29/10/2026",since:"29/10/2026",mrr:900,note:"all'avvio"},
+  {n:"Giulio Drago",s:"Firmato",p:"B",ltv:2700,last:"02/11/2026",since:"02/11/2026",mrr:900,note:"all'avvio"},
+  {n:"Marco Pesce",s:"Firmato",p:"B",ltv:500,last:"05/11/2026",since:"05/11/2026",mrr:733,note:"all'avvio"},
+];
+function renderClientTable(){
+  const tb=clear("client-rows");if(!tb)return;
+  clients.forEach(c=>{const tr=document.createElement("tr");
+    const mrr=c.mrr>0?`<td class="num mrr">${EUR(c.mrr)}${c.note?` <span style="color:var(--faint);font-weight:400;font-size:11px">${c.note}</span>`:""}</td>`:`<td class="num mrr zero">\u2014</td>`;
+    tr.innerHTML=`<td class="cname">${c.n}</td><td><span class="pill ${c.s.toLowerCase()}">${c.s}</span></td><td><span class="packtag">${c.p}</span></td><td class="num">${EUR(c.ltv)}</td><td>${c.last}</td><td>${c.since}</td>${mrr}`;
+    tb.appendChild(tr);});
+}
+
+/* ---------- VENDITE ---------- */
+function renderFunnel(){
+  const host=clear("funnel");if(!host)return;
+  /* Mese contabile: settembre. Fonte: Scorecard "Consuntivo mese" F21:K30.
+     Aggiornato il 12/09/2026: 29 lead, 5 discovery, 3 demo e 1 chiusura. */
+  const stages=[{k:"Lead",v:0,c:"--blue"},{k:"Discovery",v:0,c:"--violet"},{k:"Demo",v:0,c:"--amber"},{k:"Chiusi",v:0,c:"--jade"}];
+  /* 25/9/2026: allineati al Report Mensile Acquisizione, tab TOTALE riga Settembre
+     (fonte canonica del consuntivo mese). Prima: 80/14/18/2, presi a mano dalla
+     Bussola della Scorecard, che non era stata ricopiata dal Report. */
+  const max=stages[0].v;
+  stages.forEach((s,i)=>{
+    const conv=i>0?Math.round(s.v/stages[i-1].v*100):null;
+    const row=document.createElement("div");row.className="fstage";
+    row.innerHTML=`<div class="fl">${s.k}</div>
+      <div class="fbar-wrap">
+        <div class="fbar" style="width:${Math.max(8,s.v/max*100)}%;background:${css(s.c)}">${s.v}</div>
+        ${conv!=null?`<span class="fconv"><b>${conv}%</b> dal prec.</span>`:`<span class="fconv">totale mese</span>`}
+      </div>`;
+    host.appendChild(row);
+  });
+}
+function renderSemafori(){
+  const host=clear("semafori");if(!host)return;
+  const rows=[
+    {k:"CR lead \u2192 2\u00b0 apt",v:"34,8%",t:"soglia 18%",s:"good"},
+    {k:"CR 2\u00b0 \u2192 3\u00b0 apt",v:"60,3%",t:"soglia 61%",s:"good"},
+    {k:"Show rate discovery",v:"65,4%",t:"soglia 60%",s:"good"},
+    {k:"Show rate demo",v:"67,8%",t:"soglia 70%",s:"good"},
+    {k:"Close rate discovery",v:"11%",t:"soglia 25%",s:"bad"},
+    {k:"Close rate demo",v:"18,3%",t:"soglia 30%",s:"bad"},
+  ];
+  const lab={good:"OK",warn:"Attenzione",bad:"Sotto"};
+  rows.forEach(r=>{const d=document.createElement("div");d.className="statrow";
+    d.innerHTML=`<span class="sk">${r.k}<br><span class="st">${r.t}</span></span><span class="sv">${r.v}</span><span class="chip ${r.s}">${lab[r.s]}</span>`;
+    host.appendChild(d);});
+}
+function renderSeller(id,d){
+  const host=document.getElementById(id);if(!host)return;
+  const bottom=d.transition
+    ? `<div class="sbar" style="grid-column:1/-1"><div class="tlmeta" style="font-size:12px;color:var(--muted);line-height:1.4">Numeri storici \u00b7 ultima settimana da venditore 19-26/7. Ora nel Success (CSM), il closing \u00e8 tutto su Michele.</div></div>`
+    : `<div class="sbar"><div class="bl"><span>CR lead \u2192 chiuso</span><span style="font-weight:700;color:var(--ink)">${d.cr}%</span></div><div class="bar"><i style="width:${Math.min(100,d.cr*5)}%;background:${d.chiusi>0?'var(--jade)':'var(--red)'}"></i></div></div>`;
+  host.innerHTML=`
+    <div class="sh"><span class="name">${d.name}</span><span class="role">${d.role}</span></div>
+    <div class="smetrics">
+      <div class="smetric"><div class="m" style="color:${d.chiusi>0?'var(--jade)':'var(--faint)'}">${d.chiusi}</div><div class="k">chiusi</div></div>
+      <div class="smetric"><div class="m">${EUR(d.fatt)}</div><div class="k">fatturato incassato</div></div>
+      <div class="smetric"><div class="m">${d.lead}</div><div class="k">lead assegnati</div></div>
+      <div class="smetric"><div class="m">${d.show}</div><div class="k">2\u00b0 apt fatti / fissati</div></div>
+      ${bottom}
+    </div>`;
+}
+function drawVenditeTrend(){
+  const data=[{m:"Apr",cash:800},{m:"Mag",cash:1700},{m:"Giu",cash:2800},{m:"Lug",cash:14100},{m:"Ago",cash:2140},{m:"Set",cash:26960},{m:"Ott",cash:13350},{m:"Nov",cash:0}];
+  const svg=clear("chart-vendite-trend");if(!svg)return;
+  const W=940,H=210,L=48,R=16,T=38,B=28,w=W-L-R,h=H-T-B;
+  const max=30000,ticks=[0,7500,15000,22500,30000];
+  const y=v=>T+h-h*v/max,band=w/data.length,bw=Math.min(100,band*0.46);
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},EURk(t)));});
+  data.forEach((p,i)=>{const cx=L+band*i+band/2,top=y(p.cash),bh=y(0)-top,last=i===data.length-1;
+    svg.appendChild(el("rect",{x:cx-bw/2,y:top,width:bw,height:bh,rx:5,fill:last?css("--blue"):css("--blue-soft"),stroke:last?"none":css("--blue"),"stroke-width":last?0:1.3}));
+    svg.appendChild(el("text",{x:cx,y:top-10,class:"plabel","text-anchor":"middle",fill:last?css("--blue"):css("--muted")},EUR(p.cash)));
+    if(i>0){const prev=data[i-1].cash,mom=prev>0?Math.round((p.cash/prev-1)*100):0;
+      const col=mom>0?css("--jade"):(mom<0?css("--red"):css("--faint"));
+      const txt=(mom>0?"\u25b2 +":mom<0?"\u25bc ":"\u00b1 ")+mom+"%";
+      svg.appendChild(el("text",{x:cx,y:top-26,class:"plabel","text-anchor":"middle",fill:col},txt));}
+    svg.appendChild(el("text",{x:cx,y:H-9,class:"axl","text-anchor":"middle"},p.m));});
+}
+
+/* ---------- RATE & RINNOVI ---------- */
+const rate=[
+  /* Scritto da motore/cockpit_statici.py il 06/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"28/11/2026"},
+  {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
+  {n:"Giovanni Caruso",desc:"Rata 2/2 annuale (€ 9.600 tot)",v:4800,due:"25/12/2026"},
+  {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 3 di 3",v:900,due:"28/12/2026"},
+  {n:"Marco Pellegatta",desc:"Rata 2/2 annuale (€ 9.600 tot)",v:4800,due:"01/03/2027"},
+  {n:"Marco Pesce",desc:"Annuale ORO (8.800): residuo, piano di pagamento da definire",v:8300,due:"da fissare"},
+];
+function renderRate(){
+  const tb=clear("rate-rows");if(!tb)return;
+  rate.forEach(r=>{const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="cname">${r.n}</td><td style="white-space:normal;color:var(--muted)">${r.desc}</td><td class="num">${EUR(r.v)}</td><td>${r.due}</td>`;
+    tb.appendChild(tr);});
+}
+const rinnovi=[
+  /* Scritto da motore/cockpit_statici.py: data dalla colonna W, valore dal listino rinnovi vigente. */
+  {date:"14/11",y:"2026",n:"Flavio Bosia",meta:"trimestrale Pack B · avvio 14/8",val:"\u20ac2.700",kind:"q4"},
+  {date:"06/01",y:"2027",n:"Cosimo Chirico",meta:"trimestrale Pack B · avvio 6/10",val:"\u20ac2.700",kind:"q4"},
+  {date:"04/02",y:"2027",n:"Luigi Micheloni",meta:"semestrale Pack B · avvio 4/8",val:"\u20ac4.800",kind:"q4"},
+  {date:"24/02",y:"2027",n:"Raffaele De Leonardis",meta:"semestrale Pack B · avvio 24/8",val:"\u20ac4.800",kind:""},
+  {date:"03/03",y:"2027",n:"Marco La Corte",meta:"trimestrale Pack B · avvio 2/8",val:"\u20ac2.700",kind:""},
+  {date:"17/03",y:"2027",n:"Alessandro Zaghini",meta:"semestrale Pack B · avvio 17/9",val:"\u20ac4.800",kind:""},
+  {date:"19/03",y:"2027",n:"Marcello Del Gaudio",meta:"semestrale Pack B · avvio 19/9",val:"\u20ac4.800",kind:""},
+  {date:"01/04",y:"2027",n:"Fabio Ricciarelli",meta:"semestrale Pack B · avvio 1/10",val:"\u20ac4.800",kind:""},
+  {date:"06/04",y:"2027",n:"Davide Dal Bosco",meta:"semestrale Pack B · avvio 6/10",val:"\u20ac4.800",kind:""},
+  {date:"27/04",y:"2027",n:"Elisa Mecarelli",meta:"semestrale Pack B · avvio 27/10",val:"\u20ac4.800",kind:""},
+  {date:"04/10",y:"2027",n:"Giovanni Caruso",meta:"annuale Pack B · avvio 4/10",val:"\u20ac8.800",kind:""},
+  {date:"12/10",y:"2027",n:"Marco Pellegatta",meta:"annuale Pack B · avvio 12/10",val:"\u20ac8.800",kind:""},
+];
+function renderRinnovi(){
+  const host=clear("rinnovi");if(!host)return;
+  rinnovi.forEach(r=>{const d=document.createElement("div");d.className="tl";
+    d.innerHTML=`<div class="tldate">${r.date}<small>${r.y}</small></div>
+      <div class="tlbody"><span class="dotm ${r.kind}"></span><div><div class="tlname">${r.n}</div><div class="tlmeta">${r.meta}</div></div></div>
+      <div class="tlval">${r.val}</div>`;
+    host.appendChild(d);});
+}
+
+/* ---------- PREVISIONALE 3M ---------- */
+const prev=[
+  /* Aggiornato 06/11/2026 dal foglio Previsionale 36M pessimistico (la fonte), vita 13,22 mesi.
+     Il mese contabile e' ottobre (regola del 5): i 3 mesi mostrati sono i successivi. */
+  {m:"Dic",nuovi:"2,3",tot:"18,8",incasso:25373,netto:16376,marg:"65%",ads:2400},
+  {m:"Gen",nuovi:"3,0",tot:"21,8",incasso:36814,netto:23192,marg:"63%",ads:4050},
+  {m:"Feb",nuovi:"2,8",tot:"24,6",incasso:38501,netto:24441,marg:"63%",ads:4050},
+];
+function drawPrevIncasso(){
+  const svg=clear("chart-prev-incasso");if(!svg)return;
+  /* scala dinamica dal 14/10/2026: segue il massimo di prev (il tetto fisso a 28k
+     faceva uscire dal grafico gennaio 2027 a 46.592) */
+  const top=Math.max(...prev.map(p=>p.incasso),1000),step=Math.ceil(top/4/1000)*1000,max=step*4,ticks=[0,step,step*2,step*3,max];
+  const W=460,H=220,L=50,R=16,T=16,B=30,w=W-L-R,h=H-T-B;
+  const y=v=>T+h-h*v/max,band=w/prev.length,bw=Math.min(30,band*0.28);
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},EURk(t)));});
+  prev.forEach((p,i)=>{const cx=L+band*i+band/2;
+    svg.appendChild(el("rect",{x:cx-bw-2,y:y(p.incasso),width:bw,height:y(0)-y(p.incasso),rx:4,fill:css("--blue")}));
+    svg.appendChild(el("rect",{x:cx+2,y:y(p.netto),width:bw,height:y(0)-y(p.netto),rx:4,fill:css("--jade")}));
+    svg.appendChild(el("text",{x:cx,y:y(p.incasso)-7,class:"plabel","text-anchor":"middle",fill:css("--blue"),"font-size":"10"},EURk(p.incasso)));
+    svg.appendChild(el("text",{x:cx,y:H-9,class:"axl","text-anchor":"middle"},p.m));});
+}
+function drawPrevClienti(){
+  /* dal 14/10/2026 i punti vengono da prev (colonna C del Previsionale 36M pessimistico), non scritti a mano */
+  const data=prev.map(p=>({m:p.m,v:parseFloat(String(p.tot).replace(",","."))}));
+  const svg=clear("chart-prev-clienti");if(!svg)return;
+  const stepc=Math.max(1,Math.ceil(Math.max(...data.map(d=>d.v))/3)),max=stepc*3,ticks=[0,stepc,stepc*2,max];
+  const W=460,H=220,L=40,R=20,T=16,B=30,w=W-L-R,h=H-T-B;
+  const x=i=>L+w*i/(data.length-1),y=v=>T+h-h*v/max;
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},t));});
+  const grad=el("linearGradient",{id:"gprev",x1:0,y1:0,x2:0,y2:1});
+  grad.appendChild(el("stop",{offset:"0%","stop-color":css("--jade"),"stop-opacity":.2}));
+  grad.appendChild(el("stop",{offset:"100%","stop-color":css("--jade"),"stop-opacity":0}));
+  svg.appendChild(el("defs",{})).appendChild(grad);
+  let d="M "+x(0)+" "+y(data[0].v);for(let i=1;i<data.length;i++)d+=" L "+x(i)+" "+y(data[i].v);
+  svg.appendChild(el("path",{d:d+" L "+x(data.length-1)+" "+y(0)+" L "+x(0)+" "+y(0)+" Z",fill:"url(#gprev)"}));
+  svg.appendChild(el("path",{d,fill:"none",stroke:css("--jade"),"stroke-width":2.8,"stroke-linejoin":"round","stroke-linecap":"round"}));
+  data.forEach((p,i)=>{svg.appendChild(el("text",{x:x(i),y:H-10,class:"axl","text-anchor":"middle"},p.m));
+    svg.appendChild(el("circle",{cx:x(i),cy:y(p.v),r:i===data.length-1?4.5:3.5,fill:css("--jade"),class:"dot"}));});
+  const ult=data[data.length-1];
+  svg.appendChild(el("text",{x:x(data.length-1),y:y(ult.v)-11,class:"plabel","text-anchor":"end",fill:css("--jade")},"~"+ult.v.toLocaleString("it-IT",{maximumFractionDigits:1})));
+}
+/* anno di ogni mese di prev: si parte dal mese contabile (regola del 5) e dopo Dic si passa all'anno nuovo */
+const MESI_PREV=["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
+const NOMI_PREV=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+function prevAnni(){const t=new Date();let mc=t.getMonth()-(t.getDate()<=5?1:0),y=t.getFullYear();if(mc<0){mc=11;y--;}
+  let ultimo=mc;return prev.map(p=>{const k=MESI_PREV.indexOf(p.m);if(k<=ultimo)y++;ultimo=k;return y;});}
+function renderPrevKpi(){
+  if(!prev.length)return;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  const k=n=>"\u20ac"+(n/1000).toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1})+"k";
+  const nome=m=>NOMI_PREV[MESI_PREV.indexOf(m)]||m;
+  const a=prev[0],z=prev[prev.length-1],anni=prevAnni(),per=a.m+"-"+z.m;
+  const inc=prev.reduce((s,p)=>s+p.incasso,0),net=prev.reduce((s,p)=>s+p.netto,0);
+  set("prev-k-inc-lab","Incasso previsto \u00b7 "+per);set("prev-k-inc",k(inc));
+  set("prev-k-net-lab","Netto previsto \u00b7 "+per);set("prev-k-net",k(net));
+  set("prev-k-net-sub","margine medio ~"+Math.round(net/inc*100)+"%");
+  set("prev-k-cl-lab","Clienti a "+nome(z.m));set("prev-k-cl","~"+z.tot);set("prev-k-cl-sub","da "+a.tot+" a fine "+nome(a.m));
+  set("prev-k-ads-lab","Budget ads \u00b7 "+nome(z.m));set("prev-k-ads",EUR(z.ads));set("prev-k-ads-sub","da "+EUR(a.ads)+" di "+nome(a.m));
+  set("prev-foot-per",a.m+" "+anni[0]+" \u2192 "+z.m+" "+anni[anni.length-1]+" \u00b7 Previsionale 36M pessimistico");
+  const f=document.getElementById("prev-foot-net");if(f)f.innerHTML="Netto cumulato a "+nome(z.m)+" <b>"+k(net)+"</b>";
+}
+function renderPrevTable(){
+  const tb=clear("prev-rows");if(!tb)return;
+  const anni=prevAnni();
+  prev.forEach((p,i)=>{const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="cname">${p.m} ${anni[i]}</td><td class="num">${p.nuovi}</td><td class="num">${p.tot}</td><td class="num">${EUR(p.incasso)}</td><td class="num" style="color:var(--jade);font-weight:650">${EUR(p.netto)}</td><td class="num">${p.marg}</td><td class="num">${EUR(p.ads)}</td>`;
+    tb.appendChild(tr);});
+}
+function renderPrevisionale(){drawPrevIncasso();drawPrevClienti();renderPrevTable();renderPrevKpi();}
+
+/* ORIZZONTE-JS-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) */
+const ORIZZ = {
+  mesi:[{m:"Nov",certo:900,bivio:2700},{m:"Dic",certo:6900,bivio:0},{m:"Gen",certo:0,bivio:2700},{m:"Feb",certo:0,bivio:4800}],
+  max:7500, ticks:[0,2500,5000,7500],
+  tassoRinnovo:0.8000,
+};
+function drawOrizzonte(){
+  const svg=clear("chart-orizzonte");if(!svg)return;
+  const d=ORIZZ.mesi;
+  const W=460,H=220,L=50,R=16,T=20,B=30,w=W-L-R,h=H-T-B,max=ORIZZ.max,ticks=ORIZZ.ticks;
+  const y=v=>T+h-h*v/max,band=w/d.length,bw=Math.min(46,band*0.42);
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},EURk(t)));});
+  d.forEach((p,i)=>{const cx=L+band*i+band/2,tot=p.certo+p.bivio;
+    let top=y(0);
+    if(p.certo>0){top=y(p.certo);svg.appendChild(el("rect",{x:cx-bw/2,y:top,width:bw,height:y(0)-top,rx:4,fill:css("--jade")}));}
+    if(p.bivio>0){const tb=y(tot);svg.appendChild(el("rect",{x:cx-bw/2,y:tb,width:bw,height:y(p.certo)-tb,rx:4,fill:css("--amber-soft"),stroke:css("--amber"),"stroke-width":1.4,"stroke-dasharray":"4 3"}));top=tb;}
+    svg.appendChild(el("text",{x:cx,y:top-8,class:"plabel","text-anchor":"middle",fill:p.bivio>0?css("--amber"):css("--jade")},EUR(tot)));
+    svg.appendChild(el("text",{x:cx,y:H-9,class:"axl","text-anchor":"middle"},p.m));});
+}
+function renderCalcOrizzonte(){
+  const host=clear("calc-orizzonte");if(!host)return;
+  const rows=[
+    {k:"Rate gi&#224; a contratto",t:"Caruso 4.800 (25/12) &#183; Capuano 900 (28/11) &#183; Capuano 900 (28/12) &#183; Corte 1.200 (2/12) &#183; fonte Scadenzario",v:"&#8364;7.800",s:"good"},
+    {k:"Rate senza data",t:"Pesce 8.300: fuori dal grafico finch&#233; non c&#8217;&#232; la data",v:"&#8364;8.300",s:"bad"},
+    {k:"Rinnovi in scadenza",t:"Bosia 2.700 (14/11) + Chirico 2.700 (6/1) + Micheloni 4.800 (4/2) &#183; listino rinnovi vigente",v:"&#8364;10.200",s:"warn"},
+    {k:"Tasso di rinnovo reale",t:"fonte retention &#183; 4 persi su 20 clienti",v:"80,0%",s:"good"},
+    {k:"Rinnovi ponderati",t:"10.200 &#215; 80,0%",v:"&#8364;8.160",s:"warn"},
+    {k:"Cassa attesa ponderata",t:"7.800 + 8.160",v:"&#8364;15.960",s:"good"},
+  ];
+  const lab={good:"Certo",warn:"Da tenere",bad:"Freno"};
+  rows.forEach(r=>{const d=document.createElement("div");d.className="statrow";
+    d.innerHTML=`<span class="sk">${r.k}<br><span class="st">${r.t}</span></span><span class="sv">${r.v}</span><span class="chip ${r.s}">${lab[r.s]}</span>`;
+    host.appendChild(d);});
+}
+const agenda=[
+  {d:"14/11/2026",e:"Rinnovo 3 mesi",c:"Flavio Bosia",v:"&#8364;2.700",n:"Al bivio"},
+  {d:"28/11/2026",e:"Trimestrale CF (&#8364;2.700): pagamento 2 di 3",c:"Gianluca Capuano",v:"&#8364;900",n:"Certo"},
+  {d:"02/12/2026",e:"Trimestrale CF 2.400 del 2/11, rata 2/2",c:"Marco La Corte",v:"&#8364;1.200",n:"Certo"},
+  {d:"25/12/2026",e:"Rata 2/2 annuale (&#8364; 9.600 tot)",c:"Giovanni Caruso",v:"&#8364;4.800",n:"Certo"},
+  {d:"28/12/2026",e:"Trimestrale CF (&#8364;2.700): pagamento 3 di 3",c:"Gianluca Capuano",v:"&#8364;900",n:"Certo"},
+  {d:"06/01/2027",e:"Rinnovo 3 mesi",c:"Cosimo Chirico",v:"&#8364;2.700",n:"Al bivio"},
+  {d:"04/02/2027",e:"Rinnovo 6 mesi",c:"Luigi Micheloni",v:"&#8364;4.800",n:"Al bivio"},
+  {d:"da fissare",e:"Annuale ORO (8.800): residuo, piano di pagamento da definire",c:"Marco Pesce",v:"&#8364;8.300",n:"Data da fissare"},
+];
+/* ORIZZONTE-JS-END */
+function renderAgenda(){
+  const tb=clear("agenda-rows");if(!tb)return;
+  agenda.forEach(a=>{const tr=document.createElement("tr");
+    const cls=a.n==="Certo"?"attivo":"daincassare";
+    tr.innerHTML=`<td class="cname">${a.d}</td><td style="white-space:normal;color:var(--muted)">${a.e}</td><td>${a.c}</td><td class="num">${a.v}</td><td><span class="pill ${cls}">${a.n}</span></td>`;
+    tb.appendChild(tr);});
+}
+function renderOrizzonte(){drawOrizzonte();renderCalcOrizzonte();renderAgenda();}
+
+/* ---------- DIREZIONE ----------
+   Fonte unica: ricostruzione LTV del 10/08/2026 (Scenari 1M righe 19-25,
+   Unit Economics sez. 5-8). Qui non si ricalcola niente: si confrontano i
+   numeri veri con la soglia corrispondente e si dice se siamo sopra o sotto. */
+/* DIREZIONE-JS-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) */
+const DIR = {prima:1549,rinnovi:2118,rinnN:"1,02",cac:530,
+  pPrima:"42%",pRinn:"58%"};
+const DIR_ROWS=[
+  {k:"Ritorno sull&#8217;acquisizione",t:"14,1 : 1 contro il minimo sano di 3 : 1 &#183; (margine vita 6.945 + CAC 530) &#247; CAC",v:"14,1",s:"good"},
+  {k:"CAC pagato",t:"&#8364;530 contro il tetto di &#8364;1.982, cio&#232; il CAC a rapporto 3:1 (margine di un anno dell&#8217;LTV ufficiale 9.648, cio&#232; 5.946, &#247; 3), non il pareggio",v:"27%",s:"warn"},
+  {k:"Margine netto per cliente &#183; mensile",t:"&#8364;403 al mese &#183; Scenari 1M, margine LTV annuo netto &#247; 12",v:"&#8364;403",s:"good"},
+  {k:"ROI netto per euro investito &#183; consuntivo",t:"ROI anno: (&#8364;61.350 incassato &#8722; &#8364;29.885 spese totali) &#247; &#8364;9.505 ads &#183; fonte Report Mensile Acquisizione TOTALE &#183; ottobre 3,53",v:"3,31 &#8364;",s:"good"},
+  {k:"Margine netto per cliente &#183; annuale",t:"&#8364;4.831 nel primo anno &#183; Scenari 1M, al netto di venditore, CSM e ads",v:"&#8364;4.831",s:"good"},
+  {k:"Tasso di rinnovo",t:"78,9% osservato contro il 55% del modello",v:"79%",s:"good"},
+];
+/* DIREZIONE-JS-END */
+function renderDirezione(){
+  const host=clear("direzione-rows");if(!host)return;
+  const rows=DIR_ROWS.concat([
+    {k:"Limite fisico prima firma",t:"&#8364;2.160 = 2.700 &#8722; 270 venditore &#8722; 270 CSM. Sopra, il primo contratto va in perdita",v:"&#8364;2.160",s:"warn"},
+    {k:"CPL in uso",t:"&#8364;22 contro &#8364;58 sostenibili",v:"38%",s:"warn"},
+    {k:"Show rate",t:"40% contro target 70% &#183; a 70% il CPL max sale a &#8364;102",v:"40%",s:"bad"},
+    {k:"Budget acquisizione Set-Nov",t:"&#8364;5.250 previsti contro &#8364;28,4k che circa 18 clienti giustificherebbero",v:"18%",s:"bad"},
+  ]);
+  const lab={good:"Sopra",warn:"Spazio libero",bad:"Sotto"};
+  rows.forEach(r=>{const d=document.createElement("div");d.className="statrow";
+    d.innerHTML=`<span class="sk">${r.k}<br><span class="st">${r.t}</span></span><span class="sv">${r.v}</span><span class="chip ${r.s}">${lab[r.s]}</span>`;
+    host.appendChild(d);});
+}
+function drawLtvSplit(){
+  const svg=clear("chart-ltv-split");if(!svg)return;
+  const W=460,H=220,L=24,R=24,w=W-L-R;
+  const prima=DIR.prima,rinnovi=DIR.rinnovi,tot=prima+rinnovi;
+  const barY=86,barH=54,wp=w*prima/tot;
+  svg.appendChild(el("text",{x:L,y:36,class:"axl","font-size":"12"},"Margine del 1\u00b0 anno per cliente"));
+  svg.appendChild(el("text",{x:L,y:62,class:"plabel","font-size":"22",fill:css("--jade")},EUR(tot)));
+  svg.appendChild(el("rect",{x:L,y:barY,width:wp,height:barH,rx:6,fill:css("--blue")}));
+  svg.appendChild(el("rect",{x:L+wp+3,y:barY,width:w-wp-3,height:barH,rx:6,fill:css("--jade")}));
+  svg.appendChild(el("text",{x:L+wp/2,y:barY+32,class:"plabel","text-anchor":"middle",fill:"#fff","font-size":"13"},DIR.pPrima));
+  svg.appendChild(el("text",{x:L+wp+(w-wp)/2,y:barY+32,class:"plabel","text-anchor":"middle",fill:"#fff","font-size":"13"},DIR.pRinn));
+  svg.appendChild(el("text",{x:L,y:barY+barH+26,class:"axl","font-size":"12",fill:css("--blue")},"1\u00aa firma \u00b7 " + EUR(prima)));
+  svg.appendChild(el("text",{x:L,y:barY+barH+44,class:"axv","font-size":"11"},"paga il CAC di \u20ac"+DIR.cac));
+  svg.appendChild(el("text",{x:W-R,y:barY+barH+26,class:"axl","text-anchor":"end","font-size":"12",fill:css("--jade")},DIR.rinnN+" rinnovi \u00b7 " + EUR(rinnovi)));
+  svg.appendChild(el("text",{x:W-R,y:barY+barH+44,class:"axv","text-anchor":"end","font-size":"11"},"nessun CAC da ripagare"));
+}
+function renderDirezioneView(){renderDirezione();drawLtvSplit();}
+
+/* ---------- CRESCITA VERSO 137 CLIENTI ---------- */
+/* CRESCITA-JS-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) */
+const CLIENTI_OGGI=12, AVANZ_OGGI="9,5%";
+const PONTE_ROWS=[
+  {k:"MRR che incassa oggi",t:"12 clienti gi&#224; in delivery",v:"&#8364;8.934",s:"good"},
+  {k:"+ firmati non ancora attivi",t:"Capuano, Drago, Pesce",v:"&#8364;2.533",s:"good"},
+  {k:"= MRR contrattualizzato",t:"entra solo quando parte la delivery",v:"&#8364;11.467",s:"good"},
+  {k:"&#8722; churn ponderato sui rinnovi a 90 giorni",t:"2.000 al bivio &#215; 20,0% di churn storico",v:"&#8722;&#8364;400",s:"bad"},
+  {k:"= MRR atteso dopo i rinnovi",t:"se partono i firmati e non entra altro",v:"&#8364;11.067",s:"warn"},
+];
+/* CRESCITA-JS-END */
+function drawMRRTraj(){
+  /* tappe dal Previsionale 36M pessimistico, colonna Tot clienti (letto 29/10/2026) */
+  const months=["Oggi","Gen 27","Apr 27","Ott 27","Mar 28","Dic 29","Ott 30"];
+  const attesa=[CLIENTI_OGGI,22,32,58,80,119,126];
+  const svg=clear("chart-mrr-traj");if(!svg)return;
+  const W=460,H=220,L=44,R=20,T=16,B=38,w=W-L-R,h=H-T-B,max=140,ticks=[0,35,70,105,140];
+  const x=i=>L+w*i/(months.length-1),y=v=>T+h-h*v/max;
+  ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},t));});
+  let d="";attesa.forEach((v,i)=>{d+=(d?" L ":"M ")+x(i)+" "+y(v);});
+  svg.appendChild(el("path",{d,fill:"none",stroke:css("--blue"),"stroke-width":2.6,"stroke-linejoin":"round","stroke-linecap":"round"}));
+  months.forEach((m,i)=>svg.appendChild(el("text",{x:x(i),y:H-12,class:"axl","text-anchor":"middle"},m)));
+  attesa.forEach((v,i)=>{svg.appendChild(el("circle",{cx:x(i),cy:y(v),r:i===0||i===attesa.length-1?4.5:3,fill:i===0?css("--jade"):css("--blue"),class:"dot"}));});
+  svg.appendChild(el("text",{x:x(0),y:y(CLIENTI_OGGI)-11,class:"plabel","text-anchor":"start",fill:css("--jade")},String(CLIENTI_OGGI)));
+  svg.appendChild(el("text",{x:x(6),y:y(126)-11,class:"plabel","text-anchor":"end",fill:css("--blue")},"126"));
+}
+function renderPonteMRR(){
+  const host=clear("ponte-mrr");if(!host)return;
+  const rows=PONTE_ROWS;
+  const lab={good:"Acquisito",warn:"Scenario",bad:"Perdita"};
+  rows.forEach(r=>{const d=document.createElement("div");d.className="statrow";
+    d.innerHTML=`<span class="sk">${r.k}<br><span class="st">${r.t}</span></span><span class="sv">${r.v}</span><span class="chip ${r.s}">${lab[r.s]}</span>`;
+    host.appendChild(d);});
+}
+const leve=[
+  /* tappe dal Previsionale 36M pessimistico (Tot clienti e MRR atteso), letto 1/11/2026 */
+  {l:"Oggi",o:String(CLIENTI_OGGI),s:"126",d:AVANZ_OGGI+" della fine piano"},
+  {l:"Gennaio 2027",o:"22",s:"126",d:"Fase 1"},
+  {l:"Aprile 2027",o:"32",s:"126",d:"Fase 2"},
+  {l:"Settembre 2027",o:"53",s:"126",d:"entra il sales manager, 5% dell'incasso, MRR 50.359"},
+  {l:"Ottobre 2027",o:"58",s:"126",d:"Fase 3"},
+  {l:"Marzo 2028",o:"80",s:"126",d:"Fase 4, entra il direttore delivery col terzo CSM, 5% dell'incasso"},
+  {l:"Ottobre 2030",o:"126",s:"126",d:"FINE PIANO: MRR atteso 114.306, netto 66.734 al mese"},
+];
+function renderLeve(){
+  const tb=clear("leve-rows");if(!tb)return;
+  leve.forEach(r=>{const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="cname">${r.l}</td><td class="num">${r.o}</td><td class="num" style="color:var(--amber);font-weight:650">${r.s}</td><td style="white-space:normal;color:var(--muted)">${r.d}</td>`;
+    tb.appendChild(tr);});
+}
+function renderGap(){
+  const g=document.getElementById("gap-n");if(g)g.textContent=Math.max(0,126-CLIENTI_OGGI);
+  const b=document.getElementById("gap-bar");if(b)b.style.width=(CLIENTI_OGGI/126*100).toFixed(1)+"%";
+}
+function renderTraiettoria(){drawMRRTraj();renderPonteMRR();renderLeve();renderGap();}
+
+/* ---------- render orchestration ---------- */
+function renderCrescita(){drawFatturato();drawMRR();drawClienti();renderClientTable();}
+function renderVendite(){renderFunnel();renderSemafori();
+  /* 14/08/2026: lead 63→57, CR 7,9→8,8 (fonte: tab Venditori — Riepilogo) */
+  /* 02/10/2026: Carlo fatturato 500→4.800, saldo Dal Bosco 4.300 del 1/10 (fonte: Lista Clienti, memoria Dal Bosco) */
+  renderSeller("seller-michele",{name:"Michele",role:"Venditore · cumulativo (non solo lug)",chiusi:14,fatt:50350,lead:340,show:"121 / 184",cr:4.1});
+  renderSeller("seller-carlo",{name:"Carlo",role:"Trasferito a CSM \u00b7 23/7 \u00b7 1 chiusura extra (Dal Bosco, 27/8, semestrale 4.800: acconto 500 + saldo 4.300 il 1/10)",chiusi:1,fatt:4800,lead:51,show:"15 / 24",cr:2,transition:true});
+  drawVenditeTrend();}
+function renderRateView(){renderRate();renderRinnovi();}
+const RENDER={obiettivi:()=>{},cruscotto:()=>{},orizzonte:renderOrizzonte,direzione:renderDirezioneView,traiettoria:renderTraiettoria,crescita:renderCrescita,vendite:renderVendite,rate:renderRateView,previsionale:renderPrevisionale};
+const GROUPS={oggi:["cruscotto","orizzonte"],obiettivi:["obiettivi"],scala:["traiettoria","previsionale","direzione"],vendite:["vendite"],clienti:["rate","crescita"]};
+let current="oggi";
+function show(group){
+  current=group;
+  const active=GROUPS[group]||GROUPS.oggi;
+  document.querySelectorAll(".view").forEach(s=>{
+    const name=s.id.replace("view-","");
+    s.classList.toggle("hidden",!active.includes(name));
+    s.classList.toggle("group-continuation",active.indexOf(name)>0);
+  });
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===group));
+  const att=document.querySelector(".attention"); if(att) att.classList.toggle("hidden",group!=="oggi");
+  active.forEach(view=>RENDER[view]());
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.view)));
+window.addEventListener("message",e=>{const h=e.data&&e.data.obiettiviAltezza;const f=document.getElementById("frame-obiettivi");if(h&&f)f.style.height=(h+20)+"px";});
+show("oggi");
+// redraw active view on theme change (SVG uses CSS-var colors)
+const redraw=()=>show(current);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change",redraw);
+</script>
+<style id="tema-blu">
+:root, :root[data-theme], html, body {
+  --bg: #0B1A3A !important;
+  --paper: #0B1A3A !important;
+  --plane: #0B1A3A !important;
+  --panel: rgba(30,64,140,.42) !important;
+  --surface: rgba(30,64,140,.42) !important;
+  --card: rgba(30,64,140,.42) !important;
+  --white: rgba(30,64,140,.42) !important;
+  --panel2: rgba(52,98,196,.45) !important;
+  --card2: rgba(52,98,196,.45) !important;
+  --soft: rgba(255,255,255,.08) !important;
+  --ink: #F3F6FD !important;
+  --txt: #F3F6FD !important;
+  --ink2: #D6E0F5 !important;
+  --muted: #A9BBE0 !important;
+  --faint: #7F93BF !important;
+  --muted2: #7F93BF !important;
+  --line: rgba(150,190,255,.20) !important;
+  --border: rgba(150,190,255,.20) !important;
+  --grid: rgba(150,190,255,.12) !important;
+  --track: rgba(255,255,255,.10) !important;
+  --accent: #FFD21F !important;
+  --gold: #D4A537 !important;
+  --yellow: #FFD21F !important;
+  --navy: #0E2454 !important;
+  --navy2: #1A3A80 !important;
+  --blue: #6EA8FF !important;
+  --accent2: #8FB3FF !important;
+  --violet: #8FB3FF !important;
+  --green: #4FD1A1 !important;
+  --jade: #4FD1A1 !important;
+  --good: #4FD1A1 !important;
+  --ok: #4FD1A1 !important;
+  --amber: #F5B942 !important;
+  --warn: #F5B942 !important;
+  --serious: #FF9A6B !important;
+  --red: #FF7A59 !important;
+  --crit: #FF7A59 !important;
+  --shadow: 0 10px 30px rgba(0,0,0,.30) !important;
+  --shadow-lg: 0 16px 40px rgba(0,0,0,.35) !important;
+  --surface-2: rgba(52,98,196,.45) !important;
+  --panel-2: rgba(52,98,196,.45) !important;
+  --text: #F3F6FD !important;
+  --green-ink: #4FD1A1 !important;
+  --amber-soft: rgba(245,185,66,.16) !important;
+  --gold-soft: rgba(245,185,66,.16) !important;
+  --jade-soft: rgba(79,209,161,.16) !important;
+  --green-soft: rgba(79,209,161,.16) !important;
+  --red-soft: rgba(255,122,89,.16) !important;
+  --blue-soft: rgba(110,168,255,.16) !important;
+  --border-strong: rgba(150,190,255,.32) !important;
+  --line-2: rgba(150,190,255,.32) !important;
+  --gold-line: rgba(212,165,55,.55) !important;
+  color-scheme: dark;
+}
+html { background: #0B1A3A !important; }
+body { background: radial-gradient(900px 600px at 0% -10%, rgba(212,165,55,.38), transparent 60%),
+  radial-gradient(900px 700px at 100% 0%, rgba(59,130,246,.55), transparent 62%),
+  radial-gradient(1000px 800px at 50% 100%, rgba(37,99,235,.35), transparent 65%),
+  linear-gradient(180deg, #13306b 0%, #0e2454 45%, #0B1A3A 100%) !important; background-attachment: fixed !important; color: #F3F6FD; min-height: 100vh; }
+.wrap { background: transparent !important; }
+a { color: inherit; }
+table th { color: #A9BBE0; }
+::selection { background: rgba(255,210,31,.35); }
+</style>

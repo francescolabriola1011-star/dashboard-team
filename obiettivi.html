@@ -83,6 +83,26 @@
   .src{margin-top:22px;color:var(--faint);font-size:11.5px;line-height:1.7}
   .src b{color:var(--muted)}
   footer{margin-top:24px;color:var(--faint);font-size:11.5px;text-align:center}
+
+  .dec{border:1px solid var(--line);border-radius:16px;padding:22px;margin:22px 0 22px;background:var(--card)}
+  .dec h2{margin:0 0 4px;font-size:22px}
+  .dec .q{color:var(--muted);font-size:12px;margin:0 0 16px}
+  .dec-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media (max-width:760px){.dec-tiles{grid-template-columns:repeat(2,1fr)}}
+  .dec-tile{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .dec-tile .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .dec-tile .val{font-size:24px;font-weight:750;margin-top:6px}
+  .dec-tile .val small{font-size:13px;color:var(--faint);font-weight:600}
+  .dec-tile .foot{font-size:11px;color:var(--muted);margin-top:4px}
+  .dec-sintesi{margin:16px 0 0;padding:12px 14px;border-left:4px solid #D4A537;background:var(--card2);font-size:14px;line-height:1.5}
+  .dec-fonte{margin:8px 0 0;font-size:11px;color:var(--faint)}
+  details.piega{border:1px solid var(--line);border-radius:14px;margin:0 0 14px;background:var(--card);padding:0 16px}
+  details.piega>summary{cursor:pointer;padding:14px 2px;font-weight:700;list-style:none}
+  details.piega>summary::-webkit-details-marker{display:none}
+  details.piega>summary:before{content:"+ ";color:#D4A537}
+  details.piega[open]>summary:before{content:"- "}
+  details.piega[open]{padding-bottom:16px}
+  details.piega h2.sec{margin-top:14px}
 </style>
 
 <div class="wrap">
@@ -94,9 +114,21 @@
     <div class="goalchip" id="goalchip">Verso <b>€16,1k MRR</b> (Fase 1, gen 2027)</div>
   </header>
 
+  <section class="dec" id="decisione">
+    <h2>Siamo al passo col mese?</h2>
+    <div class="q" id="dec-periodo"></div>
+    <div class="dec-tiles" id="dec-tiles"></div>
+    <div class="dec-sintesi" id="dec-sintesi"></div>
+    <div class="dec-fonte" id="dec-fonte"></div>
+  </section>
+
+  <details class="piega"><summary>Verso il milione</summary>
   <h2 class="sec">Verso il milione · avanzamento complessivo</h2>
   <div class="million-grid" id="million"></div>
   <div class="million-note" id="millionnote"></div>
+  </details>
+
+  <details class="piega"><summary>Tutti i numeri: giorno, settimana, mese</summary>
 
   <div class="toggle" id="toggle">
     <button data-p="giorno">Giorno</button>
@@ -106,21 +138,31 @@
   </div>
   <div class="pnote" id="pnote"></div>
   <div class="grid" id="grid"></div>
+  </details>
+
+  <details class="piega"><summary>Funnel del mese in corso e del mese chiuso</summary>
 
   <h2 class="sec" id="funneltitlecur">Funnel del mese in corso · obiettivo</h2>
   <div class="funnel" id="funnelcur"></div>
   <h2 class="sec" id="funneltitle">Funnel del mese precedente · consuntivo vs obiettivo</h2>
   <div class="funnel" id="funnel"></div>
   <div class="pnote" id="semlegend"></div>
+  </details>
+
+  <details class="piega"><summary>Andamento mensile e previsionale</summary>
 
   <h2 class="sec">Andamento mensile · dati reali</h2>
   <div class="charts" id="charts"></div>
 
   <h2 class="sec">Previsionale · dove stiamo andando (Previsionale 36M pessimistico)</h2>
   <div class="prev" id="prev"></div>
+  </details>
+
+  <details class="piega"><summary>Coerenza delle fonti</summary>
 
   <h2 class="sec">Coerenza fonti · incrociate durante l'estrazione</h2>
   <div class="coher"><ul id="coherlist" style="margin:0;padding:0"></ul></div>
+  </details>
 
   <div class="src" id="src"></div>
   <footer>solo dati veri, nessuna stima · rigenerare quando cambiano i fogli.</footer>
@@ -130,26 +172,63 @@
 /* ===== DATI VERI — rigenerati da genera_dashboard_obiettivi.py (fonti a fine file) ===== */
 /*DATA-START*/
 const STAMP = "06/11/2026";
-const MESE_TITOLO = "Novembre 2026";
+const MESE_TITOLO = "Ottobre 2026";
 const MRR_ATTIVO = 8934;
-const MRR_OBJ = 12310;
-const OBJ = {"impression": 147900, "reach": 126800, "lead": 110, "apt2": 31, "apt3": 20, "chiusure": 4, "fatturato": 23816, "spesa": 2400};
-const OBJ_NOTE = {"chiusure": "Previsionale 36M pessimistico", "spesa": "Lead Gen budget mese", "lead": "Previsionale 36M pessimistico", "fatturato": "Previsionale 36M pessimistico", "impression": "stima: budget €2400 ÷ CPM €16.23", "reach": "stima: impression × copertura/impression attuale"};
-const DATA = {"giorno": {"label": "Oggi · 06/11/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 1112, "reach": 953, "lead": 0, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 0}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 1112, "reach": 953, "lead": 18, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 411}}, "precedente": {"label": "Ottobre 2026 · mese chiuso", "elapsed": 1.0, "ndAppt": false, "noMeta": true, "titolo": "Ottobre", "v": {"impression": null, "reach": null, "lead": 112, "apt2": 46, "apt3": 25, "chiusure": 4, "fatturato": 13350, "spesa": 2211}}, "mese": {"label": "Novembre 2026 · dal 06/11 al 05/12 · giorno 1 di 30", "elapsed": 0.03333333333333333, "ndAppt": false, "titolo": "Novembre", "obj": {"impression": 147900, "reach": 126800, "lead": 110, "apt2": 31, "apt3": 20, "chiusure": 4, "fatturato": 23816, "spesa": 2400}, "objNote": {"lead": "27,5 lead per cliente (doc Funnel)", "apt2": "discovery fatte, 64% diventano demo", "apt3": "demo fatte, 20% chiudono", "chiusure": "4 clienti al mese, 68k ott-dic · capacita' di 1 venditore", "fatturato": "Incasso totale del Previsionale · 68k ott-dic", "spesa": "budget ads del mese (Lead Gen)"}, "v": {"impression": 1112, "reach": 953, "lead": 0, "apt2": 0, "apt3": 0, "chiusure": null, "fatturato": null, "spesa": 0}}};
-const METRICS = [{k:"impression",name:"Impression",fmt:"int"},{k:"reach",name:"Copertura",fmt:"int"},{k:"lead",name:"Lead",fmt:"int",extra:""},{k:"apt2",name:"Appuntamenti 2°",fmt:"int",sub:"Discovery"},{k:"apt3",name:"Appuntamenti 3°",fmt:"int",sub:"Demo"},{k:"chiusure",name:"Chiusure",fmt:"int"},{k:"fatturato",name:"Fatturato incassato",fmt:"eur"},{k:"spesa",name:"Spesa ads",fmt:"eur"}];
-const FUNNEL = {"titolo": "Ottobre 2026", "steps": [{"n": "Lead", "v": 112, "o": 110, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 46, "o": 31, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 25, "o": 20, "col": "#c77dff"}, {"n": "Chiusure", "v": 4, "o": 4, "col": "var(--green)"}, {"n": "Fatturato incassato", "v": 13350, "o": 18837, "col": "var(--amber)", "eur": true}], "conv": [{"lbl": "CR lead→2°", "val": "34,8%", "s": "g"}, {"lbl": "show→demo", "val": "67,8%", "s": "r"}, {"lbl": "close demo", "val": "18,3%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "34,8%", "t": "28,4%", "s": "g"}, {"l": "CR 2→3apt", "v": "60,7%", "t": "64,0%", "s": "r"}, {"l": "CR lead→chiuso", "v": "3,9%", "t": "3,6%", "s": "g"}, {"l": "Show disc (2apt)", "v": "64,9%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "67,8%", "t": "70,0%", "s": "r"}, {"l": "Close disc", "v": "11,1%", "t": "12,8%", "s": "r"}, {"l": "Close demo", "v": "18,3%", "t": "20,0%", "s": "r"}]};
-const FUNNEL_CUR = {"titolo": "Novembre 2026", "steps": [{"n": "Lead", "v": null, "o": 110, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 0, "o": 31, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 0, "o": 20, "col": "#c77dff"}, {"n": "Chiusure", "v": null, "o": 4, "col": "var(--green)"}, {"n": "Fatturato incassato", "v": null, "o": 23816, "col": "var(--amber)", "eur": true}]};
-const MONTHS = ["Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov"];
-const SERIES = {"lead": {"title": "Lead / mese", "unit": "", "data": [55, 43, 65, 42, 72, 136, 112, 0], "col": "var(--accent)"}, "spesa": {"title": "Spesa ads €", "unit": "€", "data": [870, 939, 1010, 1296, 1194, 2204, 2211, 0], "col": "var(--amber)"}, "cpl": {"title": "CPL €", "unit": "€", "data": [16.11, 22.36, 16.18, 30.86, 16.58, 16.2, 19.74, 0], "col": "var(--red)", "soglia": 22}, "incassato": {"title": "Incassato €", "unit": "€", "data": [0, 0, 2800, 14100, 2140, 26960, 13350, 0], "col": "var(--green)"}};
+const MRR_OBJ = 10370;
+const OBJ = {"impression": 176500, "reach": 24000, "lead": 110, "apt2": 31, "apt3": 20, "chiusure": 4, "fatturato": 18837, "spesa": 2400};
+const OBJ_NOTE = {"chiusure": "Previsionale 36M pessimistico", "spesa": "Lead Gen budget mese", "lead": "Previsionale 36M pessimistico", "fatturato": "Previsionale 36M pessimistico", "impression": "stima: budget €2400 ÷ CPM €13.60", "reach": "stima: impression × copertura/impression attuale"};
+const DATA = {"giorno": {"label": "Oggi · 06/11/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 2780, "reach": 2097, "lead": 0, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 0}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 34124, "reach": 20039, "lead": 18, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 411}}, "precedente": {"label": "Settembre 2026 · mese chiuso", "elapsed": 1.0, "ndAppt": false, "noMeta": true, "titolo": "Settembre", "v": {"impression": null, "reach": null, "lead": 136, "apt2": 41, "apt3": 23, "chiusure": 5, "fatturato": 26960, "spesa": 2204}}, "mese": {"label": "Ottobre 2026 · dal 06/10 al 06/11 · giorno 32 di 32", "elapsed": 1.0, "ndAppt": false, "titolo": "Ottobre", "obj": {"impression": 176500, "reach": 24000, "lead": 110, "apt2": 31, "apt3": 20, "chiusure": 4, "fatturato": 18837, "spesa": 2400}, "objNote": {"lead": "27,5 lead per cliente (doc Funnel)", "apt2": "discovery fatte, 64% diventano demo", "apt3": "demo fatte, 20% chiudono", "chiusure": "4 clienti al mese, 68k ott-dic · capacita' di 1 venditore", "fatturato": "Incasso totale del Previsionale · 68k ott-dic", "spesa": "budget ads del mese (Lead Gen)"}, "v": {"impression": 165646, "reach": 22544, "lead": 116, "apt2": 46, "apt3": 25, "chiusure": 4, "fatturato": 13350, "spesa": 2211}}};
+const METRICS = [{k:"impression",name:"Impression",fmt:"int"},{k:"reach",name:"Copertura",fmt:"int"},{k:"lead",name:"Lead",fmt:"int",extra:"CPL €19"},{k:"apt2",name:"Appuntamenti 2°",fmt:"int",sub:"Discovery"},{k:"apt3",name:"Appuntamenti 3°",fmt:"int",sub:"Demo"},{k:"chiusure",name:"Chiusure",fmt:"int"},{k:"fatturato",name:"Fatturato incassato",fmt:"eur"},{k:"spesa",name:"Spesa ads",fmt:"eur"}];
+const FUNNEL = {"titolo": "Settembre 2026", "steps": [{"n": "Lead", "v": 136, "o": 110, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 41, "o": 31, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 23, "o": 20, "col": "#c77dff"}, {"n": "Chiusure", "v": 5, "o": 4, "col": "var(--green)"}, {"n": "Fatturato incassato", "v": 26960, "o": 26960, "col": "var(--amber)", "eur": true}], "conv": [{"lbl": "CR lead→2°", "val": "34,8%", "s": "g"}, {"lbl": "show→demo", "val": "67,8%", "s": "r"}, {"lbl": "close demo", "val": "18,3%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "34,8%", "t": "28,4%", "s": "g"}, {"l": "CR 2→3apt", "v": "60,3%", "t": "64,0%", "s": "r"}, {"l": "CR lead→chiuso", "v": "3,8%", "t": "3,6%", "s": "g"}, {"l": "Show disc (2apt)", "v": "65,4%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "67,8%", "t": "70,0%", "s": "r"}, {"l": "Close disc", "v": "11,0%", "t": "12,8%", "s": "r"}, {"l": "Close demo", "v": "18,3%", "t": "20,0%", "s": "r"}]};
+const FUNNEL_CUR = {"titolo": "Ottobre 2026", "steps": [{"n": "Lead", "v": 116, "o": 110, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 46, "o": 31, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 25, "o": 20, "col": "#c77dff"}, {"n": "Chiusure", "v": 4, "o": 4, "col": "var(--green)"}, {"n": "Fatturato incassato", "v": 13350, "o": 18837, "col": "var(--amber)", "eur": true}]};
+const MONTHS = ["Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott"];
+const SERIES = {"lead": {"title": "Lead / mese", "unit": "", "data": [55, 43, 65, 42, 72, 136, 112], "col": "var(--accent)"}, "spesa": {"title": "Spesa ads €", "unit": "€", "data": [870, 939, 1010, 1296, 1194, 2204, 2211], "col": "var(--amber)"}, "cpl": {"title": "CPL €", "unit": "€", "data": [16.11, 22.36, 16.18, 30.86, 16.58, 16.2, 19.74], "col": "var(--red)", "soglia": 22}, "incassato": {"title": "Incassato €", "unit": "€", "data": [0, 0, 2800, 14100, 2140, 26960, 13350], "col": "var(--green)"}};
 const MILESTONE = {"lead": 525, "demo": 93, "vendite": 25, "fatturato": 82750, "spesa": 9724.02, "target": {"lead": 2008, "demo": 365, "vendite": 212, "fatturato": 1000000, "spesa": 43800}, "nota": "Un milione = 212 contratti (Scenari 1M B7), di cui 73 clienti nuovi. Lead 2.008 = 73 x 27,5 · demo 365 = 73 / 20% · spesa ads €43.800 = 73 x CAC €600 (budget €2.400 / 4 clienti al mese)."};
-const PREV = [{"m": "Dic 26", "inc": 25373, "cl": 18}, {"m": "Gen 27", "inc": 36814, "cl": 21}, {"m": "Feb 27", "inc": 38501, "cl": 24}, {"m": "Mar 27", "inc": 45181, "cl": 28}];
-const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 1112, copertura 953, click 19 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €8.934 · 12 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead novembre = 0</b> (ads + inbound, Bussola dal Lead Gen B49; le righe ads giornaliere ne contano 0, usate per il CPL), righe dal 06/11 al 06/11 (regola del 5). Spesa €0, obiettivo €2400."}, {"s": "ok", "t": "<b>Mese contabile Novembre: dal 06/11 al 05/12</b> (regola del 5). Lead, spesa ads, impression, appuntamenti, chiusure e incassato contano tutti in questa finestra."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}, {"s": "ok", "t": "<b>Appuntamenti novembre: 0 discovery e 0 demo fatte</b> dal CRM, call dal 06/11 a oggi (regola del 5). Il consuntivo si conferma alla chiusura del mese."}];
+const PREV = [{"m": "Nov 26", "inc": 23816, "cl": 16}, {"m": "Dic 26", "inc": 25373, "cl": 18}, {"m": "Gen 27", "inc": 36814, "cl": 21}, {"m": "Feb 27", "inc": 38501, "cl": 24}];
+const COHERENCE = [{"s": "warn", "t": "Bussola Scorecard ottobre: lead dice 116, il Report Mensile Acquisizione dice 112 - vince il Report"}, {"s": "ok", "t": "<b>Meta API diretta</b>: impression 165646, copertura 22544, click 2298 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €8.934 · 12 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead ottobre = 116</b> (ads + inbound, Bussola dal Lead Gen B49; le righe ads giornaliere ne contano 112, usate per il CPL), righe dal 06/10 al 06/11 (regola del 5). Spesa €2211, obiettivo €2400."}, {"s": "ok", "t": "<b>Mese contabile Ottobre: dal 06/10 al 06/11</b> (regola del 5). Lead, spesa ads, impression, appuntamenti, chiusure e incassato contano tutti in questa finestra."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}];
 /*DATA-END*/
 
 /* ---------- render ---------- */
 function fmt(v,t){ if(v==null) return null; return t==="eur"? "€"+Math.round(v).toLocaleString("it-IT") : Math.round(v).toLocaleString("it-IT"); }
 function col(r){ return r>=1?"var(--green)":r>=0.5?"var(--amber)":"var(--red)"; }
 function semColor(s){ return s==="g"?"var(--green)":s==="a"?"var(--amber)":"var(--red)"; }
+
+
+Number.prototype.toLocaleString=(function(o){return function(l,opt){if(l==="it-IT"){opt=Object.assign({},opt||{});if(!("useGrouping" in opt))opt.useGrouping="always";try{return o.call(this,l,opt);}catch(e){return o.call(this,"de-DE",opt);}}return o.call(this,l,opt);};})(Number.prototype.toLocaleString);
+function renderDecisione(){
+  const d=DATA.mese, o=d.obj||OBJ, e=d.elapsed||0, pr=DATA.precedente||{v:{}};
+  const n=x=>x==null?"n.d.":Math.round(x).toLocaleString("it-IT");
+  const att=k=>o[k]?Math.round(o[k]*e*10)/10:null;
+  const tiles=[
+    {k:"lead",lab:"Lead"},
+    {k:"apt3",lab:"Demo fatte"},
+    {k:"chiusure",lab:"Chiusure"}
+  ];
+  let h="";
+  tiles.forEach(t=>{
+    const v=d.v[t.k], a=att(t.k);
+    const c=(v==null||e<0.1)?"var(--txt)":col(a?v/a:0);
+    h+=`<div class="dec-tile"><div class="lab">${t.lab}</div><div class="val" style="color:${c}">${n(v)} <small>/ ${n(o[t.k])}</small></div><div class="foot">atteso a oggi ${a==null?"n.d.":a.toLocaleString("it-IT")} · ${pr.titolo||"mese prima"} ${n(pr.v[t.k])}</div></div>`;
+  });
+  const mo=(typeof MRR_OBJ!=="undefined")?MRR_OBJ:null, ma=(typeof MRR_ATTIVO!=="undefined")?MRR_ATTIVO:null;
+  h+=`<div class="dec-tile"><div class="lab">MRR attivo</div><div class="val" style="color:${(ma!=null&&mo)?col(ma/mo):"var(--txt)"}">€${n(ma)} <small>/ €${n(mo)}</small></div><div class="foot">${(ma!=null&&mo)?"mancano €"+n(Math.max(0,mo-ma))+" all'obiettivo del mese":"obiettivo n.d."}</div></div>`;
+  document.getElementById("dec-tiles").innerHTML=h;
+  document.getElementById("dec-periodo").textContent=d.label+" · si confronta col ritmo atteso a oggi";
+  let frase;
+  if(e<0.1){
+    const p=pr.v||{}, po=(pr.obj||OBJ);
+    frase=`Mese appena partito: il passo si giudica dal terzo giorno. Il riferimento resta ${pr.titolo||"il mese chiuso"}: ${n(p.lead)} lead, ${n(p.apt3)} demo e ${n(p.chiusure)} chiusure. Per arrivare a ${n(o.chiusure)} chiusure servono circa ${n(o.apt3)} demo nel mese.`;
+  } else {
+    const r=tiles.map(t=>({t,v:d.v[t.k],a:att(t.k)})).filter(x=>x.v!=null&&x.a);
+    r.forEach(x=>x.r=x.v/x.a);
+    r.sort((a,b)=>a.r-b.r);
+    if(!r.length) frase="Dati del mese non ancora leggibili.";
+    else if(r[0].r>=1) frase="Al passo su lead, demo e chiusure. Si tiene il ritmo.";
+    else frase=`Collo: ${r[0].t.lab.toLowerCase()}, ${n(r[0].v)} contro ${r[0].a.toLocaleString("it-IT")} attesi a oggi (${Math.round(r[0].r*100)}% del passo). Il lavoro di oggi va li'.`;
+  }
+  document.getElementById("dec-sintesi").textContent=frase;
+  document.getElementById("dec-fonte").textContent="Dati letti il "+STAMP+" · Sales Scorecard, Lead Gen, Previsionale 36M, Lista Clienti";
+}
 
 function renderMillion(){
   const specs=[
@@ -277,7 +356,7 @@ document.getElementById("toggle").addEventListener("click",e=>{
 });
 if(DATA.precedente&&DATA.precedente.titolo) document.getElementById("btnprec").textContent=DATA.precedente.titolo;
 if(DATA.mese&&DATA.mese.titolo) document.getElementById("btnmese").textContent=DATA.mese.titolo;
-renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
+renderDecisione(); renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
 // dentro il cockpit (tab Obiettivi) dice al contenitore quanto e' alta, cosi' non c'e' doppia barra di scorrimento
 if(window.parent!==window){document.body.style.setProperty("min-height","0","important");let _ult=0;const alto=()=>{const w=document.querySelector(".wrap")||document.body;const h=Math.ceil(w.getBoundingClientRect().bottom+window.scrollY);if(Math.abs(h-_ult)>2){_ult=h;parent.postMessage({obiettiviAltezza:h},"*");}};
   window.addEventListener("load",alto);window.addEventListener("resize",alto);new ResizeObserver(alto).observe(document.body);document.addEventListener("click",()=>setTimeout(alto,50));}
