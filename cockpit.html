@@ -558,7 +558,7 @@
       <div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo</div><div class="val jade tnum">&#8364;8.934</div><div class="sub">12 clienti che pagano ora</div></div>
       <!-- STORICO-CONTR-START --><div class="kpi"><span class="rail blue"></span><div class="lab">MRR contrattualizzato</div><div class="val blue tnum">&#8364;11.467</div><div class="sub">MRR attivo + 3 clienti firmati, non ancora in delivery</div></div><!-- STORICO-CONTR-END -->
       <div class="kpi" id="kpi-incassato-cash"><span class="rail amber"></span><div class="lab">Incassato cash novembre</div><div class="val tnum">&#8364;0</div><div class="sub">per cassa &#183; regola del 5 &#183; fonte Bilancio</div></div>
-      <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads novembre</div><div class="val tnum">&#8364;176</div><div class="sub">dal 06/11 al 05/12 &#183; regola del 5 &#183; Meta, hiring escluso</div></div>
+      <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads novembre</div><div class="val tnum">&#8364;188</div><div class="sub">dal 06/11 al 05/12 &#183; regola del 5 &#183; Meta, hiring escluso</div></div>
       <!-- STORICO-VERSO-START --><div class="kpi"><span class="rail jade"></span><div class="lab">Verso 126 clienti</div><div class="val tnum">9,5%</div><div class="bar"><i style="width:9.5%"></i></div></div><!-- STORICO-VERSO-END -->
     </div>
     <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:22px 2px 11px">Essenziali CEO</div>
@@ -889,7 +889,7 @@ function renderFunnel(){
 function renderSemafori(){
   const host=clear("semafori");if(!host)return;
   const rows=[
-    {k:"CR lead \u2192 2\u00b0 apt",v:"34,9%",t:"soglia 18%",s:"good"},
+    {k:"CR lead \u2192 2\u00b0 apt",v:"34,6%",t:"soglia 18%",s:"good"},
     {k:"CR 2\u00b0 \u2192 3\u00b0 apt",v:"61,3%",t:"soglia 61%",s:"good"},
     {k:"Show rate discovery",v:"65,9%",t:"soglia 60%",s:"good"},
     {k:"Show rate demo",v:"69,4%",t:"soglia 70%",s:"good"},
@@ -1206,7 +1206,7 @@ function renderCrescita(){drawFatturato();drawMRR();drawClienti();renderClientTa
 function renderVendite(){renderFunnel();renderSemafori();
   /* 14/08/2026: lead 63→57, CR 7,9→8,8 (fonte: tab Venditori — Riepilogo) */
   /* 02/10/2026: Carlo fatturato 500→4.800, saldo Dal Bosco 4.300 del 1/10 (fonte: Lista Clienti, memoria Dal Bosco) */
-  renderSeller("seller-michele",{name:"Michele",role:"Venditore · cumulativo (non solo lug)",chiusi:15,fatt:50350,lead:342,show:"122 / 184",cr:4.4});
+  renderSeller("seller-michele",{name:"Michele",role:"Venditore · cumulativo (non solo lug)",chiusi:15,fatt:50350,lead:345,show:"122 / 184",cr:4.3});
   renderSeller("seller-carlo",{name:"Carlo",role:"Trasferito a CSM \u00b7 23/7 \u00b7 1 chiusura extra (Dal Bosco, 27/8, semestrale 4.800: acconto 500 + saldo 4.300 il 1/10)",chiusi:1,fatt:4800,lead:51,show:"15 / 24",cr:2,transition:true});
   drawVenditeTrend();}
 function renderRateView(){renderRate();renderRinnovi();}
