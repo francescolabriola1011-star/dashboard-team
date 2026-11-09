@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ads dei clienti: regole e agent MB</title>
+<style>:root{--blu:#0B1A3A;--giallo:#FFD21F;--oro:#D4A537;--bianco:#fff;--card:#13264f;--testo:#e8ecf5;--grigio:#9aa6c2}
+*{box-sizing:border-box}body{margin:0;background:var(--blu);color:var(--testo);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 60px}h1{color:var(--bianco);font-size:26px;margin:0 0 18px}
+section{background:var(--card);border-left:4px solid var(--giallo);border-radius:10px;padding:18px 20px;margin-bottom:22px}
+section h2{margin:0 0 10px;color:var(--bianco);font-size:20px}h3{color:var(--giallo);font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 6px}
+ul,ol{margin:0 0 8px;padding-left:20px}li{margin:3px 0}p{margin:6px 0}a{color:var(--giallo);word-break:break-word}strong{color:var(--bianco)}
+code{background:#0b1a3a;color:var(--giallo);padding:1px 5px;border-radius:4px;font-size:13px}
+.tw{overflow-x:auto;margin:8px 0}table{border-collapse:collapse;width:100%;font-size:14px}th{background:#0b1a3a;color:var(--giallo);text-align:left}
+th,td{padding:7px 9px;border-bottom:1px solid #24396b;vertical-align:top}</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Ads dei clienti: regole e agent MB</h1>
+<p>Le ads dei clienti le gestisce Claude (agent MB) da solo: stacchi, rotazione, statiche nuove, sostituzioni, riaccensioni e accensione dei lanci pronti.</p>
+<p>Qui c'e' cosa fa la macchina, con quali regole, e cosa resta a te come CSM.</p>
+<section><h2>1. Chi fa cosa</h2>
+<div class="tw"><table><thead><tr><th>Chi</th><th>Cosa fa</th></tr></thead><tbody>
+<tr><td>Claude (agent MB)</td><td>stacca, ruota le creative, crea statiche nuove, monta modulo, trigger e campagna, accende i lanci pronti, riaccende i clienti fermi, scrive ogni mossa nel gruppo delivery</td></tr>
+<tr><td>Francesco</td><td>budget sopra il pattuito, pagamenti Meta, accessi e collegamenti, configurazioni gia' bocciate (exit 2 del registro), messaggi a clienti o lead</td></tr>
+<tr><td>CSM</td><td>avvia il cliente, fa collegare le integrazioni, lead di prova, comunicazione col cliente sulle ads, lead fuori target e numeri falsi raccontati dal cliente, Modulo Fatturato entro il 3</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>2. Cosa gira da solo ogni giorno</h2>
+<p>Tu non devi lanciare niente. Ogni esito arriva nel gruppo delivery.</p>
+<p><strong>08:00, job ads</strong></p>
+<ol>
+<li><strong>Posizionamenti</strong> (<code>posizionamenti_auto</code>): toglie i posizionamenti fuori limite (CPL oltre 45 euro, o 45 euro spesi senza lead). Un gruppo non scende mai sotto 4 posizionamenti: se scende, riattacca il migliore per ritestarlo.</li>
+<li><strong>Stacco</strong> (<code>autopause</code>): mette in pausa gli annunci fuori regola (sezione 3).</li>
+<li><strong>Lanci</strong> (<code>lancia_ads</code>): fa il giro dei clienti appena lanciati.</li>
+<li><strong>Rotazione</strong> (<code>mb_auto</code>): al posto dell'annuncio staccato accende la statica successiva della coda del cliente (sezione 4). Cambia anche il modulo quando il CVR dice che il problema e' li'.</li>
+<li><strong>Collaudo ads e Checklist MB</strong>: controllano account e moduli e aggiornano la checklist.</li>
+</ol>
+<p>Massimo 3 azioni a giro e una sola rotazione per cliente.</p>
+<p><strong>08:45, controllore degli esiti</strong> (<code>esiti_clienti</code>): per ogni cliente guarda cosa e' successo davvero. Le ads hanno speso ieri, fanno impression oggi, i lead sono nel foglio, ogni lead ha ricevuto il primo WhatsApp. Se un cliente e' in crisi ripara cio' che si ripara da solo e manda il blocco "cliente in crisi" nel gruppo.</p>
+<p><strong>09:10, giro MB</strong> (agent <code>sales-manager-mb</code>): verifica sulle ads vere le voci aperte della Checklist MB, chiude quelle fatte con la prova, esegue le mosse e manda un messaggio secco nel gruppo: mosse fatte e cosa serve a Francesco.</p>
+<p><strong>12:30 e 18:30, stretto giro</strong>: rilegge a livello di annuncio i clienti da tenere d'occhio (oggi Dal Bosco, La Corte, Micheloni, Pellegatta, Mecarelli, Chirico, Del Gaudio) e scrive nel gruppo solo se c'e' un problema, per esempio 3 giorni senza lead.</p>
+<p><strong>Ogni 15 minuti, lead nuovi</strong>: per ogni lead vero appena entrato controlla Meta, GHL, trigger e foglio, e ripara cio' che si ripara senza scrivere a nessuno.</p>
+<p><strong>Ogni 30 minuti, consegna WhatsApp</strong>: legge la spunta del messaggio, non il workflow. Se un WhatsApp non arriva al lead dice la causa (credito finito, numero bloccato, sessione scaduta) e mette al contatto il tag "wa non consegnato", cosi' il cliente lo chiama.</p>
+<p><strong>Ogni mattina, numeri falsi</strong>: sugli ultimi 10 lead di ogni cliente conta i numeri falsi (casella NUMERO FALSO spuntata piu' formati impossibili). Da 3 su 10 il cliente va in rosso e il modulo si cambia: prima la guida arriva solo su WhatsApp, poi ricontrollo del numero e filtro qualita' di Meta.</p>
+</section>
+<section><h2>3. Regole di stacco dei clienti</h2>
+<p>Si giudica sempre <strong>l'annuncio</strong>, mai la campagna. I numeri sono il cumulato di quell'annuncio.</p>
+<div class="tw"><table><thead><tr><th>Situazione dell'annuncio</th><th>Si stacca quando</th></tr></thead><tbody>
+<tr><td>0 lead</td><td>spesa oltre 30 euro</td></tr>
+<tr><td>1 lead</td><td>spesa oltre 50 euro</td></tr>
+<tr><td>da 2 a 5 lead</td><td>CPL oltre 35 euro</td></tr>
+<tr><td>6 lead o piu'</td><td>CPL oltre 30 euro, anche col CVR buono</td></tr>
+<tr><td>almeno 1 lead</td><td>oltre 150 euro spesi dal giorno dell'ultimo lead, anche col CPL in target</td></tr>
+</tbody></table></div>
+<p>Eccezioni:</p>
+<ul>
+<li>un annuncio acceso da meno di 3 giorni non si tocca</li>
+<li>l'ultimo annuncio acceso di una campagna cliente non si spegne: viene segnalato e sostituito con la statica dopo</li>
+<li>la campagna non si stacca mai, si stacca l'annuncio sotto</li>
+<li>un cliente ha UNA campagna e UNA creativa accesa: la nuova nasce in pausa e si accende quando la vecchia si stacca</li>
+<li>cliente sospeso (oggi Moratti, fermo su sua richiesta): resta spento, zero spesa, nessun motore lo riaccende</li>
+</ul>
+<p>Casa nostra ha regole sue: 0 lead 30, 1 lead 45, da 2 a 5 lead CPL 30, dal 6° CPL 35, 120 euro dall'ultimo lead.</p>
+</section>
+<section><h2>4. Rotazione: cosa entra dopo uno stacco</h2>
+<p>Quando un annuncio si stacca entra la prossima statica della coda del cliente, da sola.</p>
+<ul>
+<li>Clienti CF (Del Gaudio, Chirico, Bosia, Mecarelli e gli altri CF): coda condivisa CF. In testa c'e' la statica nuova "capitale 100k come investo", poi yacht, poste, 7500 e le altre</li>
+<li>Micheloni e La Corte: coda loro, solo statiche mai girate su di loro, "capitale 100k" in testa</li>
+<li>Zaghini: coda oro, con in prova "oro ai figli" e "piu' di 50 anni"</li>
+<li>coda finita: entrano le statiche in prova del verticale; finite anche quelle, la voce va a Francesco. Le statiche gia' usate non ripartono da capo</li>
+</ul>
+<p>Come una statica entra o esce dalle code:</p>
+<ul>
+<li>una statica in prova che fa piu' di 5 lead con CPL sotto 22 euro e' validata ed entra nella coda condivisa per tutti</li>
+<li>una statica nuova provata su 4 clienti che non fa 5 lead sotto 20 euro di CPL su nemmeno uno esce dalla coda</li>
+<li>le statiche nuove si scrivono solo sui 5 angoli CF della lista chiusa</li>
+</ul>
+<p>Le statiche nuove arrivano anche nella cartella «Contenuti - Editati / Statiche» del cliente.</p>
+<p>Salti: niente rotazione se c'e' un cambio modulo in attesa, o se il CVR e' sotto il 4% su almeno 30 click (li' il problema e' il modulo, non la creativa, e si cambia il modulo). Un cambio modulo si chiude solo quando i lead veri arrivano come righe nel foglio del cliente.</p>
+</section>
+<section><h2>5. Cosa fai tu</h2>
+<p><strong>All'avvio del cliente</strong> (onboarding)</p>
+<ol>
+<li>Scrivi a Claude nel gruppo delivery: "Avvia cliente [nome], verticale [CF o oro], mail [mail]". Controlli che cartella Drive e subaccount esistano. <strong>10 minuti.</strong></li>
+<li>Fai collegare al cliente: Business Manager e account con pagamento, pagina e Instagram, WhatsApp Business, calendario, integrazione Facebook nel gestionale.</li>
+<li>A integrazioni fatte scrivi nel gruppo delivery: "[nome] integrazioni fatte". Fai il lead di prova con Claude: in 15 minuti devono arrivare riga nel foglio, contatto nel gestionale, WhatsApp e mail. Con la prova verde Claude accende le ads. <strong>10 minuti.</strong></li>
+<li>Lo stesso giorno scrivi al cliente la data di partenza ads e la segni in KPI Tracker, PM Weekly e Lista Clienti.</li>
+</ol>
+<p>Nel carico l'onboarding del CSM cresce di <strong>20 minuti</strong>: 10 per cartella e subaccount, 10 per l'avvio ads.</p>
+<p><strong>Ogni settimana</strong></p>
+<ul>
+<li>comunichi al cliente cosa e' cambiato sulle ads (processo comunicazione col cliente sulle ads)</li>
+<li>segnali a Claude nel gruppo delivery i lead fuori target e i numeri falsi che il cliente ti racconta, e gli chiedi di spuntare la casella NUMERO FALSO nel foglio</li>
+<li>quando nel gruppo arriva un "cliente in crisi" o un "wa non consegnato", avvisi il cliente lo stesso giorno</li>
+<li>controlli col delivery manager che le ads siano accese e il CPL scenda</li>
+</ul>
+<p><strong>Entro il 3 del mese</strong>: controlli il Modulo Fatturato di ogni cliente.</p>
+<p>Non accendi, non stacchi e non cambi budget su Meta: se vedi qualcosa che non torna lo scrivi nel gruppo delivery.</p>
+</section>
+<section><h2>6. Dove guardare</h2>
+<ul>
+<li>Checklist CSM: <a href="https://francescolabriola1011-star.github.io/dashboard-team/checklist-csm.html">https://francescolabriola1011-star.github.io/dashboard-team/checklist-csm.html</a></li>
+<li>Flussi MB e CSM: <a href="https://francescolabriola1011-star.github.io/dashboard-team/flussi-mb.html">https://francescolabriola1011-star.github.io/dashboard-team/flussi-mb.html</a></li>
+<li>Avvio cliente con l'agent MB: chi fa cosa [CSM]: <a href="https://docs.google.com/document/d/16EhKA1Ct84FVCW6KX3-WRs8h44Lvm3Fdf6sM_w3hbb8/edit">https://docs.google.com/document/d/16EhKA1Ct84FVCW6KX3-WRs8h44Lvm3Fdf6sM_w3hbb8/edit</a></li>
+<li>Monitoraggio ads e CPL col delivery manager [CSM]: <a href="https://docs.google.com/document/d/1M4BaNmHnYY6Th3iZJxUojghJSPfGhM88E9LB0yEnpmg/edit">https://docs.google.com/document/d/1M4BaNmHnYY6Th3iZJxUojghJSPfGhM88E9LB0yEnpmg/edit</a></li>
+<li>Processo comunicazione col cliente sulle ads [CSM]: <a href="https://docs.google.com/document/d/16Paf6SpnuIHQXy1o777gu6OKP0LT0oEIgWKPEWNtcb4/edit">https://docs.google.com/document/d/16Paf6SpnuIHQXy1o777gu6OKP0LT0oEIgWKPEWNtcb4/edit</a></li>
+<li>Procedura Ads (Claude e Francesco): <a href="https://docs.google.com/document/d/1vn5K-biqWNt40FmqPAzCpsSSZcaTjX25dpWTKnxVoyQ/edit">https://docs.google.com/document/d/1vn5K-biqWNt40FmqPAzCpsSSZcaTjX25dpWTKnxVoyQ/edit</a></li>
+<li>Processo stacco delle ads [Ads]: <a href="https://docs.google.com/document/d/1uZ8BDmw1WVvHWwpzmjVz9i28SUsLzlm4QHoYBnxfp7s/edit">https://docs.google.com/document/d/1uZ8BDmw1WVvHWwpzmjVz9i28SUsLzlm4QHoYBnxfp7s/edit</a></li>
+</ul>
+</section>
+</div>
+</body>
+</html>
