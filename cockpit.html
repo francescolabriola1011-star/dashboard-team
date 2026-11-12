@@ -640,7 +640,7 @@
         <thead><tr><th>Cliente</th><th>Stato</th><th>Pack</th><th class="num">LTV incassato</th><th>Ultimo pag.</th><th>Cliente dal</th><th class="num">MRR</th></tr></thead>
         <tbody id="client-rows"></tbody>
       </table></div>
-      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 2 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;52.600</b> &#183; MRR contrattualizzato <b>&#8364;11.467</b></span></div>
+      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 3 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;53.950</b> &#183; MRR contrattualizzato <b>&#8364;12.367</b></span></div>
     </div>
     <!-- COMPETENZA vs CASSA settembre: fonte Scadenzario+Cashflow col J (Mese competenza) e Bilancio Buyer AME Totale!I25:J25, letti 29/09/2026 -->
     <div class="tablecard" style="margin-top:13px" id="competenza-cassa-set">
@@ -666,7 +666,7 @@
   <!-- ============ VENDITE ============ -->
   <section class="view hidden" id="view-vendite" role="tabpanel">
     <div class="kpis">
-      <div class="kpi"><span class="rail blue"></span><div class="lab">MRR nuovo &#183; nov</div><div class="val blue tnum">&#8364;900</div><div class="sub">competenza avvio delivery (regola del 5) &#183; partiti: Capuano (10/11, &#8364;900) &#183; restano firmati: Drago, Pesce, il loro MRR entra all&#8217;avvio</div></div>
+      <div class="kpi"><span class="rail blue"></span><div class="lab">MRR nuovo &#183; nov</div><div class="val blue tnum">&#8364;900</div><div class="sub">competenza avvio delivery (regola del 5) &#183; partiti: Capuano (10/11, &#8364;900) &#183; restano firmati: Drago, Pesce, Pentassuglia, il loro MRR entra all&#8217;avvio</div></div>
       <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; nov</div><div class="val tnum">&#8364;0</div><div class="sub">7 pagamenti &#183; Zaghini saldo 2.150 del 7/10 &#183; Mecarelli 4.800 &#183; Capuano 900 del 29/10 &#183; Chirico rata 1.100 del 31/10 &#183; Drago 2.700 e La Corte rinnovo 1.200 del 2/11 &#183; Pesce acconto 500 del 5/11</div></div>
       <div class="kpi"><span class="rail slate"></span><div class="lab">Chiusure &#183; nov</div><div class="val tnum">0</div><div class="sub">mese dell&#8217;incasso (regola del 5) &#183; fonte KPI Direzione Vendite</div></div>
       <div class="kpi"><span class="rail amber"></span><div class="lab">Close rate demo</div><div class="val tnum">0%</div><div class="sub">0 chiusure su 2 demo &#183; target 20% &#183; sotto soglia</div></div>
@@ -918,7 +918,7 @@ function renderSeller(id,d){
     </div>`;
 }
 function drawVenditeTrend(){
-  const data=[{m:"Apr",cash:800},{m:"Mag",cash:1700},{m:"Giu",cash:2800},{m:"Lug",cash:14100},{m:"Ago",cash:2140},{m:"Set",cash:26960},{m:"Ott",cash:13350},{m:"Nov",cash:0}];
+  const data=[{m:"Apr",cash:800},{m:"Mag",cash:1700},{m:"Giu",cash:2800},{m:"Lug",cash:14100},{m:"Ago",cash:2140},{m:"Set",cash:26960},{m:"Ott",cash:13350},{m:"Nov",cash:1350}];
   const svg=clear("chart-vendite-trend");if(!svg)return;
   const W=940,H=210,L=48,R=16,T=38,B=28,w=W-L-R,h=H-T-B;
   const max=30000,ticks=[0,7500,15000,22500,30000];
