@@ -458,9 +458,9 @@
     <div class="ah">&#9670; Cosa decide i prossimi 90 giorni</div>
     <div class="alerts">
       <!-- ALERT-RINNOVI-START (scritto da motore/cockpit_orizzonte.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>24% del ricorrente va al bivio nei prossimi 90 giorni:</b> &#8364;2.333 di MRR su &#8364;9.834 scade fra 6/1 e 10/2 (Chirico, Micheloni, Capuano). Al tasso di rinnovo attuale (81,0%) il rischio ponderato &#232; &#8364;444 al mese</span><span class="atag">Rinnovi</span></div><!-- ALERT-RINNOVI-END -->
-      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.603, spendibile &#8364;10.265 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;315 (5 feb-11 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;6.418</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
+      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.552, spendibile &#8364;10.215 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;1.230 (5 feb-11 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;10.221</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
       <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>FASE 1 entro dicembre:</b> mancano &#8364;3.733 di MRR, 5 clienti nuovi</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>3&#176; apt fatti fuori target:</b> 2 contro ~5,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 1 contro ~1,04 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>CPL medio clienti fuori target:</b> &#8364;31,58 contro &lt; &#8364;25 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 7 contro ~18,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
-      <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 13 clienti attivi su 126. Ne mancano 113, con avanzamento del 10,3%</span><span class="atag">Crescita</span></div>
+      <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 13 clienti attivi su 112. Ne mancano 99, con avanzamento del 11,6%</span><span class="atag">Crescita</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 59,3% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,6% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Garanzia da onorare:</b> apt investitori +100k a 9/26. &#200; la garanzia scritta nel contratto su cui si gioca ogni rinnovo</span><span class="atag">Delivery</span></div>
     </div>
@@ -939,7 +939,7 @@ function drawVenditeTrend(){
 
 /* ---------- RATE & RINNOVI ---------- */
 const rate=[
-  /* Scritto da motore/cockpit_statici.py il 14/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  /* Scritto da motore/cockpit_statici.py il 15/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
   {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"10/12/2026"},
   {n:"Riccardo Pentassuglia",desc:"Trimestrale CF (2.700): pagamento 2 di 2",v:1350,due:"12/12/2026"},
@@ -967,8 +967,8 @@ const rinnovi=[
   {date:"01/04",y:"2027",n:"Fabio Ricciarelli",meta:"semestrale Pack B · avvio 1/10",val:"\u20ac4.800",kind:""},
   {date:"06/04",y:"2027",n:"Davide Dal Bosco",meta:"semestrale Pack B · avvio 6/10",val:"\u20ac4.800",kind:""},
   {date:"27/04",y:"2027",n:"Elisa Mecarelli",meta:"semestrale Pack B · avvio 27/10",val:"\u20ac4.800",kind:""},
-  {date:"04/10",y:"2027",n:"Giovanni Caruso",meta:"annuale Pack B · avvio 4/10",val:"\u20ac8.800",kind:""},
-  {date:"12/10",y:"2027",n:"Marco Pellegatta",meta:"annuale Pack B · avvio 12/10",val:"\u20ac8.800",kind:""},
+  {date:"04/10",y:"2027",n:"Giovanni Caruso",meta:"annuale Pack B · avvio 4/10",val:"\u20ac9.600",kind:""},
+  {date:"12/10",y:"2027",n:"Marco Pellegatta",meta:"annuale Pack B · avvio 12/10",val:"\u20ac9.600",kind:""},
 ];
 function renderRinnovi(){
   const host=clear("rinnovi");if(!host)return;
