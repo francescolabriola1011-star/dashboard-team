@@ -1,0 +1,422 @@
+<meta charset="utf-8">
+<title>Dashboard Obiettivi — AI Elite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#0b0f14; --card:#141b24; --card2:#1a2330; --line:#252e3a;
+    --txt:#e9eef4; --muted:#8a97a6; --faint:#5b6674;
+    --accent:#4c8dff; --accent2:#7c5cff;
+    --green:#3fb950; --amber:#d29922; --red:#f0533f; --track:#1e2632;
+  }
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f4f6f9;--card:#fff;--card2:#f2f5f9;--line:#dde3ea;--txt:#131a22;--muted:#5c6773;--faint:#9aa5b1;--track:#e9edf2;}
+  }
+  :root[data-theme="light"]{--bg:#f4f6f9;--card:#fff;--card2:#f2f5f9;--line:#dde3ea;--txt:#131a22;--muted:#5c6773;--faint:#9aa5b1;--track:#e9edf2;}
+  :root[data-theme="dark"]{--bg:#0b0f14;--card:#141b24;--card2:#1a2330;--line:#252e3a;--txt:#e9eef4;--muted:#8a97a6;--faint:#5b6674;--track:#1e2632;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;line-height:1.4}
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 18px 70px}
+  a{color:var(--accent)}
+  header{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+  .brand h1{font-size:23px;margin:0;letter-spacing:-.4px}
+  .brand .sub{color:var(--muted);font-size:13px;margin-top:3px}
+  .goalchip{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:12px;padding:10px 15px;font-size:13px;font-weight:600;box-shadow:0 6px 20px -8px var(--accent)}
+  .goalchip b{font-size:16px}
+  h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:30px 2px 12px;font-weight:700}
+  .toggle{display:inline-flex;background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:4px;margin:18px 0 2px}
+  .toggle button{border:0;background:transparent;color:var(--muted);font-size:14px;font-weight:600;padding:9px 20px;border-radius:8px;cursor:pointer;transition:.15s}
+  .toggle button.on{background:var(--accent);color:#fff}
+  .pnote{color:var(--muted);font-size:12.5px;margin:8px 2px 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:13px}
+  .million-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px}
+  .million-card{background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:15px;padding:15px 16px}
+  .million-card .mlabel{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .million-card .mvalue{font-size:24px;font-weight:800;margin:5px 0 2px;letter-spacing:-.4px}
+  .million-card .mmeta{font-size:11.5px;color:var(--faint)}
+  .million-note{color:var(--muted);font-size:12px;margin:9px 2px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px}
+  .k-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .k-name{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .k-pct{font-size:12.5px;font-weight:800}
+  .k-val{font-size:28px;font-weight:800;margin:7px 0 1px;letter-spacing:-.6px}
+  .k-val small{font-size:14px;color:var(--muted);font-weight:600}
+  .k-obj{font-size:12px;color:var(--faint)}
+  .bar{position:relative;height:10px;background:var(--track);border-radius:6px;margin-top:11px;overflow:visible}
+  .bar > i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .pace{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--txt);opacity:.5;border-radius:2px}
+  .pace::after{content:"atteso";position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:8.5px;color:var(--faint);white-space:nowrap}
+  .nd{color:var(--faint);font-style:italic;font-size:15px;font-weight:600}
+  .flag{font-size:11px;color:var(--amber);margin-top:9px;display:flex;gap:5px;line-height:1.35}
+  /* funnel */
+  .funnel{display:flex;flex-wrap:wrap;gap:0;align-items:stretch;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px;overflow-x:auto}
+  .fstep{flex:1;min-width:120px;text-align:center;padding:6px 8px;position:relative}
+  .fstep .fn{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .fstep .fv{font-size:26px;font-weight:800;margin-top:3px}
+  .fstep .fo{font-size:11.5px;color:var(--faint)}
+  .fstep .fbar{height:6px;border-radius:4px;background:var(--track);margin-top:8px;overflow:hidden}
+  .fstep .fbar>i{display:block;height:100%;border-radius:4px}
+  .fconv{align-self:center;font-size:11px;color:var(--muted);padding:0 4px;white-space:nowrap}
+  .fconv b{display:block;font-size:13px;color:var(--txt)}
+  .sem{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+  /* chart mensile */
+  .chartcard{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}
+  .ct-title{font-size:13px;font-weight:700;margin:0 0 12px;display:flex;justify-content:space-between;align-items:baseline}
+  .ct-title span{font-size:11.5px;color:var(--faint);font-weight:600}
+  .mbars{display:flex;gap:10px;align-items:flex-end;height:120px}
+  .mcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .mcol .mb{width:70%;border-radius:5px 5px 0 0;min-height:3px;transition:.5s}
+  .mcol .mv{font-size:11px;font-weight:700;margin-bottom:4px}
+  .mcol .ml{font-size:11px;color:var(--muted);margin-top:6px}
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:13px}
+  /* previsionale */
+  .prev{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px}
+  .pcell{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 14px}
+  .pcell .pm{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase}
+  .pcell .pi{font-size:20px;font-weight:800;margin-top:4px}
+  .pcell .pc{font-size:11.5px;color:var(--faint);margin-top:2px}
+  /* coerenza */
+  .coher{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px 18px}
+  .coher li{font-size:13px;margin:8px 0;line-height:1.5;list-style:none;padding-left:22px;position:relative}
+  .coher li::before{position:absolute;left:0;top:0}
+  .coher li.warn::before{content:"▲";color:var(--amber)}
+  .coher li.ok::before{content:"✔";color:var(--green)}
+  .src{margin-top:22px;color:var(--faint);font-size:11.5px;line-height:1.7}
+  .src b{color:var(--muted)}
+  footer{margin-top:24px;color:var(--faint);font-size:11.5px;text-align:center}
+
+  .dec{border:1px solid var(--line);border-radius:16px;padding:22px;margin:22px 0 22px;background:var(--card)}
+  .dec h2{margin:0 0 4px;font-size:22px}
+  .dec .q{color:var(--muted);font-size:12px;margin:0 0 16px}
+  .dec-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media (max-width:760px){.dec-tiles{grid-template-columns:repeat(2,1fr)}}
+  .dec-tile{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .dec-tile .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .dec-tile .val{font-size:24px;font-weight:750;margin-top:6px}
+  .dec-tile .val small{font-size:13px;color:var(--faint);font-weight:600}
+  .dec-tile .foot{font-size:11px;color:var(--muted);margin-top:4px}
+  .dec-sintesi{margin:16px 0 0;padding:12px 14px;border-left:4px solid #D4A537;background:var(--card2);font-size:14px;line-height:1.5}
+  .dec-fonte{margin:8px 0 0;font-size:11px;color:var(--faint)}
+  details.piega{border:1px solid var(--line);border-radius:14px;margin:0 0 14px;background:var(--card);padding:0 16px}
+  details.piega>summary{cursor:pointer;padding:14px 2px;font-weight:700;list-style:none}
+  details.piega>summary::-webkit-details-marker{display:none}
+  details.piega>summary:before{content:"+ ";color:#D4A537}
+  details.piega[open]>summary:before{content:"- "}
+  details.piega[open]{padding-bottom:16px}
+  details.piega h2.sec{margin-top:14px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1 id="h1title">Dashboard Obiettivi</h1>
+      <div class="sub">AI Elite Advisory · funnel + ads vs obiettivo · <span id="stamp"></span></div>
+    </div>
+    <div class="goalchip" id="goalchip">Verso <b>€16,1k MRR</b> (Fase 1, gen 2027)</div>
+  </header>
+
+  <section class="dec" id="decisione">
+    <h2>Siamo al passo col mese?</h2>
+    <div class="q" id="dec-periodo"></div>
+    <div class="dec-tiles" id="dec-tiles"></div>
+    <div class="dec-sintesi" id="dec-sintesi"></div>
+    <div class="dec-fonte" id="dec-fonte"></div>
+  </section>
+
+  <details class="piega"><summary>Verso il milione</summary>
+  <h2 class="sec">Verso il milione · avanzamento complessivo</h2>
+  <div class="million-grid" id="million"></div>
+  <div class="million-note" id="millionnote"></div>
+  </details>
+
+  <details class="piega"><summary>Tutti i numeri: giorno, settimana, mese</summary>
+
+  <div class="toggle" id="toggle">
+    <button data-p="giorno">Giorno</button>
+    <button data-p="settimana">Settimana</button>
+    <button data-p="precedente" id="btnprec">Mese precedente</button>
+    <button data-p="mese" class="on" id="btnmese">Mese</button>
+  </div>
+  <div class="pnote" id="pnote"></div>
+  <div class="grid" id="grid"></div>
+  </details>
+
+  <details class="piega"><summary>Funnel del mese in corso e del mese chiuso</summary>
+
+  <h2 class="sec" id="funneltitlecur">Funnel del mese in corso · obiettivo</h2>
+  <div class="funnel" id="funnelcur"></div>
+  <h2 class="sec" id="funneltitle">Funnel del mese precedente · consuntivo vs obiettivo</h2>
+  <div class="funnel" id="funnel"></div>
+  <div class="pnote" id="semlegend"></div>
+  </details>
+
+  <details class="piega"><summary>Andamento mensile e previsionale</summary>
+
+  <h2 class="sec">Andamento mensile · dati reali</h2>
+  <div class="charts" id="charts"></div>
+
+  <h2 class="sec">Previsionale · dove stiamo andando (Previsionale 36M pessimistico)</h2>
+  <div class="prev" id="prev"></div>
+  </details>
+
+  <details class="piega"><summary>Coerenza delle fonti</summary>
+
+  <h2 class="sec">Coerenza fonti · incrociate durante l'estrazione</h2>
+  <div class="coher"><ul id="coherlist" style="margin:0;padding:0"></ul></div>
+  </details>
+
+  <div class="src" id="src"></div>
+  <footer>solo dati veri, nessuna stima · rigenerare quando cambiano i fogli.</footer>
+</div>
+
+<script>
+/* ===== DATI VERI — rigenerati da genera_dashboard_obiettivi.py (fonti a fine file) ===== */
+/*DATA-START*/
+const STAMP = "16/11/2026";
+const MESE_TITOLO = "Novembre 2026";
+const MRR_ATTIVO = 9834;
+const MRR_OBJ = 12907;
+const OBJ = {"impression": 166200, "reach": 41600, "lead": 123, "apt2": 35, "apt3": 22, "chiusure": 4, "fatturato": 22665, "spesa": 2400};
+const OBJ_NOTE = {"chiusure": "Previsionale 36M pessimistico", "spesa": "Lead Gen budget mese", "lead": "Previsionale 36M pessimistico", "fatturato": "Previsionale 36M pessimistico", "impression": "stima: budget €2400 ÷ CPM €14.44", "reach": "stima: impression × copertura/impression attuale"};
+const DATA = {"giorno": {"label": "Oggi · 16/11/2026", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 492, "reach": 411, "lead": 0, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 0}}, "settimana": {"label": "Ultimi 7 giorni", "elapsed": 1.0, "ndAppt": true, "v": {"impression": 28460, "reach": 17685, "lead": 16, "apt2": null, "apt3": null, "chiusure": null, "fatturato": null, "spesa": 438}}, "precedente": {"label": "Ottobre 2026 · mese chiuso", "elapsed": 1.0, "ndAppt": false, "noMeta": true, "titolo": "Ottobre", "v": {"impression": null, "reach": null, "lead": 117, "apt2": 48, "apt3": 26, "chiusure": 4, "fatturato": 13350, "spesa": 2211}}, "mese": {"label": "Novembre 2026 · dal 06/11 al 05/12 · giorno 11 di 30", "elapsed": 0.36666666666666664, "ndAppt": false, "titolo": "Novembre", "obj": {"impression": 166200, "reach": 41600, "lead": 123, "apt2": 35, "apt3": 22, "chiusure": 4, "fatturato": 22665, "spesa": 2400}, "objNote": {"lead": "27,5 lead per cliente (doc Funnel)", "apt2": "discovery fatte, 64% diventano demo", "apt3": "demo fatte, 20% chiudono", "chiusure": "4 clienti al mese, 68k ott-dic · capacita' di 1 venditore", "fatturato": "Incasso totale del Previsionale · 68k ott-dic", "spesa": "budget ads del mese (Lead Gen)"}, "v": {"impression": 53468, "reach": 13385, "lead": 32, "apt2": 12, "apt3": 5, "chiusure": 1, "fatturato": 1350, "spesa": 763}}};
+const METRICS = [{k:"impression",name:"Impression",fmt:"int"},{k:"reach",name:"Copertura",fmt:"int"},{k:"lead",name:"Lead",fmt:"int",extra:"CPL €23"},{k:"apt2",name:"Appuntamenti 2°",fmt:"int",sub:"Discovery"},{k:"apt3",name:"Appuntamenti 3°",fmt:"int",sub:"Demo"},{k:"chiusure",name:"Chiusure",fmt:"int"},{k:"fatturato",name:"Fatturato incassato",fmt:"eur"},{k:"spesa",name:"Spesa ads",fmt:"eur"}];
+const FUNNEL = {"titolo": "Ottobre 2026", "steps": [{"n": "Lead", "v": 117, "o": 110, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 48, "o": 31, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 26, "o": 20, "col": "#c77dff"}, {"n": "Chiusure", "v": 4, "o": 4, "col": ""var(--green)"}, {"n": "Fatturato incassato", "v": 13350, "o": 18837, "col": "var(--amber)", "eur": true}], "conv": [{"lbl": "CR lead→2°", "val": "34,3%", "s": "g"}, {"lbl": "show→demo", "val": "69,4%", "s": "r"}, {"lbl": "close demo", "val": "19,0%", "s": "r"}], "sem": [{"l": "CR lead→2apt", "v": "34,3%", "t": "28,4%", "s": "g"}, {"l": "CR 2→3apt", "v": "61,8%", "t": "64,0%", "s": "r"}, {"l": "CR lead→chiuso", "v": "4,0%", "t": "3,6%", "s": "g"}, {"l": "Show disc (2apt)", "v": "65,7%", "t": "60,0%", "s": "g"}, {"l": "Show demo (3apt)", "v": "69,4%", "t": "70,0%", "s": "r"}, {"l": "Close disc", "v": "11,8%", "t": "12,8%", "s": "r"}, {"l": "Close demo", "v": "19,0%", "t": "20,0%", s": "r"}]};
+const FUNNEL_CUR = {"titolo": "Novembre 2026", "steps": [{"n": "Lead", "v": 32, "o": 123, "col": "var(--accent)"}, {"n": "2° apt · Discovery", "v": 12, "o": 35, "col": "var(--accent2)"}, {"n": "3° apt · Demo", "v": 5, "o": 22, "col": "#c77dff"}, {"n": "Chiusure", "v": 1, "o": 4, "col": "var(--green)"}, {"n": "Fatturato incassato", "v": 1350, "o": 22665, "col": "var(--amber)", "eur": true}]};
+const MONTHS = ["Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov"];
+const SERIES = {"lead": {"title": "Lead / mese", "unit": "", "data": [55, 43, 65, 42, 72, 136, 117, 32], "col": "var(--accent)"}, "spesa": {"title": "Spesa ads €", "unit": "€", "data": [870, 939, 1010, 1296, 1194, 2204, 2211, 763], "col": "var(--amber)"}, "cpl": {"title": "CPL €", "unit": "€", "data": [16.11, 22.36, 16.18, 30.86, 16.58, 16.2, 18.9, 23.85], "col": "var(--red)", "soglia": 22}, "incassato": {"title": "Incassato €", "unit": "€", "data": [0, 0, 2800, 14100, 2140, 26960, 13350, 1350], "col": "var(--green)"}};
+const MILESTONE = {"lead": 562, "demo": 99, "vendite": 26, "fatturato": 85450, "spesa": 10487.35, "target": {"lead": 2008, "demo": 365, "vendite": 193, "fatturato": 1000000, "spesa": 43800}, "nota": "Un milione = 193 contratti (Scenari 1M B7), di cui 73 clienti nuovi. Lead 2.008 = 73 x 27,5 · demo 365 = 73 / 20% · spesa ads €43.800 = 73 x CAC €600 (budget €2.400 / 4 clienti al mese)."};
+const PREV = [{"m": "Dic 26", "inc": 25713, "cl": 18}, {"m": "Gen 27", "inc": 35540, "cl": 21}, {"m": "Feb 27", "inc": 37279, "cl": 24}, {"m": "Mar 27", "inc": 43708, "cl": 28}];
+const COHERENCE = [{"s": "ok", "t": "<b>Meta API diretta</b>: impression 53468, copertura 13385, click 1059 lette da act_859478370532394 (nessun Windsor)."}, {"s": "ok", "t": "<b>MRR attivo €9.834 · 13 clienti</b> letti dal canonico Lista Clienti (Dashboard!B19/B20), stessa fonte del cockpit."}, {"s": "ok", "t": "<b>Lead novembre = 32</b> (ads + inbound, Bussola dal Lead Gen B49; le righe ads giornaliere ne contano 32, usate per il CPL), righe dal 06/11 al 16/11 (regola del 5). Spesa €763, obiettivo €2400."}, {"s": "ok", "t": "<b>Mese contabile Novembre: dal 06/11 al 05/12</b> (regola del 5). Lead, spesa ads, impression, appuntamenti, chiusure e incassato contano tutti in questa finestra."}, {"s": "ok", "t": "<b>Coerente col cockpit</b>: MRR/clienti/chiusure/funnel presi dagli stessi fogli canonici (Lista, KPI Vendite, Scorecard)."}, {"s": "ok", "t": "<b>Appuntamenti novembre: 12 discovery e 5 demo fatte</b> dal CRM, call dal 06/11 a oggi (regola del 5). Il consuntivo si conferma alla chiusura del mese."}];
+/*DATA-END*/
+
+/* ---------- render ---------- */
+f.toLocaleString("it-IT"); }
+function col(r){ return r>=1?"var(--green)":r>=0.5?"var(--amber)":"var(--red)"; }
+function semColor(s){ return s==="g"?"var(--green)":s==="a"?"var(--amber)":"var(--red)"; }
+
+
+Number.prototype.toLocaleString=(function(o){return function(l,opt){if(l==="it-IT"){opt=Object.assign({},opt||{});if(!("useGrouping" in opt))opt.useGrouping="always";try{return o.call(this,l,opt);}catch(e){return o.call(this,"de-DE",opt);}}return o.call(this,l,opt);};})(Number.prototype.toLocaleString);
+function renderDecisione(){
+  const d=DATA.mese, o=d.obj||OBJ, e=d.elapsed||0, pr=DATA.precedente||{v:{}};
+  const n=x=>x==null?"n.d.":Math.round(x).toLocaleString("it-IT");
+  const att=k=>o[k]?Math.round(o[k]*e*10)/10:null;
+  const tiles=[
+    {k:"lead",lab:"Lead"},
+    {k:"apt3",lab:"Demo fatte"},
+    {k:"chiusure",lab:"Chiusure"}
+  ];
+  let h="";
+  tiles.forEach(t=>{
+    const v=d.v[t.k], a=att(t.k);
+    const c=(v==null||e<0.1)?"var(--txt)":col(a?v/a:0);
+    h+=`<div class="dec-tile"><div class="lab">${t.lab}</div><div class="val" style="color:${c}">${n(v)} <small>/ ${n(o[t.k])}</small></div><div class="foot">atteso a oggi ${a==null?"n.d.":a.toLocaleString("it-IT")} · ${pr.titolo||"mese prima"} ${n(pr.v[t.k])}</div></div>`;
+  });
+  const mo=(typeof MRR_OBJ!=="undefined")?MRR_OBJ:null, ma=(typeof MRR_ATTIVO!=="undefined")?MRR_ATTIVO:null;
+  h+=`<div class="dec-tile"><div class="lab">MRR attivo</div><div class="val" style="color:${(ma!=null&&mo)?col(ma/mo):"var(--txt)"}">€${n(ma)} <small>/ €${n(mo)}</small></div><div class="foot">${(ma!=null&&mo)?"mancano €"+n(Math.max(0,mo-ma))+" all'obiettivo del mese":"obiettivo n.d."}</div></div>`;
+  document.getElementById("dec-tiles").innerHTML=h;
+  document.getElementById("dec-periodo").textContent=d.label+" · si confronta col ritmo atteso a oggi";
+  let frase;
+  if(e<0.1){
+    const p=pr.v||{}, po=(pr.obj||OBJ);
+    frase=`Mese appena partito: il passo si giudica dal terzo giorno. Il riferimento resta ${pr.titolo||"il mese chiuso"}: ${n(p.lead)} lead, ${n(p.apt3)} demo e ${n(p.chiusure)} chiusure. Per arrivare a ${n(o.chiusure)} chiusure servono circa ${n(o.apt3)} demo nel mese.`;
+  } else {
+    const r=tiles.map(t=>({t,v:d.v[t.k],a:att(t.k)})).filter(x=>x.v!=null&&x.a);
+    r.forEach(x=>x.r=x.v/x.a);
+    r.sort((a,b)=>a.r-b.r);
+    if(!r.length) frase="Dati del mese non ancora leggibili.";
+    else if(r[0].r>=1) frase="Al passo su lead, demo e chiusure. Si tiene il ritmo.";
+    else frase=`Collo: ${r[0].t.lab.toLowerCase()}, ${n(r[0].v)} contro ${r[0].a.toLocaleString("it-IT")} attesi a oggi (${Math.round(r[0].r*100)}% del passo). Il lavoro di oggi va li'.`;
+  }
+  document.getElementById("dec-sintesi").textContent=frase;
+  document.getElementById("dec-fonte").textContent="Dati letti il "+STAMP+" · Sales Scorecard, Lead Gen, Previsionale 36M, Lista Clienti";
+}
+
+function renderMillion(){
+  const specs=[
+    {k:"lead",n:"Lead",fmt:"int"},
+    {k:"demo",n:"Demo fatte",fmt:"int"},
+    {k:"vendite",n:"Vendite totali",fmt:"int"},
+    {k:"fatturato",n:"Fatturato su contratto",fmt:"eur"},
+    {k:"spesa",n:"Spesa ads",fmt:"eur"}
+  ];
+  const el=document.getElementById("million"); el.innerHTML="";
+  specs.forEach(s=>{
+    const v=MILESTONE[s.k], o=MILESTONE.target[s.k], r=o?v/o:0;
+    const c=document.createElement("div"); c.className="million-card";
+    c.innerHTML=`<div class="mlabel">${s.n}</div><div class="mvalue">${fmt(v,s.fmt)} <span style="font-size:13px;color:var(--faint)">/ ${fmt(o,s.fmt)}</span></div>
+      <div class="mmeta">${(r*100).toLocaleString("it-IT",{maximumFractionDigits:1})}% completato</div>
+      <div class="bar"><i style="width:${Math.min(100,Math.max(2,r*100))}%;background:${col(r)}"></i></div>`;
+    el.appendChild(c);
+  });
+  document.getElementById("millionnote").textContent = MILESTONE.nota || "";
+}
+
+function renderKPI(p){
+  const d=DATA[p];
+  document.getElementById("pnote").innerHTML = d.label + " · le barre confrontano con l'obiettivo del <b>mese</b>; il trattino “atteso” è il ritmo previsto a oggi ("+Math.round(d.elapsed*100)+"% del periodo).";
+  const g=document.getElementById("grid"); g.innerHTML="";
+  METRICS.forEach(m=>{
+    const val=d.v[m.k], obj=(d.obj||OBJ)[m.k], note=(d.objNote&&d.objNote[m.k])||OBJ_NOTE[m.k];
+    const card=document.createElement("div"); card.className="card";
+    let h=`<div class="k-top"><span class="k-name">${m.name}${m.sub?` · ${m.sub}`:""}</span>`;
+    const isAppt=(m.k==="apt2"||m.k==="apt3"||m.k==="chiusure");
+    if((m.k==="impression" || m.k==="reach") && val==null && d.noMeta){
+      h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">fonte: Meta API</div><div class="flag">Solo per il mese in corso.</div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
+    if((m.k==="impression" || m.k==="reach") && val==null){
+      h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">fonte: Meta API</div><div class="flag">⚑ Token Meta da impostare una volta (system user): poi si popola da sé.</div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
+    if(val==null && isAppt && d.ndAppt){
+      h+=`</div><div class="k-val nd">n/d</div><div class="k-obj">obiettivo mese: ${obj}</div><div class="flag">⚑ Storico giorno/settimana su GHL live (i fogli tengono solo il mese).</div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
+    if(val==null){
+      h+=`</div><div class="k-val nd">&nbsp;<small> / ${fmt(obj,m.fmt)}</small></div><div class="k-obj">obiettivo mese${note?" · "+note:""}</div><div class="bar"><span class="pace" style="left:${Math.min(100,d.elapsed*100)}%"></span></div>`;
+      card.innerHTML=h; g.appendChild(card); return;
+    }
+    const r=obj?val/obj:0, pct=obj?Math.round(r*100):0;
+    h+=obj?`<span class="k-pct" style="color:${col(r)}">${pct}%</span>`:"";
+    h+=`</div><div class="k-val">${fmt(val,m.fmt)??"0"}<small> / ${fmt(obj,m.fmt)}</small></div>`;
+    h+=`<div class="k-obj">obiettivo mese${note?" · "+note:""}${m.extra?" · "+m.extra:""}</div>`;
+    h+=`<div class="bar"><i style="width:${Math.min(100,Math.max(2,r*100))}%;background:${col(r)}"></i><span class="pace" style="left:${Math.min(100,d.elapsed*100)}%"></span></div>`;
+    card.innerHTML=h; g.appendChild(card);
+  });
+}
+
+function renderFunnel(){ drawFunnel("funnel",FUNNEL,true); if(typeof FUNNEL_CUR!=="undefined") drawFunnel("funnelcur",FUNNEL_CUR,false);
+  if(FUNNEL.titolo) document.getElementById("funneltitle").textContent="Funnel "+FUNNEL.titolo+" · consuntivo vs obiettivo";
+  if(typeof FUNNEL_CUR!=="undefined"&&FUNNEL_CUR.titolo) document.getElementById("funneltitlecur").textContent="Funnel "+FUNNEL_CUR.titolo+" · in corso vs benchmark";
+  document.getElementById("semlegend").innerHTML = "Semafori (media tutte le settimane, fonte Scorecard): " +
+    FUNNEL.sem.map(x=>`<span class="sem" style="background:${semColor(x.s)}"></span>${x.l} ${x.v} <span style="color:var(--faint)">(soglia ${x.t})</span>`).join(" &nbsp;·&nbsp; ");
+}
+function drawFunnel(id,F,conv){
+  const el=document.getElementById(id); el.innerHTML="";
+  const maxO=Math.max(...F.steps.filter(s=>!s.eur).map(s=>s.o));
+  F.steps.forEach((s,i)=>{
+    const step=document.createElement("div"); step.className="fstep";
+    const r=(s.o&&s.v!=null)?s.v/s.o:0;
+    const f=x=>s.eur?fmt(x,"eur"):x, w=s.eur?r*100:(s.o/maxO)*100;
+    step.innerHTML=`<div class="fn">${s.n}</div><div class="fv">${s.v==null?"&nbsp;":f(s.v)}<span style="font-size:13px;color:var(--faint)"> / ${f(s.o)}</span></div>
+      <div class="fo">${s.v==null?"vuoto":Math.round(r*100)+"% dell'obiettivo"}</div>
+      <div class="fbar"><i style="width:${Math.min(100,Math.max(3,w))}%;background:${s.col};opacity:${.35+Math.min(1,r)*.65}"></i></div>`;
+    el.appendChild(step);
+    if(conv&&F.conv&&i<F.conv.length){
+      const c=document.createElement("div"); c.className="fconv";
+      c.innerHTML=`<span class="sem" style="background:${semColor(F.conv[i].s)}"></span>${F.conv[i].lbl}<b>${F.conv[i].val}</b>`;
+      el.appendChild(c);
+    }
+  });
+}
+
+function renderCharts(){
+  const el=document.getElementById("charts"); el.innerHTML="";
+  Object.values(SERIES).forEach(s=>{
+    const max=Math.max(...s.data,1);
+    const card=document.createElement("div"); card.className="chartcard";
+    let bars=`<div class="mbars">`;
+    s.data.forEach((v,i)=>{
+      const h=Math.max(3,(v/max)*100);
+      const over=(s.soglia&&v>s.soglia);
+      const c= over? "var(--red)" : (i===s.data.length-1? s.col : s.col);
+      const op= i===s.data.length-1?1:.6;
+      const label = s.unit==="€"? "€"+Math.round(v).toLocaleString("it-IT") : (Number.isInteger(v)?v:v.toString().replace(".",","));
+      bars+=`<div class="mcol"><div class="mv">${label}</div><div class="mb" style="height:${h}%;background:${c};opacity:${op}"></div><div class="ml">${MONTHS[i]}</div></div>`;
+    });
+    bars+=`</div>`;
+    const soglia = s.soglia? `<span>soglia €${s.soglia}</span>`:`<span>Apr → Ago</span>`;
+    card.innerHTML=`<div class="ct-title">${s.title}${soglia}</div>${bars}`;
+    el.appendChild(card);
+  });
+}
+
+function renderPrev(){
+  const el=document.getElementById("prev"); el.innerHTML="";
+  PREV.forEach(p=>{
+    const c=document.createElement("div"); c.className="pcell";
+    c.innerHTML=`<div class="pm">${p.m}</div><div class="pi">€${p.inc.toLocaleString("it-IT")}</div><div class="pc">${p.cl} clienti attesi · incasso previsto</div>`;
+    el.appendChild(c);
+  });
+}
+
+document.getElementById("coherlist").innerHTML = COHERENCE.map(c=>`<li class="${c.s}">${c.t}</li>`).join("");
+document.getElementById("src").innerHTML = "<b>Fonti:</b> Lead Gen Tracking (1bsiuGE…) · KPI Direzione Marketing (1sxKqmw…) · Sales Manager Scorecard (1fhu2j…) · KPI Direzione Vendite (11PFdYK…) · Previsionale 36M pessimistico (1yygZ9…) · Bilancio Buyer AME (1LxljcB…) · Meta Marketing API, account act_859478370532394 · GHL per gli appuntamenti giornalieri, ancora da agganciare.";
+document.getElementById("stamp").textContent = "aggiornato " + STAMP;
+if(typeof MESE_TITOLO!=="undefined") document.getElementById("h1title").textContent = "Dashboard Obiettivi · " + MESE_TITOLO;
+if(typeof MRR_ATTIVO!=="undefined"){
+  var _obj = (typeof MRR_OBJ!=="undefined" && MRR_OBJ) ? " · obiettivo mese €"+MRR_OBJ.toLocaleString("it-IT") : "";
+  var _ok = (typeof MRR_OBJ!=="undefined" && MRR_OBJ && MRR_ATTIVO>=MRR_OBJ) ? " ✓" : "";
+  document.getElementById("goalchip").innerHTML = "MRR attivo <b>€"+MRR_ATTIVO.toLocaleString("it-IT")+"</b>"+_obj+_ok+" · verso Fase 1 €16,1k gen 2027";
+}
+
+document.getElementById("toggle").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#toggle button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); renderKPI(b.dataset.p);
+});
+if(DATA.precedente&&DATA.precedente.titolo) document.getElementById("btnprec").textContent=DATA.precedente.titolo;
+if(DATA.mese&&DATA.mese.titolo) document.getElementById("btnmese").textContent=DATA.mese.titolo;
+renderDecisione(); renderMillion(); renderKPI("mese"); renderFunnel(); renderCharts(); renderPrev();
+// dentro il cockpit (tab Obiettivi) dice al contenitore quanto e' alta, cosi' non c'e' doppia barra di scorrimento
+if(window.parent!==window){document.body.style.setProperty("min-height","0","important");let _ult=0;const alto=()=>{const w=document.querySelector(".wrap")||document.body;const h=Math.ceil(w.getBoundingClientRect().bottom+window.scrollY);if(Math.abs(h-_ult)>2){_ult=h;parent.postMessage({obiettiviAltezza:h},"*");}};
+  window.addEventListener("load",alto);window.addEventListener("resize",alto);new ResizeObserver(alto).observe(document.body);document.addEventListener("click",()=>setTimeout(alto,50));}
+</script>
+<style id="tema-blu">
+:root, :root[data-theme], html, body {
+  --bg: #0B1A3A !important;
+  --paper: #0B1A3A !important;
+  --plane: #0B1A3A !important;
+  --panel: rgba(30,64,140,.42) !important;
+  --surface: rgba(30,64,140,.42) !important;
+  --card: rgba(30,64,140,.42) !important;
+  --white: rgba(30,64,140,.42) !important;
+  --panel2: rgba(52,98,196,.45) !important;
+  --card2: rgba(52,98,196,.45) !important;
+  --soft: rgba(255,255,255,.08) !important;
+  --ink: #F3F6FD !important;
+  --txt: #F3F6FD !important;
+  --ink2: #D6E0F5 !important;
+  --muted: #A9BBE0 !important;
+  --faint: #7F93BF !important;
+  --muted2: #7F93BF !important;
+  --line: rgba(150,190,255,.20) !important;
+  --border: rgba(150,190,255,.20) !important;
+  --grid: rgba(150,190,255,.12) !important;
+  --track: rgba(255,255,255,.10) !important;
+  --accent: #FFD21F !important;
+  --gold: #D4A537 !important;
+  --yellow: #FFD21F !important;
+  --navy: #0E2454 !important;
+  --navy2: #1A3A80 !important;
+  --blue: #6EA8FF !important;
+  --accent2: #8FB3FF !important;
+  --violet: #8FB3FF !important;
+  --green: #4FD1A1 !important;
+  --jade: #4FD1A1 !important;
+  --good: #4FD1A1 !important;
+  --ok: #4FD1A1 !important;
+  --amber: #F5B942 !important;
+  --warn: #F5B942 !important;
+  --serious: #FF9A6B !important;
+  --red: #FF7A59 !important;
+  --crit: #FF7A59 !important;
+  --shadow: 0 10px 30px rgba(0,0,0,.30) !important;
+  --shadow-lg: 0 16px 40px rgba(0,0,0,.35) !important;
+  --surface-2: rgba(52,98,196,.45) !important;
+  --panel-2: rgba(52,98,196,.45) !important;
+  --text: #F3F6FD !important;
+  --green-ink: #4FD1A1 !important;
+  --amber-soft: rgba(245,185,66,.16) !important;
+  --gold-soft: rgba(245,185,66,.16) !important;
+  --jade-soft: rgba(79,209,161,.16) !important;
+  --green-soft: rgba(79,209,161,.16) !important;
+  --red-soft: rgba(255,122,89,.16) !important;
+  --blue-soft: rgba(110,168,255,.16) !important;
+  --border-strong: rgba(150,190,255,.32) !important;
+  --line-2: rgba(150,190,255,.32) !important;
+  --gold-line: rgba(212,165,55,.55) !important;
+  color-scheme: dark;
+}
+html { background: #0B1A3A !important; }
+body { background: radial-gradient(900px 600px at 0% -10%, rgba(212,165,55,.38), transparent 60%),
+  radial-gradient(900px 700p
