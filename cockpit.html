@@ -874,7 +874,7 @@ function renderFunnel(){
   const host=clear("funnel");if(!host)return;
   /* Mese contabile: settembre. Fonte: Scorecard "Consuntivo mese" F21:K30.
      Aggiornato il 12/09/2026: 29 lead, 5 discovery, 3 demo e 1 chiusura. */
-  const stages=[{k:"Lead",v:48,c:"--blue"},{k:"Discovery",v:14,c:"--violet"},{k:"Demo",v:8,c:"--amber"},{k:"Chiusi",v:1,c:"--jade"}];
+  const stages=[{k:"Lead",v:44,c:"--blue"},{k:"Discovery",v:14,c:"--violet"},{k:"Demo",v:8,c:"--amber"},{k:"Chiusi",v:1,c:"--jade"}];
   /* 25/9/2026: allineati al Report Mensile Acquisizione, tab TOTALE riga Settembre
      (fonte canonica del consuntivo mese). Prima: 80/14/18/2, presi a mano dalla
      Bussola della Scorecard, che non era stata ricopiata dal Report. */
@@ -1214,7 +1214,7 @@ function renderCrescita(){drawFatturato();drawMRR();drawClienti();renderClientTa
 function renderVendite(){renderFunnel();renderSemafori();
   /* 14/08/2026: lead 63→57, CR 7,9→8,8 (fonte: tab Venditori — Riepilogo) */
   /* 02/10/2026: Carlo fatturato 500→4.800, saldo Dal Bosco 4.300 del 1/10 (fonte: Lista Clienti, memoria Dal Bosco) */
-  renderSeller("seller-michele",{name:"Michele",role:"Venditore · cumulativo (non solo lug)",chiusi:15,fatt:50350,lead:346,show:"121 / 183",cr:4.3});
+  renderSeller("seller-michele",{name:"Michele",role:"Venditore · cumulativo (non solo lug)",chiusi:15,fatt:50350,lead:345,show:"121 / 183",cr:4.3});
   renderSeller("seller-carlo",{name:"Carlo",role:"Trasferito a CSM \u00b7 23/7 \u00b7 1 chiusura extra (Dal Bosco, 27/8, semestrale 4.800: acconto 500 + saldo 4.300 il 1/10)",chiusi:1,fatt:4800,lead:51,show:"15 / 24",cr:2,transition:true});
   drawVenditeTrend();}
 function renderRateView(){renderRate();renderRinnovi();}
