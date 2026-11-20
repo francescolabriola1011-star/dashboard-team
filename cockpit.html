@@ -642,7 +642,7 @@
         <thead><tr><th>Cliente</th><th>Stato</th><th>Pack</th><th class="num">LTV incassato</th><th>Ultimo pag.</th><th>Cliente dal</th><th class="num">MRR</th></tr></thead>
         <tbody id="client-rows"></tbody>
       </table></div>
-      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 3 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;53.950</b> &#183; MRR contrattualizzato <b>&#8364;12.367</b></span></div>
+      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 3 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;54.450</b> &#183; MRR contrattualizzato <b>&#8364;12.367</b></span></div>
     </div>
     <!-- COMPETENZA vs CASSA settembre: fonte Scadenzario+Cashflow col J (Mese competenza) e Bilancio Buyer AME Totale!I25:J25, letti 29/09/2026 -->
     <div class="tablecard" style="margin-top:13px" id="competenza-cassa-set">
@@ -844,7 +844,7 @@ const clients=[
   {n:"Marzia Battocchio",s:"Churned",p:"A",ltv:300,last:"25/05/2026",since:"25/05/2026",mrr:0},
   {n:"Emanuele Serpilli",s:"Churned",p:"B",ltv:1600,last:"09/07/2026",since:"29/05/2026",mrr:0},
   {n:"Marco La Corte",s:"Attivo",p:"B",ltv:3600,last:"02/11/2026",since:"02/08/2026",mrr:800},
-  {n:"Flavio Bosia",s:"Attivo",p:"B",ltv:1700,last:"08/09/2026",since:"14/08/2026",mrr:567},
+  {n:"Flavio Bosia",s:"Attivo",p:"B",ltv:2200,last:"20/11/2026",since:"14/08/2026",mrr:567},
   {n:"Stefano Moratti",s:"In pausa",p:"B",ltv:2400,last:"18/07/2026",since:"27/07/2026",mrr:0},
   {n:"Raffaele De Leonardis",s:"Attivo",p:"B",ltv:3700,last:"24/07/2026",since:"24/08/2026",mrr:617},
   {n:"Luigi Micheloni",s:"Attivo",p:"B",ltv:4200,last:"28/07/2026",since:"04/08/2026",mrr:700},
@@ -921,7 +921,7 @@ function renderSeller(id,d){
     </div>`;
 }
 function drawVenditeTrend(){
-  const data=[{m:"Apr",cash:800},{m:"Mag",cash:1700},{m:"Giu",cash:2800},{m:"Lug",cash:14100},{m:"Ago",cash:2140},{m:"Set",cash:26960},{m:"Ott",cash:13350},{m:"Nov",cash:1350}];
+  const data=[{m:"Apr",cash:800},{m:"Mag",cash:1700},{m:"Giu",cash:2800},{m:"Lug",cash:14100},{m:"Ago",cash:2140},{m:"Set",cash:26960},{m:"Ott",cash:13350},{m:"Nov",cash:1850}];
   const svg=clear("chart-vendite-trend");if(!svg)return;
   const W=940,H=210,L=48,R=16,T=38,B=28,w=W-L-R,h=H-T-B;
   const max=30000,ticks=[0,7500,15000,22500,30000];
