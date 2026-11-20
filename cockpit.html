@@ -458,10 +458,10 @@
     <div class="ah">&#9670; Cosa decide i prossimi 90 giorni</div>
     <div class="alerts">
       <!-- ALERT-RINNOVI-START (scritto da motore/cockpit_orizzonte.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>29% del ricorrente va al bivio nei prossimi 90 giorni:</b> &#8364;2.900 di MRR su &#8364;9.834 scade fra 6/1 e 14/2 (Chirico, Micheloni, Capuano, Bosia). Al tasso di rinnovo attuale (81,0%) il rischio ponderato &#232; &#8364;552 al mese</span><span class="atag">Rinnovi</span></div><!-- ALERT-RINNOVI-END -->
-      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.177, spendibile &#8364;9.839 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;1.492 (5 feb-11 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;10.483</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
+      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.387, spendibile &#8364;10.049 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;1.287 (12 feb-18 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;9.575</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
       <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>FASE 1 entro dicembre:</b> mancano &#8364;9.193 di MRR, 6 clienti nuovi</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>3&#176; apt fatti fuori target:</b> 2 contro ~5,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 1 contro ~1,04 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>CPL medio clienti fuori target:</b> &#8364;41,54 contro &lt; &#8364;25 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 6 contro ~18,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
       <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 13 clienti attivi su 112. Ne mancano 99, con avanzamento del 11,6%</span><span class="atag">Crescita</span></div>
-      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 59,6% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,3% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
+      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 59,0% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,1% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Garanzia da onorare:</b> apt investitori +100k a 9/26. &#200; la garanzia scritta nel contratto su cui si gioca ogni rinnovo</span><span class="atag">Delivery</span></div>
     </div>
   </div>
@@ -557,7 +557,7 @@
   <!-- ============ STORICO ============ -->
   <section class="view hidden" id="view-crescita" role="tabpanel">
     <div class="kpis">
-      <div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo</div><div class="val jade tnum">&#8364;9.834</div><div class="sub">13 clienti che pagano ora</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo</div><div class="val jade tnum">&#8364;9.867</div><div class="sub">13 clienti che pagano ora</div></div>
       <!-- STORICO-CONTR-START --><div class="kpi"><span class="rail blue"></span><div class="lab">MRR contrattualizzato</div><div class="val blue tnum">&#8364;12.367</div><div class="sub">MRR attivo + 3 clienti firmati, non ancora in delivery</div></div><!-- STORICO-CONTR-END -->
       <div class="kpi" id="kpi-incassato-cash"><span class="rail amber"></span><div class="lab">Incassato cash novembre</div><div class="val tnum">&#8364;1.350</div><div class="sub">per cassa &#183; regola del 5 &#183; fonte Bilancio</div></div>
       <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads novembre</div><div class="val tnum">&#8364;1.095</div><div class="sub">dal 06/11 al 05/12 &#183; regola del 5 &#183; Meta, hiring escluso</div></div>
@@ -626,7 +626,7 @@
         <div class="legend">
           <span><i class="swatch" style="border-color:var(--jade)"></i>MRR reale</span>
         </div>
-        <svg id="chart-mrr" viewBox="0 0 460 220" role="img" aria-label="MRR reale giugno 1100 luglio 3400 agosto 4584 settembre 9834; traiettoria fino a dicembre 18000"></svg>
+        <svg id="chart-mrr" viewBox="0 0 460 220" role="img" aria-label="MRR reale giugno 1100 luglio 3400 agosto 4584 settembre 9867; traiettoria fino a dicembre 18000"></svg>
       </div>
     </div>
     <div class="card">
@@ -642,7 +642,7 @@
         <thead><tr><th>Cliente</th><th>Stato</th><th>Pack</th><th class="num">LTV incassato</th><th>Ultimo pag.</th><th>Cliente dal</th><th class="num">MRR</th></tr></thead>
         <tbody id="client-rows"></tbody>
       </table></div>
-      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 3 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;54.450</b> &#183; MRR contrattualizzato <b>&#8364;12.367</b></span></div>
+      <div class="foot"><span>13 attivi &#183; 1 in pausa &#183; 3 firmati &#183; 4 churned</span><span class="tot">LTV incassato attivi+firmati <b>&#8364;54.450</b> &#183; MRR contrattualizzato <b>&#8364;12.400</b></span></div>
     </div>
     <!-- COMPETENZA vs CASSA settembre: fonte Scadenzario+Cashflow col J (Mese competenza) e Bilancio Buyer AME Totale!I25:J25, letti 29/09/2026 -->
     <div class="tablecard" style="margin-top:13px" id="competenza-cassa-set">
@@ -669,7 +669,7 @@
   <section class="view hidden" id="view-vendite" role="tabpanel">
     <div class="kpis">
       <div class="kpi"><span class="rail blue"></span><div class="lab">MRR nuovo &#183; nov</div><div class="val blue tnum">&#8364;900</div><div class="sub">competenza avvio delivery (regola del 5) &#183; partiti: Capuano (10/11, &#8364;900) &#183; restano firmati: Drago, Pesce, Pentassuglia, il loro MRR entra all&#8217;avvio</div></div>
-      <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; nov</div><div class="val tnum">&#8364;1.350</div><div class="sub">1 pagamenti &#183; Zaghini saldo 2.150 del 7/10 &#183; Mecarelli 4.800 &#183; Capuano 900 del 29/10 &#183; Chirico rata 1.100 del 31/10 &#183; Drago 2.700 e La Corte rinnovo 1.200 del 2/11 &#183; Pesce acconto 500 del 5/11</div></div>
+      <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; nov</div><div class="val tnum">&#8364;1.350</div><div class="sub">2 pagamenti &#183; Zaghini saldo 2.150 del 7/10 &#183; Mecarelli 4.800 &#183; Capuano 900 del 29/10 &#183; Chirico rata 1.100 del 31/10 &#183; Drago 2.700 e La Corte rinnovo 1.200 del 2/11 &#183; Pesce acconto 500 del 5/11</div></div>
       <div class="kpi"><span class="rail slate"></span><div class="lab">Chiusure &#183; nov</div><div class="val tnum">1</div><div class="sub">mese dell&#8217;incasso (regola del 5) &#183; fonte KPI Direzione Vendite</div></div>
       <div class="kpi"><span class="rail amber"></span><div class="lab">Close rate demo</div><div class="val tnum">12%</div><div class="sub">1 chiusure su 8 demo &#183; target 20% &#183; sotto soglia</div></div>
     </div>
@@ -723,16 +723,16 @@
   <!-- ============ RATE & RINNOVI ============ -->
   <section class="view hidden" id="view-rate" role="tabpanel">
     <div class="kpis">
-      <div class="kpi"><span class="rail amber"></span><div class="lab">Da incassare</div><div class="val amber tnum">&#8364;9.150</div><div class="sub">5 rate nei prossimi 90 giorni (La Corte 2/12 &#183; Capuano 10/12 &#183; Pentassuglia 12/12 &#183; Caruso 25/12 &#183; Capuano 10/1) &#183; 7 aperte in tutto, &#8364;22.250</div></div>
-      <div class="kpi"><span class="rail jade"></span><div class="lab">Prossimo incasso</div><div class="val tnum">&#8364;1.200</div><div class="sub">La Corte &#8364;1.200 &#183; 2 dic</div></div>
-      <div class="kpi"><span class="rail violet"></span><div class="lab">Rinnovi Q4</div><div class="val tnum">4</div><div class="sub">Chirico 6/1, Micheloni 4/2, Capuano 10/2, Bosia 14/2</div></div>
+      <div class="kpi"><span class="rail amber"></span><div class="lab">Da incassare</div><div class="val amber tnum">&#8364;11.800</div><div class="sub">8 rate nei prossimi 90 giorni (Bosia 30/11 &#183; La Corte 2/12 &#183; Capuano 10/12 &#183; Pentassuglia 12/12 &#183; Caruso 25/12 &#183; Bosia 30/12 &#183; Capuano 10/1 &#183; Bosia 30/1) &#183; 11 aperte in tutto, &#8364;25.950</div></div>
+      <div class="kpi"><span class="rail jade"></span><div class="lab">Prossimo incasso</div><div class="val tnum">&#8364;550</div><div class="sub">Bosia &#8364;550 &#183; 30 nov</div></div>
+      <div class="kpi"><span class="rail violet"></span><div class="lab">Rinnovi Q4</div><div class="val tnum">3</div><div class="sub">Chirico 6/1, Micheloni 4/2, Capuano 10/2</div></div>
       <div class="kpi"><span class="rail jade"></span><div class="lab">Rate scadute</div><div class="val tnum">0</div><div class="sub">nessuna rata oltre la scadenza (le annullate non contano)</div></div>
     </div>
     <!-- RETENTION-START (scritto da motore/retention.py --commit, non modificare a mano) -->
     <div class="kpis">
       <div class="kpi"><span class="rail amber"></span><div class="lab">Tasso di rinnovo</div><div class="val amber tnum">81%</div><div class="sub">su 10 clienti ne restano <b>8.1</b></div></div>
       <div class="kpi"><span class="rail red"></span><div class="lab">Churn</div><div class="val tnum">19%</div><div class="sub">4 persi su 21 clienti</div></div>
-      <div class="kpi"><span class="rail slate"></span><div class="lab">Rinnovi pagati</div><div class="val tnum">2</div><div class="sub">piu' 17 cicli prepagati (semestrali e annuali) &#183; 5 decisioni maturate</div></div>
+      <div class="kpi"><span class="rail slate"></span><div class="lab">Rinnovi pagati</div><div class="val tnum">2</div><div class="sub">piu' 16 cicli prepagati (semestrali e annuali) &#183; 5 decisioni maturate</div></div>
       <div class="kpi"><span class="rail amber"></span><div class="lab">Prossima scadenza</div><div class="val tnum">27/10/2026</div><div class="sub">il prossimo cliente al bivio del rinnovo</div></div>
     </div>
     <!-- RETENTION-END -->
@@ -743,7 +743,7 @@
           <thead><tr><th>Cliente</th><th>Descrizione</th><th class="num">Importo</th><th>Scadenza</th></tr></thead>
           <tbody id="rate-rows"></tbody>
         </table></div>
-        <div class="foot"><span>7 rate aperte</span><span class="tot">Totale <b>&#8364;22.250</b> (di cui &#8364;8.300 senza data)</span></div>
+        <div class="foot"><span>11 rate aperte</span><span class="tot">Totale <b>&#8364;25.950</b> (di cui &#8364;8.300 senza data)</span></div>
       </div>
       <div class="card">
         <div class="chead"><div><h3>Calendario rinnovi</h3><div class="csub">quando ogni cliente rinnova il contratto</div></div></div>
@@ -798,7 +798,7 @@ function clear(id){const s=document.getElementById(id);if(s)s.innerHTML="";retur
 
 /* ---------- CRESCITA charts ---------- */
 function drawFatturato(){
-  const data=[{m:"Apr",v:800},{m:"Mag",v:1700},{m:"Giu",v:2800},{m:"Lug",v:14100},{m:"Ago",v:2140},{m:"Set",v:26960},{m:"Ott",v:13350},{m:"Nov",v:1350}];
+  const data=[{m:"Apr",v:800},{m:"Mag",v:1700},{m:"Giu",v:2800},{m:"Lug",v:14100},{m:"Ago",v:2140},{m:"Set",v:26960},{m:"Ott",v:13350},{m:"Nov",v:1850}];
   const svg=clear("chart-fatturato");if(!svg)return;
   const W=460,H=220,L=44,R=16,T=14,B=30,w=W-L-R,h=H-T-B,max=35000,ticks=[0,8750,17500,26250,35000];
   const x=i=>L+w*i/(data.length-1),y=v=>T+h-h*v/max;
@@ -816,7 +816,7 @@ function drawFatturato(){
 }
 function drawMRR(){
   const months=["Lug","Ago","Set","Ott","Nov"];
-  const reale=[2300,3484,6601,8934,9834];
+  const reale=[2300,3517,6634,8967,9867];
   const svg=clear("chart-mrr");if(!svg)return;
   const W=460,H=220,L=44,R=20,T=16,B=30,w=W-L-R,h=H-T-B,max=15000,ticks=[0,3750,7500,11250,15000];
   const x=i=>L+w*i/(months.length-1),y=v=>T+h-h*v/max;
@@ -825,7 +825,7 @@ function drawMRR(){
   svg.appendChild(el("path",{d:dr,fill:"none",stroke:css("--jade"),"stroke-width":2.8,"stroke-linejoin":"round","stroke-linecap":"round"}));
   months.forEach((m,i)=>svg.appendChild(el("text",{x:x(i),y:H-10,class:"axl","text-anchor":"middle"},m)));
   reale.forEach((v,i)=>{if(v!=null)svg.appendChild(el("circle",{cx:x(i),cy:y(v),r:i===4?4.5:3.5,fill:css("--jade"),class:"dot"}));});
-  svg.appendChild(el("text",{x:x(4),y:y(9834)-11,class:"plabel","text-anchor":"end",fill:css("--jade")},"\u20ac9.834"));
+  svg.appendChild(el("text",{x:x(4),y:y(9867)-11,class:"plabel","text-anchor":"end",fill:css("--jade")},"\u20ac9.867"));
 }
 function drawClienti(){
   const data=[{m:"Mag",v:2},{m:"Giu",v:2},{m:"Lug",v:5},{m:"Ago",v:6},{m:"Set",v:9},{m:"Ott",v:12},{m:"Nov",v:13}];
@@ -844,7 +844,7 @@ const clients=[
   {n:"Marzia Battocchio",s:"Churned",p:"A",ltv:300,last:"25/05/2026",since:"25/05/2026",mrr:0},
   {n:"Emanuele Serpilli",s:"Churned",p:"B",ltv:1600,last:"09/07/2026",since:"29/05/2026",mrr:0},
   {n:"Marco La Corte",s:"Attivo",p:"B",ltv:3600,last:"02/11/2026",since:"02/08/2026",mrr:800},
-  {n:"Flavio Bosia",s:"Attivo",p:"B",ltv:2200,last:"20/11/2026",since:"14/08/2026",mrr:567},
+  {n:"Flavio Bosia",s:"Attivo",p:"B",ltv:2200,last:"20/11/2026",since:"14/08/2026",mrr:600},
   {n:"Stefano Moratti",s:"In pausa",p:"B",ltv:2400,last:"18/07/2026",since:"27/07/2026",mrr:0},
   {n:"Raffaele De Leonardis",s:"Attivo",p:"B",ltv:3700,last:"24/07/2026",since:"24/08/2026",mrr:617},
   {n:"Luigi Micheloni",s:"Attivo",p:"B",ltv:4200,last:"28/07/2026",since:"04/08/2026",mrr:700},
@@ -940,11 +940,15 @@ function drawVenditeTrend(){
 /* ---------- RATE & RINNOVI ---------- */
 const rate=[
   /* Scritto da motore/cockpit_statici.py il 20/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  {n:"Flavio Bosia",desc:"Rinnovo semestrale CF 4.200 (6+1): rata 1/4, saldo",v:550,due:"30/11/2026"},
   {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"10/12/2026"},
   {n:"Riccardo Pentassuglia",desc:"Trimestrale CF (2.700): pagamento 2 di 2",v:1350,due:"12/12/2026"},
   {n:"Giovanni Caruso",desc:"Rata 2/2 annuale (€ 9.600 tot)",v:4800,due:"25/12/2026"},
+  {n:"Flavio Bosia",desc:"Rinnovo semestrale CF 4.200 (6+1): rata 2/4",v:1050,due:"30/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 3 di 3",v:900,due:"10/01/2027"},
+  {n:"Flavio Bosia",desc:"Rinnovo semestrale CF 4.200 (6+1): rata 3/4",v:1050,due:"30/01/2027"},
+  {n:"Flavio Bosia",desc:"Rinnovo semestrale CF 4.200 (6+1): rata 4/4",v:1050,due:"28/02/2027"},
   {n:"Marco Pellegatta",desc:"Rata 2/2 annuale (€ 9.600 tot)",v:4800,due:"01/03/2027"},
   {n:"Marco Pesce",desc:"Annuale ORO (8.800): residuo, piano di pagamento da definire",v:8300,due:"da fissare"},
 ];
@@ -959,7 +963,6 @@ const rinnovi=[
   {date:"06/01",y:"2027",n:"Cosimo Chirico",meta:"trimestrale Pack B · avvio 6/10",val:"\u20ac2.700",kind:"q4"},
   {date:"04/02",y:"2027",n:"Luigi Micheloni",meta:"semestrale Pack B · avvio 4/8",val:"\u20ac4.800",kind:"q4"},
   {date:"10/02",y:"2027",n:"Gianluca Capuano",meta:"trimestrale Pack B · avvio 10/11",val:"\u20ac2.700",kind:"q4"},
-  {date:"14/02",y:"2027",n:"Flavio Bosia",meta:"trimestrale Pack B · avvio 14/8",val:"\u20ac2.700",kind:"q4"},
   {date:"24/02",y:"2027",n:"Raffaele De Leonardis",meta:"semestrale Pack B · avvio 24/8",val:"\u20ac4.800",kind:""},
   {date:"03/03",y:"2027",n:"Marco La Corte",meta:"trimestrale Pack B · avvio 2/8",val:"\u20ac2.700",kind:""},
   {date:"17/03",y:"2027",n:"Alessandro Zaghini",meta:"semestrale Pack B · avvio 17/9",val:"\u20ac4.800",kind:""},
@@ -967,6 +970,7 @@ const rinnovi=[
   {date:"01/04",y:"2027",n:"Fabio Ricciarelli",meta:"semestrale Pack B · avvio 1/10",val:"\u20ac4.800",kind:""},
   {date:"06/04",y:"2027",n:"Davide Dal Bosco",meta:"semestrale Pack B · avvio 6/10",val:"\u20ac4.800",kind:""},
   {date:"27/04",y:"2027",n:"Elisa Mecarelli",meta:"semestrale Pack B · avvio 27/10",val:"\u20ac4.800",kind:""},
+  {date:"14/06",y:"2027",n:"Flavio Bosia",meta:"trimestrale Pack B · avvio 14/8",val:"\u20ac2.700",kind:""},
   {date:"04/10",y:"2027",n:"Giovanni Caruso",meta:"annuale Pack B · avvio 4/10",val:"\u20ac9.600",kind:""},
   {date:"12/10",y:"2027",n:"Marco Pellegatta",meta:"annuale Pack B · avvio 12/10",val:"\u20ac9.600",kind:""},
 ];
