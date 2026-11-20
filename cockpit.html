@@ -461,7 +461,7 @@
       <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.293, spendibile &#8364;9.955 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;1.230 (5 feb-11 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;10.221</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
       <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>FASE 1 entro dicembre:</b> mancano &#8364;3.733 di MRR, 5 clienti nuovi</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>3&#176; apt fatti fuori target:</b> 2 contro ~5,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 1 contro ~1,04 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>CPL medio clienti fuori target:</b> &#8364;41,54 contro &lt; &#8364;25 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 7 contro ~18,2 (Settimana 8 &#8594; 15 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
       <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 13 clienti attivi su 112. Ne mancano 99, con avanzamento del 11,6%</span><span class="atag">Crescita</span></div>
-      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 60,4% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,4% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
+      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 59,6% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,3% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Garanzia da onorare:</b> apt investitori +100k a 9/26. &#200; la garanzia scritta nel contratto su cui si gioca ogni rinnovo</span><span class="atag">Delivery</span></div>
     </div>
   </div>
@@ -560,7 +560,7 @@
       <div class="kpi"><span class="rail jade"></span><div class="lab">MRR attivo</div><div class="val jade tnum">&#8364;9.834</div><div class="sub">13 clienti che pagano ora</div></div>
       <!-- STORICO-CONTR-START --><div class="kpi"><span class="rail blue"></span><div class="lab">MRR contrattualizzato</div><div class="val blue tnum">&#8364;12.367</div><div class="sub">MRR attivo + 3 clienti firmati, non ancora in delivery</div></div><!-- STORICO-CONTR-END -->
       <div class="kpi" id="kpi-incassato-cash"><span class="rail amber"></span><div class="lab">Incassato cash novembre</div><div class="val tnum">&#8364;1.350</div><div class="sub">per cassa &#183; regola del 5 &#183; fonte Bilancio</div></div>
-      <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads novembre</div><div class="val tnum">&#8364;1.011</div><div class="sub">dal 06/11 al 05/12 &#183; regola del 5 &#183; Meta, hiring escluso</div></div>
+      <div class="kpi" id="kpi-investito-ads"><span class="rail amber"></span><div class="lab">Investito ads novembre</div><div class="val tnum">&#8364;1.058</div><div class="sub">dal 06/11 al 05/12 &#183; regola del 5 &#183; Meta, hiring escluso</div></div>
       <!-- STORICO-VERSO-START --><div class="kpi"><span class="rail jade"></span><div class="lab">Verso 112 clienti</div><div class="val tnum">11,6%</div><div class="bar"><i style="width:11.6%"></i></div></div><!-- STORICO-VERSO-END -->
     </div>
     <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:22px 2px 11px">Essenziali CEO</div>
@@ -874,7 +874,7 @@ function renderFunnel(){
   const host=clear("funnel");if(!host)return;
   /* Mese contabile: settembre. Fonte: Scorecard "Consuntivo mese" F21:K30.
      Aggiornato il 12/09/2026: 29 lead, 5 discovery, 3 demo e 1 chiusura. */
-  const stages=[{k:"Lead",v:44,c:"--blue"},{k:"Discovery",v:16,c:"--violet"},{k:"Demo",v:8,c:"--amber"},{k:"Chiusi",v:1,c:"--jade"}];
+  const stages=[{k:"Lead",v:49,c:"--blue"},{k:"Discovery",v:16,c:"--violet"},{k:"Demo",v:8,c:"--amber"},{k:"Chiusi",v:1,c:"--jade"}];
   /* 25/9/2026: allineati al Report Mensile Acquisizione, tab TOTALE riga Settembre
      (fonte canonica del consuntivo mese). Prima: 80/14/18/2, presi a mano dalla
      Bussola della Scorecard, che non era stata ricopiata dal Report. */
@@ -939,7 +939,7 @@ function drawVenditeTrend(){
 
 /* ---------- RATE & RINNOVI ---------- */
 const rate=[
-  /* Scritto da motore/cockpit_statici.py il 19/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  /* Scritto da motore/cockpit_statici.py il 20/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
   {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"10/12/2026"},
   {n:"Riccardo Pentassuglia",desc:"Trimestrale CF (2.700): pagamento 2 di 2",v:1350,due:"12/12/2026"},
