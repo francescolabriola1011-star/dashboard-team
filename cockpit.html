@@ -1263,7 +1263,6 @@ const redraw=()=>show(current);
 new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 matchMedia("(prefers-color-scheme:dark)").addEventListener("change",redraw);
 </script>
-
 <style id="tema-blu">
 :root, :root[data-theme], html, body {
   --bg: #0B1A3A !important;
