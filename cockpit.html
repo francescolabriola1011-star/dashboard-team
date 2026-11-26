@@ -531,9 +531,9 @@
     </div>
   </section>
 
-  <!-- ============ CRESCITA VERSO IL TRAGUARDO 174K ============ -->
+  <!-- ============ CRESCITA VERSO FINE PIANO ============ -->
   <section class="view hidden" id="view-traiettoria" role="tabpanel">
-    <div class="banner"><span class="bi">&#8250;</span><span><b>Questa vista dice se la traiettoria porta all'obiettivo.</b> Confronta i clienti attivi con le tappe del Previsionale 36M pessimistico e con la fine del piano (ott 2030: 126 clienti, MRR atteso &#8364;114.306).</span></div>
+    <div class="banner"><span class="bi">&#8250;</span><span><b>Avanzamento del parco clienti rispetto al piano.</b> Fonte: Previsionale 36M pessimistico.</span></div>
     <!-- TRAIETTORIA-KPI-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) -->
     <div class="kpis">
       <div class="kpi"><span class="rail blue"></span><div class="lab">Clienti attivi</div><div class="val blue tnum">14</div><div class="sub">fonte: Lista Clienti AME</div></div>
@@ -587,15 +587,9 @@
         <!-- STORICO-UE-END -->
       </div>
       <div class="card">
-        <div class="chead"><div><h3>Gap all'obiettivo</h3><div class="csub">clienti attivi &#8594; 126 (fine piano ott 2030)</div></div></div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin:8px 0 3px"><span class="tnum" style="font-size:29px;font-weight:750;letter-spacing:-.02em;color:var(--amber)" id="gap-n">114</span><span style="font-size:12px;color:var(--faint)">clienti ancora da acquisire e mantenere</span></div>
-        <div class="bar" style="margin-bottom:13px"><i id="gap-bar" style="width:9.5%"></i></div>
-        <div class="statlist">
-          <div class="statrow"><span class="sk">Tappa gennaio 2027</span><span class="sv">22</span><span class="st">clienti</span></div>
-          <div class="statrow"><span class="sk">Tappa dicembre 2028</span><span class="sv">104</span><span class="st">clienti</span></div>
-          <div class="statrow"><span class="sk">Tappa dicembre 2029</span><span class="sv">119</span><span class="st">clienti</span></div>
-          <div class="statrow"><span class="sk">Netto a fine piano, ott 2030</span><span class="sv">&#8364;66.995</span><span class="st">al mese</span></div>
-        </div>
+        <div class="chead"><div><h3>Gap all'obiettivo</h3><div class="csub" id="gap-target">clienti attivi rispetto a fine piano</div></div></div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin:8px 0 3px"><span class="tnum" style="font-size:29px;font-weight:750;letter-spacing:-.02em;color:var(--amber)" id="gap-n"></span><span style="font-size:12px;color:var(--faint)">clienti ancora da acquisire e mantenere</span></div>
+        <div class="bar" style="margin-bottom:13px"><i id="gap-bar"></i></div>
       </div>
       <div class="card">
         <div class="chead"><div><h3>Concentrazione &amp; churn</h3><div class="csub">rischio portafoglio</div></div></div>
@@ -677,7 +671,7 @@
   <section class="view hidden" id="view-vendite" role="tabpanel">
     <div class="kpis">
       <div class="kpi"><span class="rail blue"></span><div class="lab">MRR nuovo &#183; nov</div><div class="val blue tnum">&#8364;2.700</div><div class="sub">competenza avvio delivery (regola del 5) &#183; partiti: Capuano (10/11, &#8364;900), Drago (23/11, &#8364;900), Pentassuglia (24/11, &#8364;900) &#183; restano firmati: Pesce, Ferrigno, Tocci, il loro MRR entra all&#8217;avvio</div></div>
-      <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; nov</div><div class="val tnum">&#8364;2.350</div><div class="sub">Pentassuglia &#8364;1.350 &#183; Bosia rinnovo acconto &#8364;500 del 20/11 &#183; Ferrigno acconto &#8364;500 del 24/11</div></div>
+      <div class="kpi" id="kpi-incassato-vendite"><span class="rail jade"></span><div class="lab">Incassato &#183; nov</div><div class="val tnum">&#8364;2.350</div><div class="sub">Fonte: Bilancio Buyer AME, tab Ricavi, mese contabile</div></div>
       <div class="kpi"><span class="rail slate"></span><div class="lab">Chiusure &#183; nov</div><div class="val tnum">3</div><div class="sub">mese dell&#8217;incasso (regola del 5) &#183; fonte KPI Direzione Vendite</div></div>
       <div class="kpi"><span class="rail jade"></span><div class="lab">Close rate demo</div><div class="val tnum">33%</div><div class="sub">3 chiusure su 9 demo &#183; target 20% &#183; sopra soglia</div></div>
     </div>
@@ -791,7 +785,7 @@
   </section>
 
   <footer class="src">
-    <b>Fonti (dati reali letti dai fogli):</b> Lista Clienti AME (Clienti, Scadenzario e Cashflow) &#183; Trimestrale, Previsionale 36M pessimistico (fine piano ott 2030: 126 clienti, MRR atteso €114.306) &#183; Obiettivi Aziendali &#183; Bilancio 2026 BCF (Ricavi) &#183; Sales Manager Weekly Scorecard &#183; KPI Direzione Vendite &#183; KPI Tracker Clienti.<br>
+    <b>Fonti (dati reali letti dai fogli):</b> Lista Clienti AME (Clienti, Scadenzario e Cashflow) &#183; Trimestrale, Previsionale 36M pessimistico &#183; Obiettivi Aziendali &#183; Bilancio Buyer AME (Ricavi) &#183; Sales Manager Weekly Scorecard &#183; KPI Direzione Vendite &#183; KPI Tracker Clienti.<br>
     <b>Come aggiornarla:</b> &#232; una fotografia. Di' &#8220;aggiorna la dashboard&#8221; &#8594; rileggo i fogli e rigenero, stesso link. I fogli restano la fonte unica.
   </footer>
 </div>
@@ -999,8 +993,7 @@ function renderRinnovi(){
 
 /* ---------- PREVISIONALE 3M ---------- */
 const prev=[
-  /* Aggiornato 26/11/2026 dal foglio Previsionale 36M pessimistico (la fonte), vita 13,22 mesi.
-     Il mese contabile e' ottobre (regola del 5): i 3 mesi mostrati sono i successivi. */
+  /* I tre mesi successivi al mese contabile, dal Previsionale 36M pessimistico. */
   {m:"Dic",nuovi:"2,3",tot:"18,8",incasso:23900,netto:15106,marg:"63%",ads:2400},
   {m:"Gen",nuovi:"3,0",tot:"21,8",incasso:33244,netto:20371,marg:"61%",ads:4050},
   {m:"Feb",nuovi:"2,7",tot:"24,6",incasso:34844,netto:21510,marg:"62%",ads:4050},
@@ -1176,9 +1169,10 @@ function drawLtvSplit(){
 }
 function renderDirezioneView(){renderDirezione();drawLtvSplit();}
 
-/* ---------- CRESCITA VERSO 137 CLIENTI ---------- */
+/* ---------- CRESCITA VERSO FINE PIANO ---------- */
 /* CRESCITA-JS-START (scritto da motore/cockpit_orizzonte.py --commit, non modificare a mano) */
 const CLIENTI_OGGI=14, AVANZ_OGGI="12,5%";
+const PIANO_TRAIETTORIA={"fasi":[{"nome":"Fase 1","clienti":21.8,"mrr":18064,"quando":"2027-01"},{"nome":"Fase 2","clienti":31.3,"mrr":25617,"quando":"2027-04"},{"nome":"Fase 3","clienti":60.1,"mrr":48650,"quando":"2027-11"},{"nome":"Fase 4","clienti":80.9,"mrr":64921,"quando":"2028-05"}],"data":"2030-10","clienti":112.3,"mrr":88162,"incasso":93508};
 const PONTE_ROWS=[
   {k:"MRR che incassa oggi",t:"14 clienti gi&#224; in delivery",v:"&#8364;11.067",s:"good"},
   {k:"+ firmati non ancora attivi",t:"Pesce, Ferrigno, Tocci",v:"&#8364;2.533",s:"good"},
@@ -1187,12 +1181,19 @@ const PONTE_ROWS=[
   {k:"= MRR atteso dopo i rinnovi",t:"se partono i firmati e non entra altro",v:"&#8364;12.567",s:"warn"},
 ];
 /* CRESCITA-JS-END */
+function mesePiano(data, corto=false){
+  const [anno,mese]=data.split("-").map(Number);
+  return new Intl.DateTimeFormat("it-IT",{month:corto?"short":"long",year:corto?"2-digit":"numeric",timeZone:"UTC"})
+    .format(new Date(Date.UTC(anno,mese-1,1)));
+}
+const numTraiettoria = n => n.toLocaleString("it-IT",{maximumFractionDigits:1});
 function drawMRRTraj(){
-  /* tappe dal Previsionale 36M pessimistico, colonna Tot clienti (letto 29/10/2026) */
-  const months=["Oggi","Gen 27","Apr 27","Ott 27","Mar 28","Dic 29","Ott 30"];
-  const attesa=[CLIENTI_OGGI,22,32,58,80,119,126];
+  const p=PIANO_TRAIETTORIA;
+  const months=["Oggi",...p.fasi.map(f=>mesePiano(f.quando,true)),mesePiano(p.data,true)];
+  const attesa=[CLIENTI_OGGI,...p.fasi.map(f=>f.clienti),p.clienti];
   const svg=clear("chart-mrr-traj");if(!svg)return;
-  const W=460,H=220,L=44,R=20,T=16,B=38,w=W-L-R,h=H-T-B,max=140,ticks=[0,35,70,105,140];
+  const step=Math.ceil(Math.max(...attesa)/40)*10, max=4*step, ticks=[0,step,2*step,3*step,max];
+  const W=460,H=220,L=44,R=20,T=16,B=38,w=W-L-R,h=H-T-B;
   const x=i=>L+w*i/(months.length-1),y=v=>T+h-h*v/max;
   ticks.forEach(t=>{const yy=y(t);svg.appendChild(el("line",{x1:L,y1:yy,x2:W-R,y2:yy,class:"gl"}));svg.appendChild(el("text",{x:L-8,y:yy+3.5,class:"axv","text-anchor":"end"},t));});
   let d="";attesa.forEach((v,i)=>{d+=(d?" L ":"M ")+x(i)+" "+y(v);});
@@ -1200,7 +1201,7 @@ function drawMRRTraj(){
   months.forEach((m,i)=>svg.appendChild(el("text",{x:x(i),y:H-12,class:"axl","text-anchor":"middle"},m)));
   attesa.forEach((v,i)=>{svg.appendChild(el("circle",{cx:x(i),cy:y(v),r:i===0||i===attesa.length-1?4.5:3,fill:i===0?css("--jade"):css("--blue"),class:"dot"}));});
   svg.appendChild(el("text",{x:x(0),y:y(CLIENTI_OGGI)-11,class:"plabel","text-anchor":"start",fill:css("--jade")},String(CLIENTI_OGGI)));
-  svg.appendChild(el("text",{x:x(6),y:y(126)-11,class:"plabel","text-anchor":"end",fill:css("--blue")},"126"));
+  svg.appendChild(el("text",{x:x(attesa.length-1),y:y(p.clienti)-11,class:"plabel","text-anchor":"end",fill:css("--blue")},numTraiettoria(p.clienti)));
 }
 function renderPonteMRR(){
   const host=clear("ponte-mrr");if(!host)return;
@@ -1210,25 +1211,23 @@ function renderPonteMRR(){
     d.innerHTML=`<span class="sk">${r.k}<br><span class="st">${r.t}</span></span><span class="sv">${r.v}</span><span class="chip ${r.s}">${lab[r.s]}</span>`;
     host.appendChild(d);});
 }
-const leve=[
-  /* tappe dal Previsionale 36M pessimistico (Tot clienti e MRR atteso), letto 1/11/2026 */
-  {l:"Oggi",o:String(CLIENTI_OGGI),s:"126",d:AVANZ_OGGI+" della fine piano"},
-  {l:"Gennaio 2027",o:"22",s:"126",d:"Fase 1"},
-  {l:"Aprile 2027",o:"32",s:"126",d:"Fase 2"},
-  {l:"Settembre 2027",o:"53",s:"126",d:"entra il sales manager, 5% dell'incasso, MRR 50.359"},
-  {l:"Ottobre 2027",o:"58",s:"126",d:"Fase 3"},
-  {l:"Marzo 2028",o:"80",s:"126",d:"Fase 4, entra il direttore delivery col terzo CSM, 5% dell'incasso"},
-  {l:"Ottobre 2030",o:"126",s:"126",d:"FINE PIANO: MRR atteso 114.306, netto 66.734 al mese"},
-];
 function renderLeve(){
   const tb=clear("leve-rows");if(!tb)return;
+  const p=PIANO_TRAIETTORIA,s=numTraiettoria(p.clienti);
+  const leve=[
+    {l:"Oggi",o:String(CLIENTI_OGGI),s,d:AVANZ_OGGI+" della fine piano"},
+    ...p.fasi.map(f=>({l:mesePiano(f.quando),o:numTraiettoria(f.clienti),s,d:f.nome+" · MRR "+EUR(f.mrr)})),
+    {l:mesePiano(p.data),o:s,s,d:"Fine piano · MRR "+EUR(p.mrr)+" · incasso mensile "+EUR(p.incasso)},
+  ];
   leve.forEach(r=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td class="cname">${r.l}</td><td class="num">${r.o}</td><td class="num" style="color:var(--amber);font-weight:650">${r.s}</td><td style="white-space:normal;color:var(--muted)">${r.d}</td>`;
     tb.appendChild(tr);});
 }
 function renderGap(){
-  const g=document.getElementById("gap-n");if(g)g.textContent=Math.max(0,126-CLIENTI_OGGI);
-  const b=document.getElementById("gap-bar");if(b)b.style.width=(CLIENTI_OGGI/126*100).toFixed(1)+"%";
+  const p=PIANO_TRAIETTORIA;
+  const g=document.getElementById("gap-n");if(g)g.textContent=numTraiettoria(Math.max(0,p.clienti-CLIENTI_OGGI));
+  const b=document.getElementById("gap-bar");if(b)b.style.width=Math.min(100,CLIENTI_OGGI/p.clienti*100).toFixed(1)+"%";
+  const t=document.getElementById("gap-target");if(t)t.textContent=numTraiettoria(p.clienti)+" clienti a fine piano, "+mesePiano(p.data);
 }
 function renderTraiettoria(){drawMRRTraj();renderPonteMRR();renderLeve();renderGap();}
 
@@ -1264,6 +1263,7 @@ const redraw=()=>show(current);
 new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 matchMedia("(prefers-color-scheme:dark)").addEventListener("change",redraw);
 </script>
+
 <style id="tema-blu">
 :root, :root[data-theme], html, body {
   --bg: #0B1A3A !important;
