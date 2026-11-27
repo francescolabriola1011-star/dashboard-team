@@ -373,7 +373,6 @@ renderDecisione(); renderMillion(); renderKPI("mese"); renderFunnel(); renderCha
 if(window.parent!==window){document.body.style.setProperty("min-height","0","important");let _ult=0;const alto=()=>{const w=document.querySelector(".wrap")||document.body;const h=Math.ceil(w.getBoundingClientRect().bottom+window.scrollY);if(Math.abs(h-_ult)>2){_ult=h;parent.postMessage({obiettiviAltezza:h},"*");}};
   window.addEventListener("load",alto);window.addEventListener("resize",alto);new ResizeObserver(alto).observe(document.body);document.addEventListener("click",()=>setTimeout(alto,50));}
 </script>
-
 <style id="tema-blu">
 :root, :root[data-theme], html, body {
   --bg: #0B1A3A !important;
