@@ -466,7 +466,7 @@
     <div class="ah">&#9670; Cosa decide i prossimi 90 giorni</div>
     <div class="alerts">
       <!-- ALERT-RINNOVI-START (scritto da motore/cockpit_orizzonte.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>43% del ricorrente va al bivio nei prossimi 90 giorni:</b> &#8364;4.750 di MRR su &#8364;11.067 scade fra 6/1 e 24/2 (Chirico, Micheloni, Capuano, Drago, Leonardis, Pentassuglia). Al tasso di rinnovo attuale (78,3%) il rischio ponderato &#232; &#8364;1.033 al mese</span><span class="atag">Rinnovi</span></div><!-- ALERT-RINNOVI-END -->
-      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.250, spendibile &#8364;9.713 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;3.737 (12 feb-18 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;9.875</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
+      <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.114, spendibile &#8364;9.577 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;1.872 (12 feb-18 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;10.077</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
       <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>Target FASE 1:</b> mancano &#8364;4.464 di MRR a regime</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Nuovo MRR / sett fuori target:</b> &#8364;0 contro ~&#8364;873 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>2&#176; apt fatti fuori target:</b> 7 contro ~8,0 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>3&#176; apt fatti fuori target:</b> 3 contro ~5,1 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 0 contro ~1,03 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>CPL medio clienti fuori target:</b> &#8364;32,16 contro &lt; &#8364;25 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 3 contro ~19,6 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
       <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 14 clienti attivi su 112. Ne mancano 98, con avanzamento del 12,5%</span><span class="atag">Crescita</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 57,5% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,8% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
@@ -878,7 +878,7 @@ function renderFunnel(){
   const host=clear("funnel");if(!host)return;
   /* Mese contabile: settembre. Fonte: Scorecard "Consuntivo mese" F21:K30.
      Aggiornato il 12/09/2026: 29 lead, 5 discovery, 3 demo e 1 chiusura. */
-  const stages=[{k:"Lead",v:69,c:"--blue"},{k:"Discovery",v:24,c:"--violet"},{k:"Demo",v:9,c:"--amber"},{k:"Chiusi",v:3,c:"--jade"}];
+  const stages=[{k:"Lead",v:75,c:"--blue"},{k:"Discovery",v:24,c:"--violet"},{k:"Demo",v:9,c:"--amber"},{k:"Chiusi",v:3,c:"--jade"}];
   /* 25/9/2026: allineati al Report Mensile Acquisizione, tab TOTALE riga Settembre
      (fonte canonica del consuntivo mese). Prima: 80/14/18/2, presi a mano dalla
      Bussola della Scorecard, che non era stata ricopiata dal Report. */
@@ -943,7 +943,7 @@ function drawVenditeTrend(){
 
 /* ---------- RATE & RINNOVI ---------- */
 const rate=[
-  /* Scritto da motore/cockpit_statici.py il 26/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  /* Scritto da motore/cockpit_statici.py il 27/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
   {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"10/12/2026"},
   {n:"Riccardo Pentassuglia",desc:"Trimestrale CF (2.700): pagamento 2 di 2",v:1350,due:"12/12/2026"},
