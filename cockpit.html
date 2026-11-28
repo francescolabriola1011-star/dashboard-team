@@ -469,7 +469,7 @@
       <!-- ALERT-CASSA-START (scritto da motore/cockpit_statici.py) --><div class="alert warn"><span class="adot"></span><span class="atx"><b>Cassa:</b> in banca &#8364;10.114, spendibile &#8364;9.577 dopo le provvigioni dovute. Solo con le rate firmate il minimo a 13 settimane &#232; &#8364;379 (19 feb-25 feb); con l'ipotesi di vendita dello scenario C il minimo &#232; &#8364;9.430</span><span class="atag">Cassa</span></div><!-- ALERT-CASSA-END -->
       <!-- ALERT-CRUSCOTTO-START (scritto da motore/cockpit_cruscotto.py) --><div class="alert bad"><span class="adot"></span><span class="atx"><b>Target FASE 1:</b> mancano &#8364;4.464 di MRR a regime</span><span class="atag">Crescita</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Nuovo MRR / sett fuori target:</b> &#8364;0 contro ~&#8364;873 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>2&#176; apt fatti fuori target:</b> 7 contro ~8,0 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>3&#176; apt fatti fuori target:</b> 3 contro ~5,1 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Chiusure fuori target:</b> 0 contro ~1,03 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>CPL medio clienti fuori target:</b> &#8364;32,16 contro &lt; &#8364;25 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><div class="alert warn"><span class="adot"></span><span class="atx"><b>Apt fatti dai clienti fuori target:</b> 3 contro ~19,6 (Settimana 15 &#8594; 22 nov)</span><span class="atag">Settimana</span></div><!-- ALERT-CRUSCOTTO-END -->
       <div class="alert bad"><span class="adot"></span><span class="atx"><b>Obiettivo ancora lontano:</b> 14 clienti attivi su 112. Ne mancano 98, con avanzamento del 12,5%</span><span class="atag">Crescita</span></div>
-      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 57,5% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,8% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
+      <div class="alert warn"><span class="adot"></span><span class="atx"><b>Collo del funnel al 3&#176; appuntamento:</b> solo il 56,9% dei 2&#176; apt arriva al 3&#176; (soglia 61%), e il 12,7% si chiude (soglia 25%)</span><span class="atag">Vendite</span></div>
       <div class="alert warn"><span class="adot"></span><span class="atx"><b>Garanzia da onorare:</b> apt investitori +100k a 9/30. &#200; la garanzia scritta nel contratto su cui si gioca ogni rinnovo</span><span class="atag">Delivery</span></div>
     </div>
   </div>
@@ -818,7 +818,7 @@ function drawFatturato(){
 }
 function drawMRR(){
   const months=["Lug","Ago","Set","Ott","Nov"];
-  const reale=[2300,3517,6634,8967,11067];
+  const reale=[1500,2717,5834,8967,11067];
   const svg=clear("chart-mrr");if(!svg)return;
   const W=460,H=220,L=44,R=20,T=16,B=30,w=W-L-R,h=H-T-B,max=15000,ticks=[0,3750,7500,11250,15000];
   const x=i=>L+w*i/(months.length-1),y=v=>T+h-h*v/max;
@@ -943,7 +943,7 @@ function drawVenditeTrend(){
 
 /* ---------- RATE & RINNOVI ---------- */
 const rate=[
-  /* Scritto da motore/cockpit_statici.py il 27/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
+  /* Scritto da motore/cockpit_statici.py il 28/11/2026 dallo Scadenzario (righe Da incassare). Non modificare a mano. */
   {n:"Marco La Corte",desc:"Trimestrale CF 2.400 del 2/11, rata 2/2",v:1200,due:"02/12/2026"},
   {n:"Gianluca Capuano",desc:"Trimestrale CF (€2.700): pagamento 2 di 3",v:900,due:"10/12/2026"},
   {n:"Riccardo Pentassuglia",desc:"Trimestrale CF (2.700): pagamento 2 di 2",v:1350,due:"12/12/2026"},
